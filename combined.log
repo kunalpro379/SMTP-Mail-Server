@@ -8,3 +8,15 @@
 {"level":"info","message":"API Server listening on 0.0.0.0:3000","service":"smtp-mail-server","timestamp":"2026-01-16T16:01:22.289Z"}
 {"level":"info","message":"SMTP Server listening on 0.0.0.0:2525","service":"smtp-mail-server","timestamp":"2026-01-16T16:01:22.291Z"}
 {"level":"info","message":"SIGINT received, shutting down gracefully","service":"smtp-mail-server","timestamp":"2026-01-16T16:02:30.392Z"}
+{"level":"info","message":"Starting SMTP Mail Server...","service":"smtp-mail-server","timestamp":"2026-01-16T18:39:33.922Z"}
+{"level":"info","message":"MongoDB connected successfully","service":"smtp-mail-server","timestamp":"2026-01-16T18:39:34.381Z"}
+{"level":"info","message":"All servers started successfully","service":"smtp-mail-server","timestamp":"2026-01-16T18:39:34.390Z"}
+{"level":"info","message":"API Server listening on 0.0.0.0:3000","service":"smtp-mail-server","timestamp":"2026-01-16T18:39:34.398Z"}
+{"level":"info","message":"SMTP Server listening on 0.0.0.0:2525","service":"smtp-mail-server","timestamp":"2026-01-16T18:39:34.400Z"}
+{"level":"info","message":"SIGINT received, shutting down gracefully","service":"smtp-mail-server","timestamp":"2026-01-16T18:39:46.280Z"}
+{"level":"info","message":"Starting SMTP Mail Server...","service":"smtp-mail-server","timestamp":"2026-01-16T21:00:28.573Z"}
+{"level":"info","message":"MongoDB connected successfully","service":"smtp-mail-server","timestamp":"2026-01-16T21:00:28.943Z"}
+{"level":"info","message":"All servers started successfully","service":"smtp-mail-server","timestamp":"2026-01-16T21:00:28.951Z"}
+{"level":"info","message":"API Server listening on 0.0.0.0:3000","service":"smtp-mail-server","timestamp":"2026-01-16T21:00:28.958Z"}
+{"level":"info","message":"SMTP Server listening on 0.0.0.0:2525","service":"smtp-mail-server","timestamp":"2026-01-16T21:00:28.960Z"}
+{"level":"info","message":"SIGINT received, shutting down gracefully","service":"smtp-mail-server","timestamp":"2026-01-16T21:00:30.300Z"}

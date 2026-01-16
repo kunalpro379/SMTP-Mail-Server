@@ -116,15 +116,17 @@ class MailService{
         }
       }
       createTransporter(fromEmail) {
-        // For production, configure with actual SMTP settings
+        // Hand mail to local SMTP server (port 2525)
+        // The SMTP server will handle MX lookup and delivery
         return createTransport({
-          host: process.env.SMTP_RELAY_HOST || 'localhost',
-          port: parseInt(process.env.SMTP_RELAY_PORT || '587'),
-          secure: process.env.SMTP_RELAY_SECURE === 'true',
-          auth: {
-            user: process.env.SMTP_RELAY_USER,
-            pass: process.env.SMTP_RELAY_PASS
+          host: '127.0.0.1',
+          port: 2525,
+          secure: false,
+          tls: {
+            rejectUnauthorized: false
           }
+          // NO auth - your local SMTP server handles authentication
+          // NO relay - your SMTP server handles MX lookup and delivery
         });
       }
     

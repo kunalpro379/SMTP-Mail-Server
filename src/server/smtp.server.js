@@ -42,7 +42,20 @@ class SMTPServerManager{
       },
       onMailFrom: async (address, session, callback) => {
         try {
-          const domain = address.address.split('@')[1];
+          // Validate address structure
+          if (!address || !address.address) {
+            logger.warn('Invalid MAIL FROM address:', address);
+            return callback(new Error('Invalid sender address'));
+          }
+
+          const emailAddress = address.address;
+          const domain = emailAddress.split('@')[1];
+          
+          if (!domain) {
+            logger.warn(`Invalid email format: ${emailAddress}`);
+            return callback(new Error(`Invalid email format: ${emailAddress}`));
+          }
+
           const domainExists = await this.domainService.findByName(domain);
           
           if (!domainExists) {

@@ -1,5 +1,5 @@
-import User from '../database/models/User.js';
-import Mailbox from '../database/models/Mailbox.js';
+import User from '../database/models/User.model.js';
+import Mailbox from '../database/models/mailbox.model.js';
 import bcrypt from 'bcryptjs';
 import logger from '../utils/logger.js';
 class UserService{

@@ -1,6 +1,6 @@
-import APIServer from './server/api-server.js';
-import SMTPServer from './server/smtp-server.js';
-import MongoDB from './database/mongodb.js';
+import APIServer from './server/API.js';
+import SMTPServer from './server/smtp.server.js';
+import MongoDB from './database/mongo.js';
 import logger from './utils/logger.js';
 
 async function start(){

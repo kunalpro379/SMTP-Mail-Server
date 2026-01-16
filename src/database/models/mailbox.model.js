@@ -24,7 +24,7 @@ const mailboxSchema = new mongoose.Schema({
   }
 });
 
-mailboxSchema.index({ email: 1 });
+// email index is already created by unique: true
 mailboxSchema.index({ user_id: 1 });
 mailboxSchema.index({ domain_id: 1 });
 

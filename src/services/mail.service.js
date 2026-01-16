@@ -1,13 +1,13 @@
-import Mail from '../database/models/Mail.js';
-import Mailbox from '../database/models/Mailbox.js';
+import Mail from '../database/models/mail.model.js';
+import Mailbox from '../database/models/mailbox.model.js';
 import { createTransport } from 'nodemailer';
 import { v4 as uuidv4 } from 'uuid';
 import logger from '../utils/logger.js';
 import config from '../config/config.js';
 import DomainService from './domain.service.js';
 class MailService{
-    constructor(){if(MailService.instance){MailService.instance=this;}
-        this.domainService=new DomainService();
+    constructor(){if(MailService.instance){return MailService.instance;}
+        this.domainService=DomainService;
         MailService.instance=this;
     }
     async createMail(mailData){

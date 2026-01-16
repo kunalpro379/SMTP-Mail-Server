@@ -26,7 +26,7 @@ const domainSchema = new mongoose.Schema({
   }
 });
 
-domainSchema.index({ name: 1 });
+// name index is already created by unique: true
 
 const Domain = mongoose.model('Domain', domainSchema);
 

@@ -2957,7 +2957,7 @@ Updating the codebase to use MongoDB instead of SQL. Here are the changes:
 ### 2. MongoDB Database Connection
 
 ```javascript
-// src/database/mongodb.js
+// src/database/mongo.js
 import mongoose from 'mongoose';
 import config from '../config/config.js';
 import logger from '../utils/logger.js';
@@ -3839,7 +3839,7 @@ export default new AuthService();
 // src/index.js
 import APIServer from './server/api-server.js';
 import SMTPServer from './server/smtp-server.js';
-import MongoDB from './database/mongodb.js';
+import MongoDB from './database/mongo.js';
 import logger from './utils/logger.js';
 
 async function start() {
@@ -3978,7 +3978,7 @@ All other files (SMTP server, tools, utilities) remain the same. The system now 
 ```
 
 ```javascript
-// src/database/mongodb.js
+// src/database/mongo.js
 import mongoose from 'mongoose';
 import config from '../config/config.js';
 import logger from '../utils/logger.js';
@@ -4848,7 +4848,7 @@ export default new AuthService();
 // src/index.js
 import APIServer from './server/api-server.js';
 import SMTPServer from './server/smtp-server.js';
-import MongoDB from './database/mongodb.js';
+import MongoDB from './database/mongo.js';
 import logger from './utils/logger.js';
 
 async function start() {

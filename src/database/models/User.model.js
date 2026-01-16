@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-userSchema.index({ email: 1 });
+// email index is already created by unique: true
 userSchema.index({ domain_id: 1 });
 
 const User = mongoose.model('User', userSchema);

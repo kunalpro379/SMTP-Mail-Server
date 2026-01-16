@@ -1,5 +1,5 @@
-import Domain from '../database/models/Domain.js';
-import DNS from '../tools/dns.tool.js';
+import Domain from '../database/models/Domain.model.js';
+import DNS from '../tools/dns.tools.js';
 import logger from '../utils/logger.js';
 class DomainService{
     constructor(){

@@ -57,7 +57,7 @@ const mailSchema = new mongoose.Schema({
 mailSchema.index({ mailbox_id: 1, created_at: -1 });
 mailSchema.index({ to_email: 1 });
 mailSchema.index({ status: 1 });
-mailSchema.index({ message_id: 1 });
+// message_id index is already created by unique: true
 
 const Mail = mongoose.model('Mail', mailSchema);
 

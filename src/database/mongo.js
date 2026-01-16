@@ -4,9 +4,9 @@ import logger from '../utils/logger.js';
 
 class Mongo{
     constructor(){
-        if(mongo.instance)return mongo.instance;
+        if(Mongo.instance)return Mongo.instance;
         this.connection=null;
-        mongo.instance=this;
+        Mongo.instance=this;
     }
     async connect(){
         try{
@@ -34,7 +34,7 @@ class Mongo{
     }
     async disconnect(){
         try{
-            await mongooese.disconnect();
+            await mongoose.disconnect();
             logger.info('MongoDB disconnected successfully');
         }catch(error){
             logger.error('MongoDB disconnect failed:', error);

@@ -5,7 +5,7 @@ import logger from '../utils/logger.js';
 class AuthService{
     constructor(){
         if(AuthService.instance){return AuthService.instance;}
-        this.UserService=new UserService();
+        this.userService=UserService;
         AuthService.instance=this;
     }
     async authenticateSMTP(username, password){

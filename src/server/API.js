@@ -5,21 +5,11 @@ import MailService from '../services/mail.service.js';
 import DomainService from '../services/domain.service.js';
 import UserService from '../services/user.service.js';
 import AuthService from '../services/auth.service.js';
-import Mailbox from '../database/models/Mailbox.js';
-import Mail from '../database/models/Mail.js';
+import Mailbox from '../database/models/mailbox.model.js';
+import Mail from '../database/models/mail.model.js';
 import logger from '../utils/logger.js';
 import config from '../config/config.js';
-import express from 'express';
-import cors from 'cors';
-import helmet from 'helmet';
-import MailService from '../services/mail-service.js';
-import DomainService from '../services/domain-service.js';
-import UserService from '../services/user-service.js';
-import AuthService from '../services/auth-service.js';
-import Mailbox from '../database/models/Mailbox.js';
-import Mail from '../database/models/Mail.js';
-import logger from '../utils/logger.js';
-import config from '../config/config.js';
+
 
 class APIServer {
   constructor() {
@@ -27,10 +17,10 @@ class APIServer {
       return APIServer.instance;
     }
     this.app = express();
-    this.mailService = new MailService();
-    this.domainService = new DomainService();
-    this.userService = new UserService();
-    this.authService = new AuthService();
+    this.mailService = MailService;
+    this.domainService = DomainService;
+    this.userService = UserService;
+    this.authService = AuthService;
     this.setupMiddleware();
     this.setupRoutes();
     APIServer.instance = this;

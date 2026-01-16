@@ -1,0 +1,10 @@
+{"level":"info","message":"Starting SMTP Mail Server...","service":"smtp-mail-server","timestamp":"2026-01-16T16:00:07.826Z"}
+{"code":"ENOTFOUND","hostname":"_mongodb._tcp.822471","level":"error","message":"MongoDB connection failed: querySrv ENOTFOUND _mongodb._tcp.822471","service":"smtp-mail-server","stack":"Error: querySrv ENOTFOUND _mongodb._tcp.822471\n    at QueryReqWrap.onresolve [as oncomplete] (node:internal/dns/promises:294:17)","syscall":"querySrv","timestamp":"2026-01-16T16:00:07.910Z"}
+{"level":"info","message":"Starting SMTP Mail Server...","service":"smtp-mail-server","timestamp":"2026-01-16T16:00:30.664Z"}
+{"code":"ENOTFOUND","hostname":"_mongodb._tcp.822471","level":"error","message":"MongoDB connection failed: querySrv ENOTFOUND _mongodb._tcp.822471","service":"smtp-mail-server","stack":"Error: querySrv ENOTFOUND _mongodb._tcp.822471\n    at QueryReqWrap.onresolve [as oncomplete] (node:internal/dns/promises:294:17)","syscall":"querySrv","timestamp":"2026-01-16T16:00:32.728Z"}
+{"level":"info","message":"Starting SMTP Mail Server...","service":"smtp-mail-server","timestamp":"2026-01-16T16:01:18.753Z"}
+{"level":"info","message":"MongoDB connected successfully","service":"smtp-mail-server","timestamp":"2026-01-16T16:01:22.274Z"}
+{"level":"info","message":"All servers started successfully","service":"smtp-mail-server","timestamp":"2026-01-16T16:01:22.281Z"}
+{"level":"info","message":"API Server listening on 0.0.0.0:3000","service":"smtp-mail-server","timestamp":"2026-01-16T16:01:22.289Z"}
+{"level":"info","message":"SMTP Server listening on 0.0.0.0:2525","service":"smtp-mail-server","timestamp":"2026-01-16T16:01:22.291Z"}
+{"level":"info","message":"SIGINT received, shutting down gracefully","service":"smtp-mail-server","timestamp":"2026-01-16T16:02:30.392Z"}

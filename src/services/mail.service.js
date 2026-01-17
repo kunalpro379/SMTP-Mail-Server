@@ -12,14 +12,24 @@ class MailService{
     }
     async createMail(mailData){
         try{
+            if (!mailData || !mailData.from_email) {
+                throw new Error('Sender email is required');
+            }
+            
             const messageId= `<${uuidv4()}@${config.domains.defaultDomain}>`;
+            const normalizedFromEmail = mailData.from_email.toLowerCase().trim();
+            
             //find mailbox for sender
-            const mailbox = await this.findMailboxByEmail(mailData.from_email);
+            logger.info(`Looking up mailbox for sender: ${normalizedFromEmail}`);
+            const mailbox = await this.findMailboxByEmail(normalizedFromEmail);
             if(!mailbox){
-                throw new Error('Mailbox not found for sender');
+                logger.error(`Mailbox not found for sender email: ${normalizedFromEmail}`);
+                throw new Error(`Mailbox not found for sender email: ${normalizedFromEmail}`);
             }
             const mail=new Mail({
                 ...mailData,
+                from_email: normalizedFromEmail, // Use normalized email
+                to_email: mailData.to_email ? mailData.to_email.toLowerCase().trim() : mailData.to_email,
                 message_id:messageId,
                 status:'draft',
                 mailbox_id:mailbox._id
@@ -108,7 +118,10 @@ class MailService{
         }
       }async findMailboxByEmail(email) {
         try {
-          return await Mailbox.findOne({ email: email.toLowerCase() });
+          if (!email) {
+            throw new Error('Email address is required');
+          }
+          return await Mailbox.findOne({ email: email.toLowerCase().trim() });
         } catch (error) {
           logger.error('Error finding mailbox:', error);
           throw error;

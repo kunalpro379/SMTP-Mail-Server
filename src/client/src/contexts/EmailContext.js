@@ -52,19 +52,30 @@ export const EmailProvider = ({ children }) => {
   // Send email
   const sendEmail = async (emailData) => {
     try {
+      // Normalize email addresses to lowercase
+      const normalizedFrom = (emailData.from || '').toLowerCase().trim();
+      const normalizedTo = (emailData.to || '').toLowerCase().trim();
+      
+      if (!normalizedFrom || !normalizedTo) {
+        return { 
+          success: false, 
+          error: 'Both sender and recipient email addresses are required' 
+        };
+      }
+      
       // First create the mail
       const createResponse = await mailAPI.createMail({
-        from_email: emailData.from,
-        to_email: emailData.to,
-        subject: emailData.subject,
-        body_text: emailData.text,
-        body_html: emailData.html
+        from_email: normalizedFrom,
+        to_email: normalizedTo,
+        subject: emailData.subject || '(No Subject)',
+        body_text: emailData.text || '',
+        body_html: emailData.html || ''
       });
 
       // Then send it
       const sendResponse = await mailAPI.sendMail(createResponse.data._id, {
-        from_email: emailData.from,
-        to_email: emailData.to
+        from_email: normalizedFrom,
+        to_email: normalizedTo
       });
 
       // Refresh emails after sending
@@ -73,9 +84,15 @@ export const EmailProvider = ({ children }) => {
       return { success: true, data: sendResponse.data };
     } catch (error) {
       console.error('Error sending email:', error);
+      const errorMessage = error.response?.data?.error || error.response?.data?.message || error.message || 'Failed to send email';
+      console.error('Detailed error:', {
+        status: error.response?.status,
+        data: error.response?.data,
+        message: errorMessage
+      });
       return { 
         success: false, 
-        error: error.response?.data?.error || 'Failed to send email' 
+        error: errorMessage
       };
     }
   };

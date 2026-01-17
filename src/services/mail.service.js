@@ -10,7 +10,7 @@ class MailService{
         this.domainService=DomainService;
         MailService.instance=this;
     }
-    async createMail(mailData){
+    async createMail(mailData, mailboxId = null){
         try{
             if (!mailData || !mailData.from_email) {
                 throw new Error('Sender email is required');
@@ -19,13 +19,24 @@ class MailService{
             const messageId= `<${uuidv4()}@${config.domains.defaultDomain}>`;
             const normalizedFromEmail = mailData.from_email.toLowerCase().trim();
             
-            //find mailbox for sender
-            logger.info(`Looking up mailbox for sender: ${normalizedFromEmail}`);
-            const mailbox = await this.findMailboxByEmail(normalizedFromEmail);
-            if(!mailbox){
-                logger.error(`Mailbox not found for sender email: ${normalizedFromEmail}`);
-                throw new Error(`Mailbox not found for sender email: ${normalizedFromEmail}`);
+            let mailbox;
+            if (mailboxId) {
+                // Use provided mailbox ID (from authenticated user)
+                mailbox = await Mailbox.findById(mailboxId);
+                if (!mailbox) {
+                    logger.error(`Mailbox not found for ID: ${mailboxId}`);
+                    throw new Error(`Mailbox not found`);
+                }
+            } else {
+                // Fallback: find mailbox for sender (backward compatibility)
+                logger.info(`Looking up mailbox for sender: ${normalizedFromEmail}`);
+                mailbox = await this.findMailboxByEmail(normalizedFromEmail);
+                if(!mailbox){
+                    logger.error(`Mailbox not found for sender email: ${normalizedFromEmail}`);
+                    throw new Error(`Mailbox not found for sender email: ${normalizedFromEmail}`);
+                }
             }
+            
             const mail=new Mail({
                 ...mailData,
                 from_email: normalizedFromEmail, // Use normalized email

@@ -162,12 +162,27 @@ class APIServer {
     try {
       const mailData = req.body;
       
+      // Get the authenticated user's mailbox
+      const mailboxes = await Mailbox.find({ user_id: req.user._id });
+      if (mailboxes.length === 0) {
+        return res.status(400).json({ error: 'No mailbox found for user. Please contact support.' });
+      }
+      
+      // Use the first mailbox (users typically have one mailbox)
+      const mailbox = mailboxes[0];
+      
+      // Ensure the from_email matches the user's email or use the user's email
+      if (!mailData.from_email || mailData.from_email.toLowerCase().trim() !== req.user.email.toLowerCase().trim()) {
+        // Use the authenticated user's email as the sender
+        mailData.from_email = req.user.email.toLowerCase().trim();
+      }
+      
       // Handle file attachments if present
       if (req.files && req.files.length > 0) {
         logger.info(`Processing ${req.files.length} attachments`);
         
         // First create the mail to get the mail ID
-        const mail = await this.mailService.createMail(mailData);
+        const mail = await this.mailService.createMail(mailData, mailbox._id);
         
         // Upload attachments to Azure Blob Storage
         const attachmentPromises = req.files.map(file => 
@@ -196,7 +211,7 @@ class APIServer {
         res.status(201).json(mail);
       } else {
         // No attachments, create mail normally
-        const mail = await this.mailService.createMail(mailData);
+        const mail = await this.mailService.createMail(mailData, mailbox._id);
         res.status(201).json(mail);
       }
     } catch (error) {

@@ -172,8 +172,8 @@ const EmailList = ({ currentView }) => {
   return (
     <div className="flex flex-col h-full bg-white">
       {/* Email List Header */}
-      <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-white">
-        <div className="flex items-center space-x-4">
+      <div className="flex items-center justify-between p-3 sm:p-4 border-b border-gray-200 bg-white">
+        <div className="flex items-center space-x-2 sm:space-x-4">
           <input
             type="checkbox"
             checked={selectedEmails.size === emails.length && emails.length > 0}
@@ -182,17 +182,17 @@ const EmailList = ({ currentView }) => {
           />
           
           {selectedEmails.size > 0 && (
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-1 sm:space-x-2">
               <button
                 onClick={bulkDelete}
-                className="p-1 hover:bg-gray-100 rounded text-red-600"
+                className="p-1.5 sm:p-1 hover:bg-gray-100 rounded text-red-600"
                 title="Delete selected"
               >
                 <Trash2 className="h-4 w-4" />
               </button>
               <button
                 onClick={bulkArchive}
-                className="p-1 hover:bg-gray-100 rounded text-gray-600"
+                className="p-1.5 sm:p-1 hover:bg-gray-100 rounded text-gray-600"
                 title="Archive selected"
               >
                 <Archive className="h-4 w-4" />
@@ -200,7 +200,7 @@ const EmailList = ({ currentView }) => {
             </div>
           )}
         </div>
-        <div className="text-sm text-gray-500">
+        <div className="text-xs sm:text-sm text-gray-500">
           {selectedEmails.size > 0 
             ? `${selectedEmails.size} selected` 
             : `${emails.length} ${emails.length === 1 ? 'email' : 'emails'}`
@@ -214,53 +214,48 @@ const EmailList = ({ currentView }) => {
           <div
             key={email._id}
             onClick={() => handleEmailClick(email)}
-            className={`email-list-item flex items-center p-4 border-b border-gray-100 cursor-pointer transition-colors relative group hover:bg-gray-50 ${
+            className={`email-list-item flex items-start p-3 sm:p-4 border-b border-gray-100 cursor-pointer transition-colors relative group hover:bg-gray-50 ${
               !email.read && email.status === 'received' ? 'bg-blue-50' : ''
             }`}
           >
-            {/* Checkbox */}
-            <div className="flex items-center space-x-3 mr-4">
-              <input
-                type="checkbox"
-                checked={selectedEmails.has(email._id)}
-                onChange={(e) => handleCheckboxChange(email._id, e.target.checked)}
-                className="rounded border-gray-300 text-gmail-blue focus:ring-gmail-blue"
-                onClick={(e) => e.stopPropagation()}
-              />
-              <button
-                onClick={(e) => handleStarToggle(e, email)}
-                className="p-1 hover:bg-gray-200 rounded"
-              >
-                <Star className={`h-4 w-4 ${email.starred ? 'text-yellow-400 fill-current' : 'text-gray-400'} hover:text-yellow-400`} />
-              </button>
-            </div>
+            {/* Mobile Layout */}
+            <div className="flex w-full sm:hidden">
+              {/* Left side - Checkbox and Star */}
+              <div className="flex flex-col items-center space-y-2 mr-3 pt-1">
+                <input
+                  type="checkbox"
+                  checked={selectedEmails.has(email._id)}
+                  onChange={(e) => handleCheckboxChange(email._id, e.target.checked)}
+                  className="rounded border-gray-300 text-gmail-blue focus:ring-gmail-blue"
+                  onClick={(e) => e.stopPropagation()}
+                />
+                <button
+                  onClick={(e) => handleStarToggle(e, email)}
+                  className="p-1 hover:bg-gray-200 rounded"
+                >
+                  <Star className={`h-4 w-4 ${email.starred ? 'text-yellow-400 fill-current' : 'text-gray-400'} hover:text-yellow-400`} />
+                </button>
+              </div>
 
-            {/* Status Icon */}
-            <div className="mr-3 flex items-center space-x-1">
-              {getStatusIcon(email.status)}
-              {!email.read && email.status === 'received' && (
-                <Mail className="h-3 w-3 text-blue-600" />
-              )}
-            </div>
-
-            {/* Email Content */}
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center justify-between mb-1">
-                <div className="flex items-center space-x-2">
-                  <span className={`truncate ${!email.read && email.status === 'received' ? 'font-bold text-gray-900' : 'font-medium text-gray-900'}`}>
-                    {getEmailDisplayName(email, currentView)}
-                  </span>
-                  {email.attachments && email.attachments.length > 0 && (
-                    <Paperclip className="h-4 w-4 text-gray-400" />
-                  )}
-                </div>
-                <div className="flex items-center space-x-2">
-                  <span className="text-sm text-gray-500 ml-2">
-                    {formatDate(email.created_at)}
-                  </span>
-                  
-                  {/* Action Menu */}
-                  <div className="relative opacity-0 group-hover:opacity-100 transition-opacity">
+              {/* Main content */}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center justify-between mb-1">
+                  <div className="flex items-center space-x-1">
+                    {getStatusIcon(email.status)}
+                    {!email.read && email.status === 'received' && (
+                      <Mail className="h-3 w-3 text-blue-600" />
+                    )}
+                    <span className={`truncate text-sm ${!email.read && email.status === 'received' ? 'font-bold text-gray-900' : 'font-medium text-gray-900'}`}>
+                      {getEmailDisplayName(email, currentView)}
+                    </span>
+                    {email.attachments && email.attachments.length > 0 && (
+                      <Paperclip className="h-3 w-3 text-gray-400" />
+                    )}
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <span className="text-xs text-gray-500">
+                      {formatDate(email.created_at)}
+                    </span>
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
@@ -270,56 +265,125 @@ const EmailList = ({ currentView }) => {
                     >
                       <MoreVertical className="h-4 w-4 text-gray-400" />
                     </button>
-                    
-                    {showActions === email._id && (
-                      <div className="absolute right-0 mt-1 w-48 bg-white rounded-md shadow-lg border border-gray-200 py-1 z-10">
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            email.read ? handleMarkAsUnread(email._id) : handleMarkAsRead(email._id);
-                            setShowActions(null);
-                          }}
-                          className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center space-x-2"
-                        >
-                          {email.read ? <Mail className="h-4 w-4" /> : <MailOpen className="h-4 w-4" />}
-                          <span>{email.read ? 'Mark as unread' : 'Mark as read'}</span>
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleArchive(email._id);
-                            setShowActions(null);
-                          }}
-                          className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center space-x-2"
-                        >
-                          <Archive className="h-4 w-4" />
-                          <span>Archive</span>
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleDelete(email._id);
-                            setShowActions(null);
-                          }}
-                          className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center space-x-2"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                          <span>Delete</span>
-                        </button>
-                      </div>
-                    )}
                   </div>
                 </div>
-              </div>
-              
-              <div className={`text-sm mb-1 truncate ${!email.read && email.status === 'received' ? 'font-semibold text-gray-900' : 'font-medium text-gray-900'}`}>
-                {email.subject || '(No Subject)'}
-              </div>
-              
-              <div className="text-sm text-gray-600 truncate">
-                {truncateText(email.body_text)}
+                
+                <div className={`text-sm mb-1 truncate ${!email.read && email.status === 'received' ? 'font-semibold text-gray-900' : 'font-medium text-gray-900'}`}>
+                  {email.subject || '(No Subject)'}
+                </div>
+                
+                <div className="text-xs text-gray-600 truncate">
+                  {truncateText(email.body_text, 60)}
+                </div>
               </div>
             </div>
+
+            {/* Desktop Layout */}
+            <div className="hidden sm:flex items-center w-full">
+              {/* Checkbox */}
+              <div className="flex items-center space-x-3 mr-4">
+                <input
+                  type="checkbox"
+                  checked={selectedEmails.has(email._id)}
+                  onChange={(e) => handleCheckboxChange(email._id, e.target.checked)}
+                  className="rounded border-gray-300 text-gmail-blue focus:ring-gmail-blue"
+                  onClick={(e) => e.stopPropagation()}
+                />
+                <button
+                  onClick={(e) => handleStarToggle(e, email)}
+                  className="p-1 hover:bg-gray-200 rounded"
+                >
+                  <Star className={`h-4 w-4 ${email.starred ? 'text-yellow-400 fill-current' : 'text-gray-400'} hover:text-yellow-400`} />
+                </button>
+              </div>
+
+              {/* Status Icon */}
+              <div className="mr-3 flex items-center space-x-1">
+                {getStatusIcon(email.status)}
+                {!email.read && email.status === 'received' && (
+                  <Mail className="h-3 w-3 text-blue-600" />
+                )}
+              </div>
+
+              {/* Email Content */}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center justify-between mb-1">
+                  <div className="flex items-center space-x-2">
+                    <span className={`truncate ${!email.read && email.status === 'received' ? 'font-bold text-gray-900' : 'font-medium text-gray-900'}`}>
+                      {getEmailDisplayName(email, currentView)}
+                    </span>
+                    {email.attachments && email.attachments.length > 0 && (
+                      <Paperclip className="h-4 w-4 text-gray-400" />
+                    )}
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-sm text-gray-500 ml-2">
+                      {formatDate(email.created_at)}
+                    </span>
+                    
+                    {/* Action Menu */}
+                    <div className="relative opacity-0 group-hover:opacity-100 transition-opacity">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setShowActions(showActions === email._id ? null : email._id);
+                        }}
+                        className="p-1 hover:bg-gray-200 rounded"
+                      >
+                        <MoreVertical className="h-4 w-4 text-gray-400" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className={`text-sm mb-1 truncate ${!email.read && email.status === 'received' ? 'font-semibold text-gray-900' : 'font-medium text-gray-900'}`}>
+                  {email.subject || '(No Subject)'}
+                </div>
+                
+                <div className="text-sm text-gray-600 truncate">
+                  {truncateText(email.body_text)}
+                </div>
+              </div>
+            </div>
+
+            {/* Action Menu Dropdown */}
+            {showActions === email._id && (
+              <div className="absolute right-2 top-12 sm:right-0 sm:top-16 w-48 bg-white rounded-md shadow-lg border border-gray-200 py-1 z-10">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    email.read ? handleMarkAsUnread(email._id) : handleMarkAsRead(email._id);
+                    setShowActions(null);
+                  }}
+                  className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center space-x-2"
+                >
+                  {email.read ? <Mail className="h-4 w-4" /> : <MailOpen className="h-4 w-4" />}
+                  <span>{email.read ? 'Mark as unread' : 'Mark as read'}</span>
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleArchive(email._id);
+                    setShowActions(null);
+                  }}
+                  className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center space-x-2"
+                >
+                  <Archive className="h-4 w-4" />
+                  <span>Archive</span>
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDelete(email._id);
+                    setShowActions(null);
+                  }}
+                  className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center space-x-2"
+                >
+                  <Trash2 className="h-4 w-4" />
+                  <span>Delete</span>
+                </button>
+              </div>
+            )}
           </div>
         ))}
       </div>

@@ -29,7 +29,9 @@ const mailSchema = new mongoose.Schema({
       filename: String,
       contentType: String,
       size: Number,
-      path: String
+      path: String, // Local path (legacy)
+      blobName: String, // Azure Blob name/path
+      url: String // Azure Blob URL
     }],
     default: []
   },

@@ -222,11 +222,11 @@ export const EmailProvider = ({ children }) => {
     }
   };
 
-  // Auto-refresh emails every 30 seconds
+  // Auto-refresh emails every 10 seconds for real-time updates
   useEffect(() => {
     if (user) {
       fetchEmails();
-      const interval = setInterval(fetchEmails, 30000);
+      const interval = setInterval(fetchEmails, 10000); // Refresh every 10 seconds
       return () => clearInterval(interval);
     }
   }, [user, refreshTrigger, fetchEmails]);

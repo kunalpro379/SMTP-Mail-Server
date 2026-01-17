@@ -11,7 +11,8 @@ import {
   Smile, 
   Minimize2,
   Maximize2,
-  Save
+  Save,
+  CheckCircle
 } from 'lucide-react';
 
 const ComposeEmail = ({ onClose, replyTo = null }) => {
@@ -20,6 +21,7 @@ const ComposeEmail = ({ onClose, replyTo = null }) => {
   const [isMinimized, setIsMinimized] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [sending, setSending] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const [formData, setFormData] = useState({
     to: replyTo?.from_email || '',
     cc: '',
@@ -71,7 +73,11 @@ const ComposeEmail = ({ onClose, replyTo = null }) => {
     const result = await sendEmail(emailData);
     
     if (result.success) {
-      onClose();
+      setShowSuccess(true);
+      setTimeout(() => {
+        setShowSuccess(false);
+        onClose();
+      }, 2000);
     } else {
       alert(`Failed to send email: ${result.error}`);
     }
@@ -177,6 +183,16 @@ const ComposeEmail = ({ onClose, replyTo = null }) => {
           </button>
         </div>
       </div>
+
+      {/* Success Notification */}
+      {showSuccess && (
+        <div className="absolute top-20 left-1/2 transform -translate-x-1/2 z-50 animate-fade-in">
+          <div className="bg-green-500 text-white px-6 py-3 rounded-lg shadow-2xl flex items-center space-x-3">
+            <CheckCircle className="h-5 w-5" />
+            <span className="font-semibold">Email sent successfully!</span>
+          </div>
+        </div>
+      )}
 
       {/* Form */}
       <div className="flex-1 flex flex-col overflow-hidden">

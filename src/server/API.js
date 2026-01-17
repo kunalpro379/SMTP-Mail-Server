@@ -1,10 +1,12 @@
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
+import multer from 'multer';
 import MailService from '../services/mail.service.js';
 import DomainService from '../services/domain.service.js';
 import UserService from '../services/user.service.js';
 import AuthService from '../services/auth.service.js';
+import AzureStorageService from '../services/azure-storage.service.js';
 import Mailbox from '../database/models/mailbox.model.js';
 import Mail from '../database/models/mail.model.js';
 import logger from '../utils/logger.js';
@@ -21,6 +23,17 @@ class APIServer {
     this.domainService = DomainService;
     this.userService = UserService;
     this.authService = AuthService;
+    this.azureStorageService = AzureStorageService;
+    
+    // Setup multer for file uploads (memory storage)
+    this.upload = multer({
+      storage: multer.memoryStorage(),
+      limits: {
+        fileSize: 10 * 1024 * 1024, // 10MB limit
+        files: 5 // Max 5 files
+      }
+    });
+    
     this.setupMiddleware();
     this.setupRoutes();
     APIServer.instance = this;
@@ -44,10 +57,11 @@ class APIServer {
     this.app.post('/api/domains/:id/verify', this.authenticate, this.verifyDomain.bind(this));
 
     // Mail routes
-    this.app.post('/api/mails', this.authenticate, this.createMail.bind(this));
+    this.app.post('/api/mails', this.authenticate, this.upload.array('attachments', 5), this.createMail.bind(this));
     this.app.post('/api/mails/:id/send', this.authenticate, this.sendMail.bind(this));
     this.app.get('/api/mails', this.authenticate, this.getMails.bind(this));
     this.app.get('/api/mails/:id', this.authenticate, this.getMail.bind(this));
+    this.app.get('/api/mails/:id/attachments/:attachmentId', this.authenticate, this.downloadAttachment.bind(this));
 
     // Health check
     this.app.get('/health', (req, res) => {
@@ -146,8 +160,45 @@ class APIServer {
 
   async createMail(req, res) {
     try {
-      const mail = await this.mailService.createMail(req.body);
-      res.status(201).json(mail);
+      const mailData = req.body;
+      
+      // Handle file attachments if present
+      if (req.files && req.files.length > 0) {
+        logger.info(`Processing ${req.files.length} attachments`);
+        
+        // First create the mail to get the mail ID
+        const mail = await this.mailService.createMail(mailData);
+        
+        // Upload attachments to Azure Blob Storage
+        const attachmentPromises = req.files.map(file => 
+          this.azureStorageService.uploadAttachment(
+            mail._id.toString(),
+            file.buffer,
+            file.originalname,
+            file.mimetype
+          )
+        );
+        
+        const uploadResults = await Promise.all(attachmentPromises);
+        
+        // Update mail with attachment info
+        mail.attachments = uploadResults.map(result => ({
+          filename: result.fileName,
+          contentType: result.contentType,
+          size: result.size,
+          blobName: result.blobName,
+          url: result.url
+        }));
+        
+        await mail.save();
+        
+        logger.info(`Mail created with ${uploadResults.length} attachments uploaded to Azure`);
+        res.status(201).json(mail);
+      } else {
+        // No attachments, create mail normally
+        const mail = await this.mailService.createMail(mailData);
+        res.status(201).json(mail);
+      }
     } catch (error) {
       logger.error('Create mail error:', error);
       res.status(400).json({ error: error.message });
@@ -189,6 +240,37 @@ class APIServer {
     } catch (error) {
       logger.error('Get mail error:', error);
       res.status(500).json({ error: 'Failed to fetch mail' });
+    }
+  }
+
+  async downloadAttachment(req, res) {
+    try {
+      const { id, attachmentId } = req.params;
+      
+      // Get the mail
+      const mail = await this.mailService.getMailById(id);
+      if (!mail) {
+        return res.status(404).json({ error: 'Mail not found' });
+      }
+      
+      // Find the attachment
+      const attachment = mail.attachments.find(att => att._id.toString() === attachmentId);
+      if (!attachment) {
+        return res.status(404).json({ error: 'Attachment not found' });
+      }
+      
+      // Download from Azure Blob Storage
+      const fileBuffer = await this.azureStorageService.downloadAttachment(attachment.blobName);
+      
+      // Set headers and send file
+      res.setHeader('Content-Type', attachment.contentType);
+      res.setHeader('Content-Disposition', `attachment; filename="${attachment.filename}"`);
+      res.setHeader('Content-Length', fileBuffer.length);
+      res.send(fileBuffer);
+      
+    } catch (error) {
+      logger.error('Download attachment error:', error);
+      res.status(500).json({ error: 'Failed to download attachment' });
     }
   }
 

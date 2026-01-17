@@ -98,12 +98,27 @@ class MailService{
 
         }catch(error){
             logger.error('Error sending mail:', error);
+            
+            // Provide more helpful error messages for common SMTP errors
+            let errorMessage = error.message;
+            if (error.code === 'EAUTH' || error.responseCode === 535) {
+                errorMessage = 'SMTP authentication failed. Please check your SMTP credentials (SENDGRID_API_KEY or SMTP_RELAY_PASS). The API key may be invalid, expired, or revoked.';
+            } else if (error.code === 'ECONNECTION' || error.code === 'ETIMEDOUT') {
+                errorMessage = 'Failed to connect to SMTP server. Please check your SMTP_RELAY_HOST and SMTP_RELAY_PORT settings.';
+            } else if (error.responseCode) {
+                errorMessage = `SMTP error (${error.responseCode}): ${error.response || error.message}`;
+            }
+            
             const mail=await Mail.findById(mailId);
             if(mail){
                 mail.status='failed';
                 await mail.save();
             }
-            throw error;
+            
+            // Throw a more descriptive error
+            const enhancedError = new Error(errorMessage);
+            enhancedError.originalError = error;
+            throw enhancedError;
         }
     }
     async receiveMail(mailData) {
@@ -160,6 +175,14 @@ class MailService{
         }
       }
       createTransporter(fromEmail) {
+        // Check if SMTP credentials are configured
+        const smtpUser = process.env.SMTP_RELAY_USER || process.env.SMTP_USER || "apikey";
+        const smtpPass = process.env.SENDGRID_API_KEY || process.env.SMTP_RELAY_PASS || process.env.SMTP_PASS;
+        
+        if (!smtpPass) {
+          throw new Error('SMTP credentials are not configured. Please set SENDGRID_API_KEY, SMTP_RELAY_PASS, or SMTP_PASS environment variable.');
+        }
+
         // 🔥 DKIM SIGNING (THIS IS THE FIX)
         const dkimConfig = process.env.DKIM_PRIVATE_KEY ? {
           domainName: process.env.DKIM_DOMAIN_NAME || "kunalpatil.me",
@@ -172,8 +195,8 @@ class MailService{
           port: parseInt(process.env.SMTP_RELAY_PORT || process.env.SMTP_PORT || "587"),
           secure: false,
           auth: {
-            user: process.env.SMTP_RELAY_USER || process.env.SMTP_USER || "apikey",
-            pass: process.env.SENDGRID_API_KEY || process.env.SMTP_RELAY_PASS || process.env.SMTP_PASS
+            user: smtpUser,
+            pass: smtpPass
           },
           ...(dkimConfig && { dkim: dkimConfig })
         });

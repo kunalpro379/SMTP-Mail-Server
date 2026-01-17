@@ -138,17 +138,22 @@ class MailService{
         }
       }
       createTransporter(fromEmail) {
-        // Hand mail to local SMTP server (port 2525)
-        // The SMTP server will handle MX lookup and delivery
+        // 🔥 DKIM SIGNING (THIS IS THE FIX)
+        const dkimConfig = process.env.DKIM_PRIVATE_KEY ? {
+          domainName: process.env.DKIM_DOMAIN_NAME || "kunalpatil.me",
+          keySelector: process.env.DKIM_KEY_SELECTOR || "default",
+          privateKey: process.env.DKIM_PRIVATE_KEY.replace(/\\n/g, '\n')
+        } : undefined;
+
         return createTransport({
-          host: '127.0.0.1',
-          port: 2525,
+          host: process.env.SMTP_HOST || "smtp.sendgrid.net", // or your relay
+          port: parseInt(process.env.SMTP_PORT || "587"),
           secure: false,
-          tls: {
-            rejectUnauthorized: false
-          }
-          // NO auth - your local SMTP server handles authentication
-          // NO relay - your SMTP server handles MX lookup and delivery
+          auth: {
+            user: process.env.SMTP_USER || "apikey",
+            pass: process.env.SENDGRID_API_KEY || process.env.SMTP_PASS
+          },
+          ...(dkimConfig && { dkim: dkimConfig })
         });
       }
     

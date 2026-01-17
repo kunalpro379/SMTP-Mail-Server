@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
+// Fixed ESLint error: removed unused useRef import
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useEmail } from '../../contexts/EmailContext';

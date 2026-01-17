@@ -239,7 +239,41 @@ const ComposeEmail = ({ onClose, replyTo = null }) => {
         </div>
 
         {/* Editor */}
-        <div className="flex-1 flex flex-col bg-white">
+        <div className="flex-1 flex flex-col bg-white quill-mobile-compact">
+          <style dangerouslySetInnerHTML={{__html: `
+            @media (max-width: 640px) {
+              .quill-mobile-compact .ql-toolbar {
+                padding: 4px 6px !important;
+                border: none !important;
+                background: #f9fafb !important;
+              }
+              .quill-mobile-compact .ql-toolbar button {
+                width: 24px !important;
+                height: 24px !important;
+                padding: 2px !important;
+                margin: 0 1px !important;
+              }
+              .quill-mobile-compact .ql-toolbar button svg {
+                width: 14px !important;
+                height: 14px !important;
+              }
+              .quill-mobile-compact .ql-toolbar .ql-stroke {
+                stroke-width: 2 !important;
+              }
+              .quill-mobile-compact .ql-container {
+                font-size: 14px !important;
+              }
+              .quill-mobile-compact .ql-editor {
+                padding: 8px 10px !important;
+                min-height: 120px !important;
+              }
+              .quill-mobile-compact .ql-editor.ql-blank::before {
+                font-size: 13px !important;
+                font-style: italic !important;
+                left: 10px !important;
+              }
+            }
+          `}} />
           <ReactQuill
             theme="snow"
             value={formData.body}

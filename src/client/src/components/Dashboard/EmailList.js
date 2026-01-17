@@ -178,7 +178,7 @@ const EmailList = ({ currentView }) => {
             type="checkbox"
             checked={selectedEmails.size === emails.length && emails.length > 0}
             onChange={(e) => handleSelectAll(e.target.checked)}
-            className="rounded border-gray-300 text-gmail-blue focus:ring-gmail-blue"
+            className="rounded border-gray-300 text-gmail-blue focus:ring-gmail-blue h-4 w-4 sm:h-5 sm:w-5"
           />
           
           {selectedEmails.size > 0 && (
@@ -221,19 +221,19 @@ const EmailList = ({ currentView }) => {
             {/* Mobile Layout */}
             <div className="flex w-full sm:hidden">
               {/* Left side - Checkbox and Star */}
-              <div className="flex flex-col items-center space-y-2 mr-3 pt-1">
+              <div className="flex flex-col items-center space-y-1.5 mr-2 pt-1">
                 <input
                   type="checkbox"
                   checked={selectedEmails.has(email._id)}
                   onChange={(e) => handleCheckboxChange(email._id, e.target.checked)}
-                  className="rounded border-gray-300 text-gmail-blue focus:ring-gmail-blue"
+                  className="rounded border-gray-300 text-gmail-blue focus:ring-gmail-blue h-3.5 w-3.5"
                   onClick={(e) => e.stopPropagation()}
                 />
                 <button
                   onClick={(e) => handleStarToggle(e, email)}
-                  className="p-1 hover:bg-gray-200 rounded"
+                  className="p-0.5 hover:bg-gray-200 rounded"
                 >
-                  <Star className={`h-4 w-4 ${email.starred ? 'text-yellow-400 fill-current' : 'text-gray-400'} hover:text-yellow-400`} />
+                  <Star className={`h-3.5 w-3.5 ${email.starred ? 'text-yellow-400 fill-current' : 'text-gray-400'} hover:text-yellow-400`} />
                 </button>
               </div>
 
@@ -286,7 +286,7 @@ const EmailList = ({ currentView }) => {
                   type="checkbox"
                   checked={selectedEmails.has(email._id)}
                   onChange={(e) => handleCheckboxChange(email._id, e.target.checked)}
-                  className="rounded border-gray-300 text-gmail-blue focus:ring-gmail-blue"
+                  className="rounded border-gray-300 text-gmail-blue focus:ring-gmail-blue h-4 w-4"
                   onClick={(e) => e.stopPropagation()}
                 />
                 <button

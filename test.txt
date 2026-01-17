@@ -1,0 +1,589 @@
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ azureuser@mailing-server:~/SMTP-Mail-Server$ type dkim.public^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ cd dkim
+azureuser@mailing-server:~/SMTP-Mail-Server/dkim$ pm2 logs smtp-server^C
+azureuser@mailing-server:~/SMTP-Mail-Server/dkim$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server/dkim$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server/dkim$ openssl genrsa -out dkim.private 2048
+azureuser@mailing-server:~/SMTP-Mail-Server/dkim$ openssl rsa -in dkim.private -pubout -out dkim.public
+writing RSA key
+azureuser@mailing-server:~/SMTP-Mail-Server/dkim$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server/dkim$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server/dkim$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server/dkim$ cat dkim.public
+-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApz/hEM5wBNGNx/CTr7gf
+/0WMPnIdDTwG2hop3dULojKdubyXL7TpWa1sduCNAxoGCc4tyNavepeqPpaFW+Db
+K5H6ED0B24/rpIzpUN+6BZx2mTqJ8bsKGtiRYbJ1vrVapjaNG/yq1MdYW9Kaxh90
+Gtete+7iWX6r/7sQggEGzKps2BH7OE82o3TyNoSDb4tGZb/C5KkcrXS8Gy3XzUYd
+t3YXKdELig3Qf3Z/RtHcnbe2NF79tb0F2WagatzHQ5nbY8DsLzUJaRqkp2i/6nb4
+zMfgdOqWTbb/sg+NxN6JXC1Ii5IxoOrycUe7fELOxrRuoSBj+hdVtavFPSHJFH7O
+swIDAQAB
+-----END PUBLIC KEY-----
+azureuser@mailing-server:~/SMTP-Mail-Server/dkim$ cat dkim.private
+-----BEGIN PRIVATE KEY-----
+MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCnP+EQznAE0Y3H
+8JOvuB//RYw+ch0NPAbaGind1QuiMp25vJcvtOlZrWx24I0DGgYJzi3I1q96l6o+
+loVb4NsrkfoQPQHbj+ukjOlQ37oFnHaZOonxuwoa2JFhsnW+tVqmNo0b/KrUx1hb
+0prGH3Qa16177uJZfqv/uxCCAQbMqmzYEfs4TzajdPI2hINvi0Zlv8LkqRytdLwb
+LdfNRh23dhcp0QuKDdB/dn9G0dydt7Y0Xv21vQXZZqBq3MdDmdtjwOwvNQlpGqSn
+aL/qdvjMx+B06pZNtv+yD43E3olcLUiLkjGg6vJxR7t8Qs7GtG6hIGP6F1W1q8U9
+IckUfs6zAgMBAAECggEASQe6tkT+YwxB9cFWK8+hoSz0PTxE9Ud10nzENUpXBx9F
+AhqYhctgbbkteIc669TMODHgiic8frKFM0k0uFbqPQ9D+x04l3AzvCmPo7Hdn5+f
+pe8K1xQOKITSjq+HfJviFlwRp9vfmIPnUEkZLlQDtcjhxxEbo2qNnmBHqAzctDct
+k2vJ3HIbqnEs7dRXrdIuFofuvEfUREOA/h9R1PrXRF6mFPccrPof7K9sYEhLFaKl
+HCAjpMFJ+zUzTR1n6IapVJbYDkZGheN7n19og0YVzCSbu9Xji/av//ha1lUztr7w
+2VJuuwC+2qct+leGaw7p4Fv0krNZUYAnFUcXRV+nEQKBgQDe/Cza4HmuWmcahX/k
+Q5o+uYsJyuRBuCesqjQLa0d4Hkw6WMEe8M/sVMXrsTPibpUs34bzd52njuP2tqOR
+SID9wR0refyvMc9FPwIyCB+BS3piHDT3jixDBQ6z9P5ExBtkqf2t/gomBDUaRm83
+2G759sDHQRtttzm3+xV4o/Q96QKBgQDAAyeSnSDGH05Ge/w+d4HjlpMyUDwGg57n
+C7URl95sEQBVGrqDefy2q6OtG/eQxKyW2bi5Gxd2cKmN7Lfot5izmNn53HG22PrC
+FJ1Ww23G3pysXkuC6RDg6wMP6N684PjD5dhANVeiieCyrTY1n3BFRMKrPFNwpngO
+35JqLmf6OwKBgQDXt6wJHwp4gtqlzKq6ADBzJ/p7Qb3qWiZ/orTwqxsb+GuUMpK5
+xQvRPP2wEuD32DUWkTQzyu9IzzJ4VZ4Nic/ILQ90JPIv5ob3HYqZLkSUR5mg2lrf
+droZKAZeT8/AZNt/WfihX1cgCgf5YFRt+UL7LRy4ZqMLVCtRcmUGLc62KQKBgAOL
+i11/nS1LQqy2eU/F8RX8n7ccGB+eqn5ljvBGN4sTPUhU+ACZbfsJbDoz+/wmRXF7
+j5eLUoGTTu4Z4sNfMGiQd+XPFiJkGy0eKFGDxjEXxxi/nPFL0E32yNWwXPxrwuwL
+AFUfJwEPPqDN5eRTj0UYIef7cybvS+QqaI+hT7YlAoGBAM/1fft3REgE86IvRmLy
+J7e37M+G5/YJ2+1XngW5vqdZSOVush1FuQX5BAT579o0NrizFYl+5Wc1LiAFKRqn
+ctm6CP2rOOm+uQ/NL4dq7UpR6Q/L1Q9jMAaufIhzfcSsjq+gxIsAcArZgT0NOpf1
+iblbRvb67V7dufJ5g5D7ibk3
+-----END PRIVATE KEY-----
+
+
+azureuser@mailing-server:~/SMTP-Mail-Server$ git pull
+remote: Enumerating objects: 9, done.
+remote: Counting objects: 100% (9/9), done.
+remote: Compressing objects: 100% (1/1), done.
+remote: Total 5 (delta 4), reused 5 (delta 4), pack-reused 0 (from 0)
+Unpacking objects: 100% (5/5), 767 bytes | 767.00 KiB/s, done.
+From https://github.com/kunalpro379/SMTP-Mail-Server
+   e28d69f..c7874f1  main       -> origin/main
+Updating e28d69f..c7874f1
+Fast-forward
+ src/services/mail.service.js | 23 ++++++++++++++---------
+ 1 file changed, 14 insertions(+), 9 deletions(-)
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 restart smtp-server^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 stop smtp-server
+[PM2] Applying action stopProcessId on app [smtp-server](ids: [ 0 ])
+[PM2] [smtp-server](0) ✓
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 1    │ stopped   │ 0%       │ 0b       │ azu… │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 restart smtp-server
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [smtp-server](ids: [ 0 ])
+[PM2] [smtp-server](0) ✓
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 16526    │ 0s     │ 1    │ online    │ 0%       │ 17.3mb   │ azu… │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP-Mail-Server$ git pull^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 set SENDGRID_API_KEY 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
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 restart smtp-server
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [smtp-server](ids: [ 0 ])
+[PM2] [smtp-server](0) ✓
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 16569    │ 0s     │ 2    │ online    │ 0%       │ 10.7mb   │ azu… │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 stop smtp-server
+[PM2] Applying action stopProcessId on app [smtp-server](ids: [ 0 ])
+[PM2] [smtp-server](0) ✓
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 2    │ stopped   │ 0%       │ 0b       │ azu… │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 restart smtp-server
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [smtp-server](ids: [ 0 ])
+[PM2] [smtp-server](0) ✓
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 16595    │ 0s     │ 2    │ online    │ 0%       │ 15.1mb   │ azu… │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 env 0 | grep SENDGRID
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 restart all
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [all](ids: [ 0 ])
+[PM2] [smtp-server](0) ✓
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 16624    │ 0s     │ 3    │ online    │ 0%       │ 18.5mb   │ azu… │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 env 0 | grep SENDGRID
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 set SENDGRID_API_KEY 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
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 env 0 | grep SENDGRID
+
+
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 restart all
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [all](ids: [ 0 ])
+[PM2] [smtp-server](0) ✓
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 16684    │ 0s     │ 4    │ online    │ 0%       │ 20.3mb   │ azu… │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 logs smtp-server
+[TAILING] Tailing last 15 lines for [smtp-server] process (change the value with --lines option)
+/home/azureuser/.pm2/logs/smtp-server-error.log last 15 lines:
+0|smtp-ser |     at done (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:227:7)
+0|smtp-ser |     at IncomingMessage.onEnd (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:287:7)
+0|smtp-ser |     at IncomingMessage.emit (node:events:524:28)
+0|smtp-ser |     at endReadableNT (node:internal/streams/readable:1698:12)
+0|smtp-ser | SyntaxError: Unexpected token ''', "'{email:ku"... is not valid JSON
+0|smtp-ser |     at JSON.parse (<anonymous>)
+0|smtp-ser |     at createStrictSyntaxError (/home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:169:10)
+0|smtp-ser |     at parse (/home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:86:15)
+0|smtp-ser |     at /home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/read.js:128:18
+0|smtp-ser |     at AsyncResource.runInAsyncScope (node:async_hooks:206:9)
+0|smtp-ser |     at invokeCallback (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:238:16)
+0|smtp-ser |     at done (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:227:7)
+0|smtp-ser |     at IncomingMessage.onEnd (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:287:7)
+0|smtp-ser |     at IncomingMessage.emit (node:events:524:28)
+0|smtp-ser |     at endReadableNT (node:internal/streams/readable:1698:12)
+
+/home/azureuser/.pm2/logs/smtp-server-out.log last 15 lines:
+0|smtp-ser | /node_modules/smtp-server/lib/smtp-connection.js:136:52)\n    at readLine (/home/azureuser/SMTP-Mail-Server/node_modules/smtp-server/lib/smtp-stream.js:128:22)\n    at SMTPStream._write (/home/azureuser/SMTP-Mail-Server/node_modules/smtp-server/lib/smtp-stream.js:132:13)\n    at writeOrBuffer (node:internal/streams/writable:572:12)","timestamp":"2026-01-17T16:25:51.155Z"}
+0|smtp-ser | error: Error sending mail: Invalid login: 535 Invalid credentials {"code":"EAUTH","command":"AUTH PLAIN","response":"535 Invalid credentials","responseCode":535,"service":"smtp-mail-server","stack":"Error: Invalid login: 535 Invalid credentials\n    at SMTPConnection._formatError (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:809:19)\n    at SMTPConnection._actionAUTHComplete (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1588:34)\n    at SMTPConnection.<anonymous> (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:556:26)\n    at SMTPConnection._processResponse (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:993:20)\n    at SMTPConnection._onData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:774:14)\n    at SMTPConnection._onSocketData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:195:44)\n    at Socket.emit (node:events:524:28)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)\n    at Readable.push (node:internal/streams/readable:392:5)","timestamp":"2026-01-17T16:25:51.157Z"}
+0|smtp-ser | error: Send mail error: Invalid login: 535 Invalid credentials {"code":"EAUTH","command":"AUTH PLAIN","response":"535 Invalid credentials","responseCode":535,"service":"smtp-mail-server","stack":"Error: Invalid login: 535 Invalid credentials\n    at SMTPConnection._formatError (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:809:19)\n    at SMTPConnection._actionAUTHComplete (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1588:34)\n    at SMTPConnection.<anonymous> (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:556:26)\n    at SMTPConnection._processResponse (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:993:20)\n    at SMTPConnection._onData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:774:14)\n    at SMTPConnection._onSocketData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:195:44)\n    at Socket.emit (node:events:524:28)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)\n    at Readable.push (node:internal/streams/readable:392:5)","timestamp":"2026-01-17T16:25:51.173Z"}
+
+0|smtp-server  | info: SMTP MAIL FROM = kunal1234@kunalpatil.me {"service":"smtp-mail-server","timestamp":"2026-01-17T16:26:05.216Z"}
+0|smtp-server  | info: SMTP RCPT TO = kunaldp379@gmail.com {"service":"smtp-mail-server","timestamp":"2026-01-17T16:26:05.216Z"}
+0|smtp-server  | error: Error authenticating SMTP: Cannot read properties of undefined (reading 'findUserByEmail') {"service":"smtp-mail-server","stack":"TypeError: Cannot read properties of undefined (reading 'findUserByEmail')\n    at AuthService.authenticateSMTP (file:///home/azureuser/SMTP-Mail-Server/src/services/auth.service.js:13:47)\n    at SMTPServer.onAuth (file:///home/azureuser/SMTP-Mail-Server/src/server/smtp.server.js:29:47)\n    at SMTPConnection.PLAIN_token (/home/azureuser/SMTP-Mail-Server/node_modules/smtp-server/lib/sasl.js:90:22)\n    at SMTPConnection.SASL_PLAIN (/home/azureuser/SMTP-Mail-Server/node_modules/smtp-server/lib/sasl.js:19:26)\n    at SMTPConnection.handler_AUTH (/home/azureuser/SMTP-Mail-Server/node_modules/smtp-server/lib/smtp-connection.js:1462:9)\n    at SMTPConnection._onCommand (/home/azureuser/SMTP-Mail-Server/node_modules/smtp-server/lib/smtp-connection.js:638:17)\n    at SMTPConnection._parser.oncommand (/home/azureuser/SMTP-Mail-Server/node_modules/smtp-server/lib/smtp-connection.js:136:52)\n    at readLine (/home/azureuser/SMTP-Mail-Server/node_modules/smtp-server/lib/smtp-stream.js:128:22)\n    at SMTPStream._write (/home/azureuser/SMTP-Mail-Server/node_modules/smtp-server/lib/smtp-stream.js:132:13)\n    at writeOrBuffer (node:internal/streams/writable:572:12)","timestamp":"2026-01-17T16:26:05.321Z"}
+0|smtp-server  | error: Error sending mail: Invalid login: 535 Invalid credentials {"code":"EAUTH","command":"AUTH PLAIN","response":"535 Invalid credentials","responseCode":535,"service":"smtp-mail-server","stack":"Error: Invalid login: 535 Invalid credentials\n    at SMTPConnection._formatError (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:809:19)\n    at SMTPConnection._actionAUTHComplete (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1588:34)\n    at SMTPConnection.<anonymous> (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:556:26)\n    at SMTPConnection._processResponse (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:993:20)\n    at SMTPConnection._onData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:774:14)\n    at SMTPConnection._onSocketData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:195:44)\n    at Socket.emit (node:events:524:28)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)\n    at Readable.push (node:internal/streams/readable:392:5)","timestamp":"2026-01-17T16:26:05.322Z"}
+0|smtp-server  | error: Send mail error: Invalid login: 535 Invalid credentials {"code":"EAUTH","command":"AUTH PLAIN","response":"535 Invalid credentials","responseCode":535,"service":"smtp-mail-server","stack":"Error: Invalid login: 535 Invalid credentials\n    at SMTPConnection._formatError (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:809:19)\n    at SMTPConnection._actionAUTHComplete (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1588:34)\n    at SMTPConnection.<anonymous> (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:556:26)\n    at SMTPConnection._processResponse (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:993:20)\n    at SMTPConnection._onData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:774:14)\n    at SMTPConnection._onSocketData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:195:44)\n    at Socket.emit (node:events:524:28)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)\n    at Readable.push (node:internal/streams/readable:392:5)","timestamp":"2026-01-17T16:26:05.336Z"}
+^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ echo $SENDGRID_API_KEY
+
+azureuser@mailing-server:~/SMTP-Mail-Server$ git pull
+remote: Enumerating objects: 9, done.
+remote: Counting objects: 100% (9/9), done.
+remote: Compressing objects: 100% (1/1), done.
+remote: Total 5 (delta 4), reused 5 (delta 4), pack-reused 0 (from 0)
+Unpacking objects: 100% (5/5), 429 bytes | 429.00 KiB/s, done.
+From https://github.com/kunalpro379/SMTP-Mail-Server
+   c7874f1..a380ff2  main       -> origin/main
+Updating c7874f1..a380ff2
+Fast-forward
+ src/services/mail.service.js | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 restart all
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [all](ids: [ 0 ])
+[PM2] [smtp-server](0) ✓
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 16733    │ 0s     │ 5    │ online    │ 0%       │ 17.8mb   │ azu… │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 stop smtp-server
+[PM2] Applying action stopProcessId on app [smtp-server](ids: [ 0 ])
+[PM2] [smtp-server](0) ✓
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 5    │ stopped   │ 0%       │ 0b       │ azu… │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 restart all
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [all](ids: [ 0 ])
+[PM2] [smtp-server](0) ✓
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 16760    │ 0s     │ 5    │ online    │ 0%       │ 17.5mb   │ azu… │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 logs smtp-server
+[TAILING] Tailing last 15 lines for [smtp-server] process (change the value with --lines option)
+/home/azureuser/.pm2/logs/smtp-server-error.log last 15 lines:
+0|smtp-ser |     at done (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:227:7)
+0|smtp-ser |     at IncomingMessage.onEnd (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:287:7)
+0|smtp-ser |     at IncomingMessage.emit (node:events:524:28)
+0|smtp-ser |     at endReadableNT (node:internal/streams/readable:1698:12)
+0|smtp-ser | SyntaxError: Unexpected token ''', "'{email:ku"... is not valid JSON
+0|smtp-ser |     at JSON.parse (<anonymous>)
+0|smtp-ser |     at createStrictSyntaxError (/home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:169:10)
+0|smtp-ser |     at parse (/home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:86:15)
+0|smtp-ser |     at /home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/read.js:128:18
+0|smtp-ser |     at AsyncResource.runInAsyncScope (node:async_hooks:206:9)
+0|smtp-ser |     at invokeCallback (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:238:16)
+0|smtp-ser |     at done (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:227:7)
+0|smtp-ser |     at IncomingMessage.onEnd (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:287:7)
+0|smtp-ser |     at IncomingMessage.emit (node:events:524:28)
+0|smtp-ser |     at endReadableNT (node:internal/streams/readable:1698:12)
+
+/home/azureuser/.pm2/logs/smtp-server-out.log last 15 lines:
+0|smtp-ser | 022.bhushan.nargolkar@ves.ac.in"],"ehlo":["8BITMIME","PIPELINING","SIZE 31457280","SMTPUTF8","STARTTLS","AUTH PLAIN LOGIN","AUTH=PLAIN LOGIN"],"envelope":{"from":"kunal1234@kunalpatil.me","to":["2022.bhushan.nargolkar@ves.ac.in"]},"envelopeTime":150,"messageId":"<a843785d-ba07-495a-a035-b05fa2ae7c51@kunalpatil.me>","messageSize":952,"messageTime":146,"rejected":[],"response":"250 Ok: queued as 6UaLlMWjSTSWqSwGTNpUkg","service":"smtp-mail-server","timestamp":"2026-01-17T16:32:49.287Z"}
+0|smtp-ser | info: Mail created: 696bb9ef8240350de958d432 {"service":"smtp-mail-server","timestamp":"2026-01-17T16:33:51.876Z"}
+0|smtp-ser | info: SMTP MAIL FROM = kunal1234@kunalpatil.me {"service":"smtp-mail-server","timestamp":"2026-01-17T16:34:03.647Z"}
+0|smtp-ser | info: SMTP RCPT TO = 2022.kunal.patil@ves.ac.in {"service":"smtp-mail-server","timestamp":"2026-01-17T16:34:03.647Z"}
+0|smtp-ser | info: Mail sent: 696bb73e6a24d6050115bc9b {"accepted":["2022.kunal.patil@ves.ac.in"],"ehlo":["8BITMIME","PIPELINING","SIZE 31457280","SMTPUTF8","STARTTLS","AUTH PLAIN LOGIN","AUTH=PLAIN LOGIN"],"envelope":{"from":"kunal1234@kunalpatil.me","to":["2022.kunal.patil@ves.ac.in"]},"envelopeTime":348,"messageId":"<a843785d-ba07-495a-a035-b05fa2ae7c51@kunalpatil.me>","messageSize":946,"messageTime":517,"rejected":[],"response":"250 Ok: queued as VhKHZJS-RYSQZ8snFjj5fA","service":"smtp-mail-server","timestamp":"2026-01-17T16:34:05.728Z"}
+0|smtp-ser | info: SMTP MAIL FROM = kunal1234@kunalpatil.me {"service":"smtp-mail-server","timestamp":"2026-01-17T16:34:43.968Z"}
+0|smtp-ser | info: SMTP RCPT TO = deepakbp78@gmail.com {"service":"smtp-mail-server","timestamp":"2026-01-17T16:34:43.969Z"}
+0|smtp-ser | info: Mail sent: 696bb73e6a24d6050115bc9b {"accepted":["deepakbp78@gmail.com"],"ehlo":["8BITMIME","PIPELINING","SIZE 31457280","SMTPUTF8","STARTTLS","AUTH PLAIN LOGIN","AUTH=PLAIN LOGIN"],"envelope":{"from":"kunal1234@kunalpatil.me","to":["deepakbp78@gmail.com"]},"envelopeTime":153,"messageId":"<a843785d-ba07-495a-a035-b05fa2ae7c51@kunalpatil.me>","messageSize":940,"messageTime":479,"rejected":[],"response":"250 Ok: queued as u-P8A-kIQCOWCrr4SSn-7w","service":"smtp-mail-server","timestamp":"2026-01-17T16:34:45.018Z"}
+0|smtp-ser | info: Mail created: 696bba578240350de958d43c {"service":"smtp-mail-server","timestamp":"2026-01-17T16:35:35.536Z"}
+0|smtp-ser | info: SMTP MAIL FROM = kunal1234@kunalpatil.me {"service":"smtp-mail-server","timestamp":"2026-01-17T16:35:47.196Z"}
+0|smtp-ser | info: SMTP RCPT TO = tusharcm2000@gmail.com {"service":"smtp-mail-server","timestamp":"2026-01-17T16:35:47.197Z"}
+0|smtp-ser | info: Mail sent: 696bb73e6a24d6050115bc9b {"accepted":["tusharcm2000@gmail.com"],"ehlo":["8BITMIME","PIPELINING","SIZE 31457280","SMTPUTF8","STARTTLS","AUTH PLAIN LOGIN","AUTH=PLAIN LOGIN"],"envelope":{"from":"kunal1234@kunalpatil.me","to":["tusharcm2000@gmail.com"]},"envelopeTime":150,"messageId":"<a843785d-ba07-495a-a035-b05fa2ae7c51@kunalpatil.me>","messageSize":942,"messageTime":142,"rejected":[],"response":"250 Ok: queued as nEzi6cVJSDeueqYVxMe-Ug","service":"smtp-mail-server","timestamp":"2026-01-17T16:35:47.900Z"}
+
+0|smtp-server  | error: Error creating mail: Mailbox not found for sender {"service":"smtp-mail-server","stack":"Error: Mailbox not found for sender\n    at MailService.createMail (file:///home/azureuser/SMTP-Mail-Server/src/services/mail.service.js:21:23)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async APIServer.createMail (file:///home/azureuser/SMTP-Mail-Server/src/server/API.js:149:20)","timestamp":"2026-01-17T16:41:40.679Z"}
+0|smtp-server  | error: Create mail error: Mailbox not found for sender {"service":"smtp-mail-server","stack":"Error: Mailbox not found for sender\n    at MailService.createMail (file:///home/azureuser/SMTP-Mail-Server/src/services/mail.service.js:21:23)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async APIServer.createMail (file:///home/azureuser/SMTP-Mail-Server/src/server/API.js:149:20)","timestamp":"2026-01-17T16:41:40.679Z"}
+0|smtp-server  | error: Error creating mail: Mailbox not found for sender {"service":"smtp-mail-server","stack":"Error: Mailbox not found for sender\n    at MailService.createMail (file:///home/azureuser/SMTP-Mail-Server/src/services/mail.service.js:21:23)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async APIServer.createMail (file:///home/azureuser/SMTP-Mail-Server/src/server/API.js:149:20)","timestamp":"2026-01-17T16:51:07.866Z"}
+0|smtp-server  | error: Create mail error: Mailbox not found for sender {"service":"smtp-mail-server","stack":"Error: Mailbox not found for sender\n    at MailService.createMail (file:///home/azureuser/SMTP-Mail-Server/src/services/mail.service.js:21:23)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async APIServer.createMail (file:///home/azureuser/SMTP-Mail-Server/src/server/API.js:149:20)","timestamp":"2026-01-17T16:51:07.866Z"}
+0|smtp-server  | info: SMTP MAIL FROM = kunal1234@kunalpatil.me {"service":"smtp-mail-server","timestamp":"2026-01-17T16:51:09.219Z"}
+0|smtp-server  | info: SMTP RCPT TO = tusharcm2000@gmail.com {"service":"smtp-mail-server","timestamp":"2026-01-17T16:51:09.219Z"}
+0|smtp-server  | info: Mail sent: 696bb73e6a24d6050115bc9b {"accepted":["tusharcm2000@gmail.com"],"ehlo":["8BITMIME","PIPELINING","SIZE 31457280","SMTPUTF8","STARTTLS","AUTH PLAIN LOGIN","AUTH=PLAIN LOGIN"],"envelope":{"from":"kunal1234@kunalpatil.me","to":["tusharcm2000@gmail.com"]},"envelopeTime":344,"messageId":"<a843785d-ba07-495a-a035-b05fa2ae7c51@kunalpatil.me>","messageSize":942,"messageTime":410,"rejected":[],"response":"250 Ok: queued as 2aubEJu-TXGwvpghvM00Cw","service":"smtp-mail-server","timestamp":"2026-01-17T16:51:10.912Z"}
+0|smtp-server  | error: Error creating mail: Mailbox not found for sender {"service":"smtp-mail-server","stack":"Error: Mailbox not found for sender\n    at MailService.createMail (file:///home/azureuser/SMTP-Mail-Server/src/services/mail.service.js:21:23)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async APIServer.createMail (file:///home/azureuser/SMTP-Mail-Server/src/server/API.js:149:20)","timestamp":"2026-01-17T16:51:16.346Z"}
+0|smtp-server  | error: Create mail error: Mailbox not found for sender {"service":"smtp-mail-server","stack":"Error: Mailbox not found for sender\n    at MailService.createMail (file:///home/azureuser/SMTP-Mail-Server/src/services/mail.service.js:21:23)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async APIServer.createMail (file:///home/azureuser/SMTP-Mail-Server/src/server/API.js:149:20)","timestamp":"2026-01-17T16:51:16.347Z"}
+^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+
+
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 restart all
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [all](ids: [ 0 ])
+[PM2] [smtp-server](0) ✓
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ smtp-server        │ fork     │ 6    │ online    │ 0%       │ 17.8mb   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 logs smtp-server
+[TAILING] Tailing last 15 lines for [smtp-server] process (change the value with --lines option)
+/home/azureuser/.pm2/logs/smtp-server-error.log last 15 lines:
+0|smtp-ser |     at done (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:227:7)
+0|smtp-ser |     at IncomingMessage.onEnd (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:287:7)
+0|smtp-ser |     at IncomingMessage.emit (node:events:524:28)
+0|smtp-ser |     at endReadableNT (node:internal/streams/readable:1698:12)
+0|smtp-ser | SyntaxError: Unexpected token ''', "'{email:ku"... is not valid JSON
+0|smtp-ser |     at JSON.parse (<anonymous>)
+0|smtp-ser |     at createStrictSyntaxError (/home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:169:10)
+0|smtp-ser |     at parse (/home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:86:15)
+0|smtp-ser |     at /home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/read.js:128:18
+0|smtp-ser |     at AsyncResource.runInAsyncScope (node:async_hooks:206:9)
+0|smtp-ser |     at invokeCallback (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:238:16)
+0|smtp-ser |     at done (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:227:7)
+0|smtp-ser |     at IncomingMessage.onEnd (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:287:7)
+0|smtp-ser |     at IncomingMessage.emit (node:events:524:28)
+0|smtp-ser |     at endReadableNT (node:internal/streams/readable:1698:12)
+
+/home/azureuser/.pm2/logs/smtp-server-out.log last 15 lines:
+0|smtp-ser | service":"smtp-mail-server","timestamp":"2026-01-17T16:51:09.219Z"}
+0|smtp-ser | info: SMTP RCPT TO = tusharcm2000@gmail.com {"service":"smtp-mail-server","timestamp":"2026-01-17T16:51:09.219Z"}
+0|smtp-ser | info: Mail sent: 696bb73e6a24d6050115bc9b {"accepted":["tusharcm2000@gmail.com"],"ehlo":["8BITMIME","PIPELINING","SIZE 31457280","SMTPUTF8","STARTTLS","AUTH PLAIN LOGIN","AUTH=PLAIN LOGIN"],"envelope":{"from":"kunal1234@kunalpatil.me","to":["tusharcm2000@gmail.com"]},"envelopeTime":344,"messageId":"<a843785d-ba07-495a-a035-b05fa2ae7c51@kunalpatil.me>","messageSize":942,"messageTime":410,"rejected":[],"response":"250 Ok: queued as 2aubEJu-TXGwvpghvM00Cw","service":"smtp-mail-server","timestamp":"2026-01-17T16:51:10.912Z"}
+0|smtp-ser | error: Error creating mail: Mailbox not found for sender {"service":"smtp-mail-server","stack":"Error: Mailbox not found for sender\n    at MailService.createMail (file:///home/azureuser/SMTP-Mail-Server/src/services/mail.service.js:21:23)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async APIServer.createMail (file:///home/azureuser/SMTP-Mail-Server/src/server/API.js:149:20)","timestamp":"2026-01-17T16:51:16.346Z"}
+0|smtp-ser | error: Create mail error: Mailbox not found for sender {"service":"smtp-mail-server","stack":"Error: Mailbox not found for sender\n    at MailService.createMail (file:///home/azureuser/SMTP-Mail-Server/src/services/mail.service.js:21:23)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async APIServer.createMail (file:///home/azureuser/SMTP-Mail-Server/src/server/API.js:149:20)","timestamp":"2026-01-17T16:51:16.347Z"}
+0|smtp-ser | info: SIGINT received, shutting down gracefully {"service":"smtp-mail-server","timestamp":"2026-01-17T16:53:40.899Z"}
+0|smtp-ser | info: SMTP Server stopped {"service":"smtp-mail-server","timestamp":"2026-01-17T16:53:40.900Z"}
+0|smtp-ser | warn: MongoDB disconnected {"service":"smtp-mail-server","timestamp":"2026-01-17T16:53:40.905Z"}
+0|smtp-ser | info: MongoDB disconnected successfully {"service":"smtp-mail-server","timestamp":"2026-01-17T16:53:40.905Z"}
+0|smtp-ser | info: Starting SMTP Mail Server... {"service":"smtp-mail-server","timestamp":"2026-01-17T16:53:41.607Z"}
+0|smtp-ser | info: MongoDB connected successfully {"service":"smtp-mail-server","timestamp":"2026-01-17T16:53:41.961Z"}
+0|smtp-ser | info: All servers started successfully {"service":"smtp-mail-server","timestamp":"2026-01-17T16:53:41.964Z"}
+0|smtp-ser | info: API Server listening on 0.0.0.0:3000 {"service":"smtp-mail-server","timestamp":"2026-01-17T16:53:41.965Z"}
+0|smtp-ser | error: SMTP Server Error: listen EACCES: permission denied 0.0.0.0:25 {"address":"0.0.0.0","code":"EACCES","errno":-13,"port":25,"service":"smtp-mail-server","stack":"Error: listen EACCES: permission denied 0.0.0.0:25\n    at Server.setupListenHandle [as _listen2] (node:net:1886:21)\n    at listenInCluster (node:net:1965:12)\n    at doListen (node:net:2139:7)\n    at process.processTicksAndRejections (node:internal/process/task_queues:83:21)","syscall":"listen","timestamp":"2026-01-17T16:53:41.965Z"}
+
+^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ nano .env
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 restart all
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [all](ids: [ 0 ])
+[PM2] [smtp-server](0) ✓
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ smtp-server        │ fork     │ 7    │ online    │ 0%       │ 17.8mb   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 logs smtp-server
+[TAILING] Tailing last 15 lines for [smtp-server] process (change the value with --lines option)
+/home/azureuser/.pm2/logs/smtp-server-error.log last 15 lines:
+0|smtp-ser |     at done (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:227:7)
+0|smtp-ser |     at IncomingMessage.onEnd (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:287:7)
+0|smtp-ser |     at IncomingMessage.emit (node:events:524:28)
+0|smtp-ser |     at endReadableNT (node:internal/streams/readable:1698:12)
+0|smtp-ser | SyntaxError: Unexpected token ''', "'{email:ku"... is not valid JSON
+0|smtp-ser |     at JSON.parse (<anonymous>)
+0|smtp-ser |     at createStrictSyntaxError (/home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:169:10)
+0|smtp-ser |     at parse (/home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:86:15)
+0|smtp-ser |     at /home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/read.js:128:18
+0|smtp-ser |     at AsyncResource.runInAsyncScope (node:async_hooks:206:9)
+0|smtp-ser |     at invokeCallback (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:238:16)
+0|smtp-ser |     at done (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:227:7)
+0|smtp-ser |     at IncomingMessage.onEnd (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:287:7)
+0|smtp-ser |     at IncomingMessage.emit (node:events:524:28)
+0|smtp-ser |     at endReadableNT (node:internal/streams/readable:1698:12)
+
+/home/azureuser/.pm2/logs/smtp-server-out.log last 15 lines:
+0|smtp-ser | info: MongoDB disconnected successfully {"service":"smtp-mail-server","timestamp":"2026-01-17T16:53:40.905Z"}
+0|smtp-ser | info: Starting SMTP Mail Server... {"service":"smtp-mail-server","timestamp":"2026-01-17T16:53:41.607Z"}
+0|smtp-ser | info: MongoDB connected successfully {"service":"smtp-mail-server","timestamp":"2026-01-17T16:53:41.961Z"}
+0|smtp-ser | info: All servers started successfully {"service":"smtp-mail-server","timestamp":"2026-01-17T16:53:41.964Z"}
+0|smtp-ser | info: API Server listening on 0.0.0.0:3000 {"service":"smtp-mail-server","timestamp":"2026-01-17T16:53:41.965Z"}
+0|smtp-ser | error: SMTP Server Error: listen EACCES: permission denied 0.0.0.0:25 {"address":"0.0.0.0","code":"EACCES","errno":-13,"port":25,"service":"smtp-mail-server","stack":"Error: listen EACCES: permission denied 0.0.0.0:25\n    at Server.setupListenHandle [as _listen2] (node:net:1886:21)\n    at listenInCluster (node:net:1965:12)\n    at doListen (node:net:2139:7)\n    at process.processTicksAndRejections (node:internal/process/task_queues:83:21)","syscall":"listen","timestamp":"2026-01-17T16:53:41.965Z"}
+0|smtp-ser | info: SIGINT received, shutting down gracefully {"service":"smtp-mail-server","timestamp":"2026-01-17T16:56:11.078Z"}
+0|smtp-ser | info: SMTP Server stopped {"service":"smtp-mail-server","timestamp":"2026-01-17T16:56:11.079Z"}
+0|smtp-ser | warn: MongoDB disconnected {"service":"smtp-mail-server","timestamp":"2026-01-17T16:56:11.084Z"}
+0|smtp-ser | info: MongoDB disconnected successfully {"service":"smtp-mail-server","timestamp":"2026-01-17T16:56:11.084Z"}
+0|smtp-ser | info: Starting SMTP Mail Server... {"service":"smtp-mail-server","timestamp":"2026-01-17T16:56:11.795Z"}
+0|smtp-ser | info: MongoDB connected successfully {"service":"smtp-mail-server","timestamp":"2026-01-17T16:56:12.107Z"}
+0|smtp-ser | info: All servers started successfully {"service":"smtp-mail-server","timestamp":"2026-01-17T16:56:12.110Z"}
+0|smtp-ser | info: API Server listening on 0.0.0.0:3000 {"service":"smtp-mail-server","timestamp":"2026-01-17T16:56:12.111Z"}
+0|smtp-ser | info: SMTP Server listening on 0.0.0.0:2525 {"service":"smtp-mail-server","timestamp":"2026-01-17T16:56:12.111Z"}
+
+^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$    pm2 restart smtp-server
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [smtp-server](ids: [ 0 ])
+[PM2] [smtp-server](0) ✓
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ smtp-server        │ fork     │ 8    │ online    │ 0%       │ 17.8mb   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP-Mail-Server$ sudo iptables -t nat -A PREROUTING -p tcp --dport 25 -j REDIRECT --to-port 2525
+azureuser@mailing-server:~/SMTP-Mail-Server$ sudo iptables -A INPUT -p tcp --dport 25 -j ACCEPT
+azureuser@mailing-server:~/SMTP-Mail-Server$ sudo iptables -A INPUT -p tcp --dport 2525 -j ACCEPT
+azureuser@mailing-server:~/SMTP-Mail-Server$ sudo apt install iptables-persistent -y
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following additional packages will be installed:
+  netfilter-persistent
+The following packages will be REMOVED:
+  ufw
+The following NEW packages will be installed:
+  iptables-persistent netfilter-persistent
+0 upgraded, 2 newly installed, 1 to remove and 3 not upgraded.
+Need to get 14.3 kB of archives.
+After this operation, 780 kB disk space will be freed.
+Get:1 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 netfilter-persistent all 1.0.20 [7402 B]
+Get:2 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 iptables-persistent all 1.0.20 [6946 B]
+Fetched 14.3 kB in 0s (311 kB/s)
+Preconfiguring packages ...
+(Reading database ... 74704 files and directories currently installed.)
+Removing ufw (0.36.2-6) ...
+Skip stopping firewall: ufw (not enabled)
+Selecting previously unselected package netfilter-persistent.
+(Reading database ... 74611 files and directories currently installed.)
+Preparing to unpack .../netfilter-persistent_1.0.20_all.deb ...
+Unpacking netfilter-persistent (1.0.20) ...
+Selecting previously unselected package iptables-persistent.
+Preparing to unpack .../iptables-persistent_1.0.20_all.deb ...
+Unpacking iptables-persistent (1.0.20) ...
+Setting up netfilter-persistent (1.0.20) ...
+Created symlink /etc/systemd/system/iptables.service → /usr/lib/systemd/system/netfilter-persistent.service.
+Created symlink /etc/systemd/system/ip6tables.service → /usr/lib/systemd/system/netfilter-persistent.service.
+Created symlink /etc/systemd/system/multi-user.target.wants/netfilter-persistent.service → /usr/lib/systemd/system/netfilter-persistent.service.
+Setting up iptables-persistent (1.0.20) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+Scanning processes...
+Scanning candidates...
+Scanning linux images...
+
+Running kernel seems to be up-to-date.
+
+Restarting services...
+
+Service restarts being deferred:
+ systemctl restart networkd-dispatcher.service
+ systemctl restart unattended-upgrades.service
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+azureuser@mailing-server:~/SMTP-Mail-Server$ sudo netfilter-persistent save
+run-parts: executing /usr/share/netfilter-persistent/plugins.d/15-ip4tables save
+run-parts: executing /usr/share/netfilter-persistent/plugins.d/25-ip6tables save
+azureuser@mailing-server:~/SMTP-Mail-Server$ sudo socat TCP-LISTEN:25,fork TCP:127.0.0.1:2525
+sudo: socat: command not found
+azureuser@mailing-server:~/SMTP-Mail-Server$ sudo iptables -t nat -L PREROUTING -n -v
+Chain PREROUTING (policy ACCEPT 0 packets, 0 bytes)
+ pkts bytes target     prot opt in     out     source               destination
+    1    60 REDIRECT   6    --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpt:25 redir ports 2525
+azureuser@mailing-server:~/SMTP-Mail-Server$ sudo ss -lntp | grep 2525
+LISTEN 0      511          0.0.0.0:2525      0.0.0.0:*    users:(("node /home/azur",pid=16948,fd=26))
+azureuser@mailing-server:~/SMTP-Mail-Server$ dig mx kunalpatil.me +short
+10 mailing.kunalpatil.me.
+azureuser@mailing-server:~/SMTP-Mail-Server$ dig mail.kunalpatil.me +short
+20.193.253.234
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 logs smtp-server
+[TAILING] Tailing last 15 lines for [smtp-server] process (change the value with --lines option)
+/home/azureuser/.pm2/logs/smtp-server-error.log last 15 lines:
+0|smtp-ser |     at done (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:227:7)
+0|smtp-ser |     at IncomingMessage.onEnd (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:287:7)
+0|smtp-ser |     at IncomingMessage.emit (node:events:524:28)
+0|smtp-ser |     at endReadableNT (node:internal/streams/readable:1698:12)
+0|smtp-ser | SyntaxError: Unexpected token ''', "'{email:ku"... is not valid JSON
+0|smtp-ser |     at JSON.parse (<anonymous>)
+0|smtp-ser |     at createStrictSyntaxError (/home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:169:10)
+0|smtp-ser |     at parse (/home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:86:15)
+0|smtp-ser |     at /home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/read.js:128:18
+0|smtp-ser |     at AsyncResource.runInAsyncScope (node:async_hooks:206:9)
+0|smtp-ser |     at invokeCallback (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:238:16)
+0|smtp-ser |     at done (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:227:7)
+0|smtp-ser |     at IncomingMessage.onEnd (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:287:7)
+0|smtp-ser |     at IncomingMessage.emit (node:events:524:28)
+0|smtp-ser |     at endReadableNT (node:internal/streams/readable:1698:12)
+
+/home/azureuser/.pm2/logs/smtp-server-out.log last 15 lines:
+0|smtp-ser | info: Starting SMTP Mail Server... {"service":"smtp-mail-server","timestamp":"2026-01-17T16:56:11.795Z"}
+0|smtp-ser | info: MongoDB connected successfully {"service":"smtp-mail-server","timestamp":"2026-01-17T16:56:12.107Z"}
+0|smtp-ser | info: All servers started successfully {"service":"smtp-mail-server","timestamp":"2026-01-17T16:56:12.110Z"}
+0|smtp-ser | info: API Server listening on 0.0.0.0:3000 {"service":"smtp-mail-server","timestamp":"2026-01-17T16:56:12.111Z"}
+0|smtp-ser | info: SMTP Server listening on 0.0.0.0:2525 {"service":"smtp-mail-server","timestamp":"2026-01-17T16:56:12.111Z"}
+0|smtp-ser | info: SIGINT received, shutting down gracefully {"service":"smtp-mail-server","timestamp":"2026-01-17T17:01:34.866Z"}
+0|smtp-ser | info: SMTP Server stopped {"service":"smtp-mail-server","timestamp":"2026-01-17T17:01:34.867Z"}
+0|smtp-ser | warn: MongoDB disconnected {"service":"smtp-mail-server","timestamp":"2026-01-17T17:01:34.873Z"}
+0|smtp-ser | info: MongoDB disconnected successfully {"service":"smtp-mail-server","timestamp":"2026-01-17T17:01:34.873Z"}
+0|smtp-ser | info: Starting SMTP Mail Server... {"service":"smtp-mail-server","timestamp":"2026-01-17T17:01:35.574Z"}
+0|smtp-ser | info: MongoDB connected successfully {"service":"smtp-mail-server","timestamp":"2026-01-17T17:01:35.889Z"}
+0|smtp-ser | info: All servers started successfully {"service":"smtp-mail-server","timestamp":"2026-01-17T17:01:35.892Z"}
+0|smtp-ser | info: API Server listening on 0.0.0.0:3000 {"service":"smtp-mail-server","timestamp":"2026-01-17T17:01:35.893Z"}
+0|smtp-ser | info: SMTP Server listening on 0.0.0.0:2525 {"service":"smtp-mail-server","timestamp":"2026-01-17T17:01:35.893Z"}
+0|smtp-ser | warn: Domain not found: lovable.dev {"service":"smtp-mail-server","timestamp":"2026-01-17T17:09:21.379Z"}
+
+0|smtp-server  | warn: Domain not found: gmail.com {"service":"smtp-mail-server","timestamp":"2026-01-17T17:11:22.726Z"}
+0|smtp-server  | warn: Domain not found: gmail.com {"service":"smtp-mail-server","timestamp":"2026-01-17T17:12:00.993Z"}
+^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$    pm2 restart smtp-server
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [smtp-server](ids: [ 0 ])
+[PM2] [smtp-server](0) ✓
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ smtp-server        │ fork     │ 9    │ online    │ 0%       │ 18.4mb   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ git pull
+remote: Enumerating objects: 9, done.
+remote: Counting objects: 100% (9/9), done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 5 (delta 3), reused 5 (delta 3), pack-reused 0 (from 0)
+Unpacking objects: 100% (5/5), 617 bytes | 308.00 KiB/s, done.
+From https://github.com/kunalpro379/SMTP-Mail-Server
+   a380ff2..85b876a  main       -> origin/main
+Updating a380ff2..85b876a
+Fast-forward
+ src/server/smtp.server.js | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
+azureuser@mailing-server:~/SMTP-Mail-Server$    pm2 restart smtp-server
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [smtp-server](ids: [ 0 ])
+[PM2] [smtp-server](0) ✓
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ smtp-server        │ fork     │ 10   │ online    │ 0%       │ 21.9mb   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 logs smtp-server
+[TAILING] Tailing last 15 lines for [smtp-server] process (change the value with --lines option)
+/home/azureuser/.pm2/logs/smtp-server-error.log last 15 lines:
+0|smtp-ser |     at done (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:227:7)
+0|smtp-ser |     at IncomingMessage.onEnd (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:287:7)
+0|smtp-ser |     at IncomingMessage.emit (node:events:524:28)
+0|smtp-ser |     at endReadableNT (node:internal/streams/readable:1698:12)
+0|smtp-ser | SyntaxError: Unexpected token ''', "'{email:ku"... is not valid JSON
+0|smtp-ser |     at JSON.parse (<anonymous>)
+0|smtp-ser |     at createStrictSyntaxError (/home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:169:10)
+0|smtp-ser |     at parse (/home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:86:15)
+0|smtp-ser |     at /home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/read.js:128:18
+0|smtp-ser |     at AsyncResource.runInAsyncScope (node:async_hooks:206:9)
+0|smtp-ser |     at invokeCallback (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:238:16)
+0|smtp-ser |     at done (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:227:7)
+0|smtp-ser |     at IncomingMessage.onEnd (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:287:7)
+0|smtp-ser |     at IncomingMessage.emit (node:events:524:28)
+0|smtp-ser |     at endReadableNT (node:internal/streams/readable:1698:12)
+
+/home/azureuser/.pm2/logs/smtp-server-out.log last 15 lines:
+0|smtp-ser | info: MongoDB disconnected successfully {"service":"smtp-mail-server","timestamp":"2026-01-17T17:14:11.919Z"}
+0|smtp-ser | info: Starting SMTP Mail Server... {"service":"smtp-mail-server","timestamp":"2026-01-17T17:14:12.641Z"}
+0|smtp-ser | info: MongoDB connected successfully {"service":"smtp-mail-server","timestamp":"2026-01-17T17:14:12.993Z"}
+0|smtp-ser | info: All servers started successfully {"service":"smtp-mail-server","timestamp":"2026-01-17T17:14:12.996Z"}
+0|smtp-ser | info: API Server listening on 0.0.0.0:3000 {"service":"smtp-mail-server","timestamp":"2026-01-17T17:14:12.997Z"}
+0|smtp-ser | info: SMTP Server listening on 0.0.0.0:2525 {"service":"smtp-mail-server","timestamp":"2026-01-17T17:14:12.997Z"}
+0|smtp-ser | info: SIGINT received, shutting down gracefully {"service":"smtp-mail-server","timestamp":"2026-01-17T17:14:49.542Z"}
+0|smtp-ser | info: SMTP Server stopped {"service":"smtp-mail-server","timestamp":"2026-01-17T17:14:49.543Z"}
+0|smtp-ser | warn: MongoDB disconnected {"service":"smtp-mail-server","timestamp":"2026-01-17T17:14:49.548Z"}
+0|smtp-ser | info: MongoDB disconnected successfully {"service":"smtp-mail-server","timestamp":"2026-01-17T17:14:49.549Z"}
+0|smtp-ser | info: Starting SMTP Mail Server... {"service":"smtp-mail-server","timestamp":"2026-01-17T17:14:50.260Z"}
+0|smtp-ser | info: MongoDB connected successfully {"service":"smtp-mail-server","timestamp":"2026-01-17T17:14:50.438Z"}
+0|smtp-ser | info: All servers started successfully {"service":"smtp-mail-server","timestamp":"2026-01-17T17:14:50.441Z"}
+0|smtp-ser | info: API Server listening on 0.0.0.0:3000 {"service":"smtp-mail-server","timestamp":"2026-01-17T17:14:50.442Z"}
+0|smtp-ser | info: SMTP Server listening on 0.0.0.0:2525 {"service":"smtp-mail-server","timestamp":"2026-01-17T17:14:50.443Z"}
+
+0|smtp-server  | info: Mail received and stored: 696bc3b4183902c9557c1dd9 {"service":"smtp-mail-server","timestamp":"2026-01-17T17:15:32.157Z"}
+0|smtp-server  | info: Mail received: deepakbp78@gmail.com -> kunal1234@kunalpatil.me {"service":"smtp-mail-server","timestamp":"2026-01-17T17:15:32.157Z"}
+0|smtp-server  | info: Mail received and stored: 696bc55c183902c9557c1de1 {"service":"smtp-mail-server","timestamp":"2026-01-17T17:22:36.917Z"}
+0|smtp-server  | info: Mail received: noreply@lovable.dev -> kunal1234@kunalpatil.me {"service":"smtp-mail-server","timestamp":"2026-01-17T17:22:36.917Z"}
+0|smtp-server  | info: Mail received and stored: 696bc581183902c9557c1ded {"service":"smtp-mail-server","timestamp":"2026-01-17T17:23:13.333Z"}
+0|smtp-server  | info: Mail received: kunaldp379@gmail.com -> kunal1234@kunalpatil.me {"service":"smtp-mail-server","timestamp":"2026-01-17T17:23:13.334Z"}
+0|smtp-server  | info: Mail received and stored: 696bc752183902c9557c1df1 {"service":"smtp-mail-server","timestamp":"2026-01-17T17:30:58.525Z"}
+0|smtp-server  | info: Mail received: kunaldp379@gmail.com -> kunal1234@kunalpatil.me {"service":"smtp-mail-server","timestamp":"2026-01-17T17:30:58.525Z"}
+0|smtp-server  | info: Mail received and stored: 696bc910183902c9557c1df5 {"service":"smtp-mail-server","timestamp":"2026-01-17T17:38:24.425Z"}
+0|smtp-server  | info: Mail received: 2022.bhushan.nargolkar@ves.ac.in -> kunal1234@kunalpatil.me {"service":"smtp-mail-server","timestamp":"2026-01-17T17:38:24.425Z"}
+0|smtp-server  | info: Mail received and stored: 696bcc9d183902c9557c1df9 {"service":"smtp-mail-server","timestamp":"2026-01-17T17:53:33.359Z"}
+0|smtp-server  | info: Mail received: noreply@lovable.dev -> kunal1234@kunalpatil.me {"service":"smtp-mail-server","timestamp":"2026-01-17T17:53:33.359Z"}
+0|smtp-server  | warn: Mailbox not found: sfHDQwXmrDVoLluyJKzSycSdhNeTEE@kunalpatil.me {"service":"smtp-mail-server","timestamp":"2026-01-17T17:54:58.821Z"}
+0|smtp-server  | info: Mail received and stored: 696bcd13183902c9557c1e03 {"service":"smtp-mail-server","timestamp":"2026-01-17T17:55:31.732Z"}
+0|smtp-server  | info: Mail received: noreply@lovable.dev -> kunal1234@kunalpatil.me {"service":"smtp-mail-server","timestamp":"2026-01-17T17:55:31.732Z"}
+0|smtp-server  | info: User created: kunal379@kunalpatil.me {"service":"smtp-mail-server","timestamp":"2026-01-17T18:01:13.652Z"}
+0|smtp-server  | info: Mail received and stored: 696bcea4183902c9557c1e19 {"service":"smtp-mail-server","timestamp":"2026-01-17T18:02:12.762Z"}
+0|smtp-server  | info: Mail received: noreply@lovable.dev -> kunal379@kunalpatil.me {"service":"smtp-mail-server","timestamp":"2026-01-17T18:02:12.762Z"}
+0|smtp-server  | info: Mail received and stored: 696bd463183902c9557c829a {"service":"smtp-mail-server","timestamp":"2026-01-17T18:26:43.603Z"}
+0|smtp-server  | info: Mail received: kunaldp379@gmail.com -> kunal379@kunalpatil.me {"service":"smtp-mail-server","timestamp":"2026-01-17T18:26:43.604Z"}
+0|smtp-server  | info: User created: kunal111@kunalpatil.me {"service":"smtp-mail-server","timestamp":"2026-01-17T18:45:19.727Z"}
+0|smtp-server  | info: Mail created: 696bd8f2183902c9557c83ad {"service":"smtp-mail-server","timestamp":"2026-01-17T18:46:10.689Z"}
+0|smtp-server  | info: SMTP MAIL FROM = kunal111@kunalpatil.me {"service":"smtp-mail-server","timestamp":"2026-01-17T18:46:10.726Z"}
+0|smtp-server  | info: SMTP RCPT TO = kunaldp379@gmail.com {"service":"smtp-mail-server","timestamp":"2026-01-17T18:46:10.726Z"}
+0|smtp-server  | info: Mail sent: 696bd8f2183902c9557c83ad {"accepted":["kunaldp379@gmail.com"],"ehlo":["8BITMIME","PIPELINING","SIZE 31457280","SMTPUTF8","STARTTLS","AUTH PLAIN LOGIN","AUTH=PLAIN LOGIN"],"envelope":{"from":"kunal111@kunalpatil.me","to":["kunaldp379@gmail.com"]},"envelopeTime":150,"messageId":"<3dae3cc7-3da5-4075-a6b5-c0d8e89d1b27@kunalpatil.me>","messageSize":1128,"messageTime":954,"rejected":[],"response":"250 Ok: queued as GJZ8qpPCTZ6jLL1mbSqzkA","service":"smtp-mail-server","timestamp":"2026-01-17T18:46:12.661Z"}
+0|smtp-server  | info: User created: kunal1111@kunalpatil.me {"service":"smtp-mail-server","timestamp":"2026-01-17T18:52:59.418Z"}
+0|smtp-server  | info: Mail created: 696bda9b183902c9557c8429 {"service":"smtp-mail-server","timestamp":"2026-01-17T18:53:15.126Z"}
+0|smtp-server  | info: SMTP MAIL FROM = kunal1111@kunalpatil.me {"service":"smtp-mail-server","timestamp":"2026-01-17T18:53:15.167Z"}
+0|smtp-server  | info: SMTP RCPT TO = kunaldp379@gmail.com {"service":"smtp-mail-server","timestamp":"2026-01-17T18:53:15.167Z"}
+0|smtp-server  | info: Mail sent: 696bda9b183902c9557c8429 {"accepted":["kunaldp379@gmail.com"],"ehlo":["8BITMIME","PIPELINING","SIZE 31457280","SMTPUTF8","STARTTLS","AUTH PLAIN LOGIN","AUTH=PLAIN LOGIN"],"envelope":{"from":"kunal1111@kunalpatil.me","to":["kunaldp379@gmail.com"]},"envelopeTime":350,"messageId":"<d8c4829c-478b-40c4-be67-de72a2fd8e57@kunalpatil.me>","messageSize":1120,"messageTime":380,"rejected":[],"response":"250 Ok: queued as zxiVr_cNQwehOgClnHPsSQ","service":"smtp-mail-server","timestamp":"2026-01-17T18:53:17.071Z"}
+0|smtp-server  | info: User created: kunalpatil123@kunalpatil.me {"service":"smtp-mail-server","timestamp":"2026-01-17T19:03:01.677Z"}

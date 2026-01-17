@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
-import { Mail, Lock, User, AlertCircle } from 'lucide-react';
+import { Mail, Lock, User, AlertCircle, CheckCircle, Send, Inbox, Shield } from 'lucide-react';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +10,7 @@ const Login = () => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
   
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -26,33 +27,97 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     setError('');
+    setSuccess(false);
+
+    // Validate email domain
+    if (!formData.email.endsWith('@kunalpatil.me')) {
+      setError('Only @kunalpatil.me email addresses are allowed');
+      setLoading(false);
+      return;
+    }
 
     const result = await login(formData.email, formData.password);
     
     if (result.success) {
-      navigate('/dashboard');
+      setSuccess(true);
+      setTimeout(() => {
+        navigate('/dashboard');
+      }, 1500);
     } else {
-      setError(result.error);
+      // Better error message handling
+      if (result.error && result.error.toLowerCase().includes('invalid')) {
+        setError('Wrong credentials. Please check your email and password.');
+      } else if (result.error && result.error.toLowerCase().includes('not found')) {
+        setError('Wrong credentials or email not ending with @kunalpatil.me');
+      } else {
+        setError(result.error || 'Wrong credentials. Please try again.');
+      }
     }
     
     setLoading(false);
   };
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center p-4 sm:p-6">
-      <div className="bg-white border-2 border-black rounded-lg w-full max-w-md p-6 sm:p-8">
-        <div className="text-center mb-6 sm:mb-8">
-          <div className="flex items-center justify-center mb-4">
-            <Mail className="h-10 w-10 sm:h-12 sm:w-12 text-black" />
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4 sm:p-6">
+      <div className="w-full max-w-md space-y-4 sm:space-y-6">
+        {/* KPMail Promotional Section */}
+        <div className="text-center space-y-3 sm:space-y-4">
+          <div className="flex items-center justify-center">
+            <div className="bg-black text-white p-3 sm:p-4 rounded-2xl shadow-lg">
+              <Mail className="h-8 w-8 sm:h-10 sm:w-10" />
+            </div>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-black">Welcome Back</h1>
-          <p className="text-gray-600 mt-2 text-sm sm:text-base">Sign in to your email account</p>
+          <div>
+            <h1 className="text-3xl sm:text-4xl font-bold text-black mb-2">KPMail</h1>
+            <p className="text-base sm:text-lg text-gray-700 font-medium">Professional Email Service</p>
+          </div>
+          
+          {/* Features */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 text-sm sm:text-base">
+            <div className="flex items-center space-x-2 text-gray-700">
+              <div className="bg-blue-100 p-2 rounded-lg">
+                <Send className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
+              </div>
+              <span className="font-medium">Send Emails</span>
+            </div>
+            <div className="flex items-center space-x-2 text-gray-700">
+              <div className="bg-green-100 p-2 rounded-lg">
+                <Inbox className="h-4 w-4 sm:h-5 sm:w-5 text-green-600" />
+              </div>
+              <span className="font-medium">Receive Emails</span>
+            </div>
+            <div className="flex items-center space-x-2 text-gray-700">
+              <div className="bg-purple-100 p-2 rounded-lg">
+                <Shield className="h-4 w-4 sm:h-5 sm:w-5 text-purple-600" />
+              </div>
+              <span className="font-medium">Secure & Fast</span>
+            </div>
+          </div>
+          
+          <p className="text-xs sm:text-sm text-gray-600 max-w-sm mx-auto">
+            Create, manage, and send emails with our reliable mailing service. 
+            Experience seamless communication with KPMail.
+          </p>
         </div>
 
+        {/* Login Card */}
+        <div className="bg-white border-2 border-black rounded-lg shadow-xl p-6 sm:p-8">
+          <div className="text-center mb-6 sm:mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-black">Welcome Back</h2>
+            <p className="text-gray-600 mt-2 text-sm sm:text-base">Sign in to your email account</p>
+          </div>
+
         {error && (
-          <div className="mb-4 p-3 bg-gray-100 border border-black text-black rounded-md flex items-center text-sm">
-            <AlertCircle className="h-5 w-5 mr-2 flex-shrink-0" />
-            <span>{error}</span>
+          <div className="mb-4 p-3 sm:p-4 bg-red-50 border-2 border-red-500 text-red-800 rounded-md flex items-start text-sm sm:text-base">
+            <AlertCircle className="h-5 w-5 mr-2 flex-shrink-0 mt-0.5" />
+            <span className="font-medium">{error}</span>
+          </div>
+        )}
+
+        {success && (
+          <div className="mb-4 p-3 sm:p-4 bg-green-50 border-2 border-green-500 text-green-800 rounded-md flex items-start text-sm sm:text-base">
+            <CheckCircle className="h-5 w-5 mr-2 flex-shrink-0 mt-0.5" />
+            <span className="font-medium">Login successful! Redirecting to dashboard...</span>
           </div>
         )}
 
@@ -111,13 +176,14 @@ const Login = () => {
           </button>
         </form>
 
-        <div className="mt-6 text-center">
-          <p className="text-gray-600">
-            Don't have an account?{' '}
-            <Link to="/register" className="text-black hover:underline font-medium">
-              Sign up here
-            </Link>
-          </p>
+          <div className="mt-6 text-center">
+            <p className="text-gray-600">
+              Don't have an account?{' '}
+              <Link to="/register" className="text-black hover:underline font-medium">
+                Sign up here
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>

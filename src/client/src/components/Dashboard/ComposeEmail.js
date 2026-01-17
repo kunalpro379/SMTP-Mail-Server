@@ -32,12 +32,9 @@ const ComposeEmail = ({ onClose, replyTo = null }) => {
 
   const quillModules = {
     toolbar: [
-      [{ 'header': [1, 2, false] }],
-      ['bold', 'italic', 'underline', 'strike'],
+      ['bold', 'italic', 'underline'],
       [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-      [{ 'color': [] }, { 'background': [] }],
-      [{ 'align': [] }],
-      ['link', 'image'],
+      ['link'],
       ['clean']
     ],
   };
@@ -145,38 +142,38 @@ const ComposeEmail = ({ onClose, replyTo = null }) => {
     <div className={`fixed ${
       isFullscreen 
         ? 'inset-0' 
-        : 'inset-x-2 bottom-0 sm:bottom-4 sm:right-4 sm:left-auto sm:w-[500px] h-[90vh] sm:h-[600px]'
-    } bg-white border-2 border-gray-300 rounded-t-xl sm:rounded-xl shadow-2xl z-50 flex flex-col overflow-hidden`}>
+        : 'inset-x-0 bottom-0 sm:inset-x-auto sm:bottom-4 sm:right-4 sm:left-auto sm:w-[500px] h-[95vh] sm:h-[600px]'
+    } bg-white border-2 border-gray-300 rounded-t-2xl sm:rounded-xl shadow-2xl z-50 flex flex-col overflow-hidden`}>
       
       {/* Enhanced Header */}
-      <div className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border-b-2 border-gray-200">
-        <div className="flex items-center space-x-3">
-          <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
-          <h3 className="font-semibold text-gray-900 text-base sm:text-lg">
+      <div className="flex items-center justify-between p-3 sm:p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border-b-2 border-gray-200">
+        <div className="flex items-center space-x-2 sm:space-x-3">
+          <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-blue-500 rounded-full animate-pulse"></div>
+          <h3 className="font-semibold text-gray-900 text-sm sm:text-base md:text-lg">
             {replyTo ? 'Reply' : 'New Message'}
           </h3>
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-1 sm:space-x-2">
           <button
             onClick={() => setIsMinimized(true)}
-            className="p-2 hover:bg-white/50 rounded-lg transition-colors sm:block hidden"
+            className="p-1.5 sm:p-2 hover:bg-white/50 rounded-lg transition-colors sm:block hidden"
             title="Minimize"
           >
             <Minimize2 className="h-4 w-4 text-gray-600" />
           </button>
           <button
             onClick={() => setIsFullscreen(!isFullscreen)}
-            className="p-2 hover:bg-white/50 rounded-lg transition-colors"
+            className="p-1.5 sm:p-2 hover:bg-white/50 rounded-lg transition-colors"
             title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
           >
-            <Maximize2 className="h-4 w-4 text-gray-600" />
+            <Maximize2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-gray-600" />
           </button>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-white/50 rounded-lg transition-colors"
+            className="p-1.5 sm:p-2 hover:bg-white/50 rounded-lg transition-colors"
             title="Close"
           >
-            <X className="h-4 w-4 text-gray-600" />
+            <X className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-gray-600" />
           </button>
         </div>
       </div>
@@ -184,58 +181,58 @@ const ComposeEmail = ({ onClose, replyTo = null }) => {
       {/* Form */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Recipients Section */}
-        <div className="p-4 space-y-3 border-b border-gray-200 bg-gray-50/50">
-          <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
-            <label className="text-sm font-semibold text-gray-700 sm:w-12 flex-shrink-0">To:</label>
-            <div className="flex-1 flex items-center space-x-2">
-              <input
-                type="email"
-                value={formData.to}
-                onChange={(e) => handleInputChange('to', e.target.value)}
-                className="flex-1 px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base transition-colors"
-                placeholder="Enter recipient email"
-              />
+        <div className="p-3 sm:p-4 space-y-2 sm:space-y-3 border-b border-gray-200 bg-gray-50/50">
+          <div className="flex flex-col space-y-1.5">
+            <div className="flex items-center justify-between">
+              <label className="text-xs sm:text-sm font-semibold text-gray-700">To:</label>
               <button
                 onClick={() => setShowCcBcc(!showCcBcc)}
-                className="text-sm font-medium text-blue-600 hover:text-blue-800 hover:underline whitespace-nowrap px-2 py-1 rounded"
+                className="text-xs sm:text-sm font-medium text-blue-600 hover:text-blue-800 hover:underline px-2 py-0.5 rounded"
               >
                 Cc/Bcc
               </button>
             </div>
+            <input
+              type="email"
+              value={formData.to}
+              onChange={(e) => handleInputChange('to', e.target.value)}
+              className="w-full px-3 py-2 sm:px-4 sm:py-2.5 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base transition-colors"
+              placeholder="Enter recipient email"
+            />
           </div>
 
           {showCcBcc && (
             <>
-              <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
-                <label className="text-sm font-semibold text-gray-700 sm:w-12 flex-shrink-0">Cc:</label>
+              <div className="flex flex-col space-y-1.5">
+                <label className="text-xs sm:text-sm font-semibold text-gray-700">Cc:</label>
                 <input
                   type="email"
                   value={formData.cc}
                   onChange={(e) => handleInputChange('cc', e.target.value)}
-                  className="flex-1 px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base transition-colors"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-2.5 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base transition-colors"
                   placeholder="Carbon copy"
                 />
               </div>
-              <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
-                <label className="text-sm font-semibold text-gray-700 sm:w-12 flex-shrink-0">Bcc:</label>
+              <div className="flex flex-col space-y-1.5">
+                <label className="text-xs sm:text-sm font-semibold text-gray-700">Bcc:</label>
                 <input
                   type="email"
                   value={formData.bcc}
                   onChange={(e) => handleInputChange('bcc', e.target.value)}
-                  className="flex-1 px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base transition-colors"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-2.5 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base transition-colors"
                   placeholder="Blind carbon copy"
                 />
               </div>
             </>
           )}
 
-          <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
-            <label className="text-sm font-semibold text-gray-700 sm:w-12 flex-shrink-0">Subject:</label>
+          <div className="flex flex-col space-y-1.5">
+            <label className="text-xs sm:text-sm font-semibold text-gray-700">Subject:</label>
             <input
               type="text"
               value={formData.subject}
               onChange={(e) => handleInputChange('subject', e.target.value)}
-              className="flex-1 px-4 py-2.5 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base transition-colors"
+              className="w-full px-3 py-2 sm:px-4 sm:py-2.5 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base transition-colors"
               placeholder="Enter subject"
             />
           </div>
@@ -260,45 +257,46 @@ const ComposeEmail = ({ onClose, replyTo = null }) => {
         </div>
 
         {/* Enhanced Footer */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between p-4 border-t-2 border-gray-200 bg-gradient-to-r from-gray-50 to-blue-50/30 space-y-3 sm:space-y-0">
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
+        <div className="flex flex-col items-stretch p-3 sm:p-4 border-t-2 border-gray-200 bg-gradient-to-r from-gray-50 to-blue-50/30 space-y-2 sm:space-y-3">
+          <div className="flex items-center justify-between space-x-2">
             <button
               onClick={handleSend}
               disabled={sending}
-              className="flex items-center justify-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 text-base font-semibold min-h-[48px] shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              className="flex-1 flex items-center justify-center space-x-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 text-sm sm:text-base font-semibold shadow-lg hover:shadow-xl"
             >
-              <Send className="h-5 w-5" />
+              <Send className="h-4 w-4 sm:h-5 sm:w-5" />
               <span>{sending ? 'Sending...' : 'Send'}</span>
             </button>
 
             <button
               onClick={handleSaveDraft}
-              className="flex items-center justify-center space-x-2 px-4 py-3 text-gray-700 bg-white border-2 border-gray-300 hover:bg-gray-50 hover:border-gray-400 rounded-lg transition-all duration-200 text-base font-medium min-h-[48px]"
+              className="flex-1 flex items-center justify-center space-x-2 px-3 sm:px-4 py-2.5 sm:py-3 text-gray-700 bg-white border-2 border-gray-300 hover:bg-gray-50 hover:border-gray-400 rounded-lg transition-all duration-200 text-sm sm:text-base font-medium"
             >
-              <Save className="h-4 w-4" />
-              <span>Save Draft</span>
+              <Save className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+              <span className="hidden xs:inline">Save Draft</span>
+              <span className="xs:hidden">Draft</span>
             </button>
           </div>
 
-          <div className="flex items-center justify-center sm:justify-end space-x-2">
+          <div className="flex items-center justify-center space-x-2 sm:space-x-3">
             <button
               onClick={handleAttachment}
-              className="p-3 text-gray-600 hover:text-gray-800 hover:bg-white rounded-lg transition-colors min-h-[48px] min-w-[48px] flex items-center justify-center border-2 border-transparent hover:border-gray-300"
+              className="p-2.5 sm:p-3 text-gray-600 hover:text-gray-800 hover:bg-white rounded-lg transition-colors flex items-center justify-center border-2 border-transparent hover:border-gray-300"
               title="Attach files"
             >
-              <Paperclip className="h-5 w-5" />
+              <Paperclip className="h-4 w-4 sm:h-5 sm:w-5" />
             </button>
             <button
-              className="p-3 text-gray-600 hover:text-gray-800 hover:bg-white rounded-lg transition-colors min-h-[48px] min-w-[48px] flex items-center justify-center border-2 border-transparent hover:border-gray-300"
+              className="p-2.5 sm:p-3 text-gray-600 hover:text-gray-800 hover:bg-white rounded-lg transition-colors flex items-center justify-center border-2 border-transparent hover:border-gray-300"
               title="Insert image"
             >
-              <Image className="h-5 w-5" />
+              <Image className="h-4 w-4 sm:h-5 sm:w-5" />
             </button>
             <button
-              className="p-3 text-gray-600 hover:text-gray-800 hover:bg-white rounded-lg transition-colors min-h-[48px] min-w-[48px] flex items-center justify-center border-2 border-transparent hover:border-gray-300"
+              className="p-2.5 sm:p-3 text-gray-600 hover:text-gray-800 hover:bg-white rounded-lg transition-colors flex items-center justify-center border-2 border-transparent hover:border-gray-300"
               title="Insert emoji"
             >
-              <Smile className="h-5 w-5" />
+              <Smile className="h-4 w-4 sm:h-5 sm:w-5" />
             </button>
           </div>
         </div>

@@ -99,29 +99,29 @@ const Register = () => {
           </div>
           
           {/* Features */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 text-sm sm:text-base">
-            <div className="flex items-center space-x-2 text-gray-700">
-              <div className="bg-blue-100 p-2 rounded-lg">
-                <Send className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-6 text-xs sm:text-base px-2">
+            <div className="flex items-center space-x-1.5 sm:space-x-2 text-gray-700">
+              <div className="bg-blue-100 p-1.5 sm:p-2 rounded-lg">
+                <Send className="h-3.5 w-3.5 sm:h-5 sm:w-5 text-blue-600" />
               </div>
-              <span className="font-medium">Send Emails</span>
+              <span className="font-medium whitespace-nowrap">Send Emails</span>
             </div>
-            <div className="flex items-center space-x-2 text-gray-700">
-              <div className="bg-green-100 p-2 rounded-lg">
-                <Inbox className="h-4 w-4 sm:h-5 sm:w-5 text-green-600" />
+            <div className="flex items-center space-x-1.5 sm:space-x-2 text-gray-700">
+              <div className="bg-green-100 p-1.5 sm:p-2 rounded-lg">
+                <Inbox className="h-3.5 w-3.5 sm:h-5 sm:w-5 text-green-600" />
               </div>
-              <span className="font-medium">Receive Emails</span>
+              <span className="font-medium whitespace-nowrap">Receive Emails</span>
             </div>
-            <div className="flex items-center space-x-2 text-gray-700">
-              <div className="bg-purple-100 p-2 rounded-lg">
-                <Shield className="h-4 w-4 sm:h-5 sm:w-5 text-purple-600" />
+            <div className="flex items-center space-x-1.5 sm:space-x-2 text-gray-700">
+              <div className="bg-purple-100 p-1.5 sm:p-2 rounded-lg">
+                <Shield className="h-3.5 w-3.5 sm:h-5 sm:w-5 text-purple-600" />
               </div>
-              <span className="font-medium">Secure & Fast</span>
+              <span className="font-medium whitespace-nowrap">Secure & Fast</span>
             </div>
           </div>
           
-          <p className="text-xs sm:text-sm text-gray-600 max-w-sm mx-auto">
-            Create, manage, and send emails with our reliable mailing service. 
+          <p className="text-xs sm:text-sm text-gray-600 max-w-sm mx-auto px-4">
+            Create, manage, and send emails with our reliable mailing service at <span className="font-semibold text-black">@kunalpatil.me</span>. 
             Experience seamless communication with KPMail.
           </p>
         </div>

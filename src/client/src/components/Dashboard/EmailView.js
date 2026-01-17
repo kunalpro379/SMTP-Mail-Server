@@ -210,51 +210,53 @@ const EmailView = () => {
     <>
       <div className="flex flex-col h-full bg-white">
         {/* Email Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-gray-50 no-print">
-          <div className="flex items-center space-x-3">
+        <div className="flex items-center justify-between p-3 sm:p-4 border-b border-gray-200 bg-gray-50 no-print">
+          <div className="flex items-center space-x-1 sm:space-x-3">
             <button
               onClick={handleBack}
-              className="p-2 hover:bg-gray-200 rounded-full transition-colors"
+              className="p-1.5 sm:p-2 hover:bg-gray-200 rounded-full transition-colors"
               title="Back to list"
             >
-              <ArrowLeft className="h-5 w-5 text-gray-600" />
+              <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600" />
             </button>
             
             <button
               onClick={handleArchive}
-              className="p-2 hover:bg-gray-200 rounded-full transition-colors"
+              className="p-1.5 sm:p-2 hover:bg-gray-200 rounded-full transition-colors hidden sm:block"
               title="Archive"
             >
-              <Archive className="h-5 w-5 text-gray-600" />
+              <Archive className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600" />
             </button>
             
             <button
               onClick={handleDelete}
-              className="p-2 hover:bg-gray-200 rounded-full transition-colors text-red-600"
+              className="p-1.5 sm:p-2 hover:bg-gray-200 rounded-full transition-colors text-red-600"
               title="Delete"
             >
-              <Trash2 className="h-5 w-5" />
+              <Trash2 className="h-4 w-4 sm:h-5 sm:w-5" />
             </button>
             
             <button
               onClick={email.read ? handleMarkAsUnread : handleMarkAsRead}
-              className="p-2 hover:bg-gray-200 rounded-full transition-colors"
+              className="p-1.5 sm:p-2 hover:bg-gray-200 rounded-full transition-colors hidden sm:block"
               title={email.read ? "Mark as unread" : "Mark as read"}
             >
-              {email.read ? <Mail className="h-5 w-5 text-gray-600" /> : <MailOpen className="h-5 w-5 text-gray-600" />}
+              {email.read ? <Mail className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600" /> : <MailOpen className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600" />}
             </button>
           </div>
 
-          <div className="flex items-center space-x-3">
-            {getStatusBadge(email.status)}
+          <div className="flex items-center space-x-1 sm:space-x-3">
+            <div className="hidden sm:block">
+              {getStatusBadge(email.status)}
+            </div>
             
             <div className="relative">
               <button
                 onClick={() => setShowActions(!showActions)}
-                className="p-2 hover:bg-gray-200 rounded-full transition-colors"
+                className="p-1.5 sm:p-2 hover:bg-gray-200 rounded-full transition-colors"
                 title="More actions"
               >
-                <MoreVertical className="h-5 w-5 text-gray-600" />
+                <MoreVertical className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600" />
               </button>
               
               {showActions && (
@@ -283,87 +285,84 @@ const EmailView = () => {
                 </div>
               )}
             </div>
-            
-            <button
-              onClick={handleBack}
-              className="p-2 hover:bg-gray-200 rounded-full transition-colors"
-              title="Close"
-            >
-              <X className="h-5 w-5 text-gray-600" />
-            </button>
           </div>
         </div>
 
         {/* Email Content */}
         <div className="flex-1 overflow-y-auto">
-          <div className="max-w-4xl mx-auto p-6">
+          <div className="max-w-4xl mx-auto p-3 sm:p-6">
             {/* Subject */}
-            <div className="mb-6">
-              <h1 className="text-3xl font-bold text-gray-900 mb-2 leading-tight">
+            <div className="mb-4 sm:mb-6">
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-2 leading-tight">
                 {email.subject || '(No Subject)'}
               </h1>
-              <div className="flex items-center space-x-2">
-                <button
-                  onClick={handleStarToggle}
-                  className="p-1 hover:bg-gray-100 rounded transition-colors"
-                >
-                  <Star className={`h-5 w-5 ${email.starred ? 'text-yellow-400 fill-current' : 'text-gray-400'}`} />
-                </button>
-                <span className="text-sm text-gray-500">
-                  {dateInfo.short}
-                </span>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <button
+                    onClick={handleStarToggle}
+                    className="p-1 hover:bg-gray-100 rounded transition-colors"
+                  >
+                    <Star className={`h-4 w-4 sm:h-5 sm:w-5 ${email.starred ? 'text-yellow-400 fill-current' : 'text-gray-400'}`} />
+                  </button>
+                  <span className="text-xs sm:text-sm text-gray-500">
+                    {dateInfo.short}
+                  </span>
+                </div>
+                <div className="sm:hidden">
+                  {getStatusBadge(email.status)}
+                </div>
               </div>
             </div>
 
             {/* Email Meta Info */}
-            <div className="bg-gray-50 rounded-xl p-6 mb-6 border border-gray-200 hover-lift">
+            <div className="bg-gray-50 rounded-lg sm:rounded-xl p-3 sm:p-6 mb-4 sm:mb-6 border border-gray-200">
               <div className="flex items-start justify-between">
-                <div className="flex items-start space-x-4 flex-1">
-                  <div className="w-12 h-12 border-2 border-gray-300 rounded-full flex items-center justify-center text-gray-600 font-semibold text-lg bg-white">
+                <div className="flex items-start space-x-2 sm:space-x-4 flex-1 min-w-0">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 border-2 border-gray-300 rounded-full flex items-center justify-center text-gray-600 font-semibold text-base sm:text-lg bg-white flex-shrink-0">
                     {getInitials(email.from_email)}
                   </div>
                   
                   <div className="flex-1 min-w-0 group">
-                    <div className="flex items-center space-x-2 mb-2">
-                      <h3 className="font-semibold text-gray-900 text-lg">
+                    <div className="flex items-center space-x-1 sm:space-x-2 mb-1 sm:mb-2">
+                      <h3 className="font-semibold text-gray-900 text-sm sm:text-base md:text-lg truncate">
                         {email.from_email}
                       </h3>
                       <button
                         onClick={() => copyToClipboard(email.from_email)}
-                        className="p-1 hover:bg-gray-200 rounded opacity-0 group-hover:opacity-100 transition-opacity"
+                        className="p-1 hover:bg-gray-200 rounded opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0"
                       >
-                        <Copy className="h-4 w-4 text-gray-400" />
+                        <Copy className="h-3 w-3 sm:h-4 sm:w-4 text-gray-400" />
                       </button>
                     </div>
                     
-                    <div className="space-y-1 text-sm text-gray-600">
-                      <div className="flex items-center space-x-2">
-                        <span className="font-medium">To:</span>
-                        <span>{email.to_email}</span>
+                    <div className="space-y-1 text-xs sm:text-sm text-gray-600">
+                      <div className="flex items-center space-x-1 sm:space-x-2">
+                        <span className="font-medium flex-shrink-0">To:</span>
+                        <span className="truncate">{email.to_email}</span>
                         <button
                           onClick={() => copyToClipboard(email.to_email)}
-                          className="p-1 hover:bg-gray-200 rounded"
+                          className="p-1 hover:bg-gray-200 rounded flex-shrink-0"
                         >
                           <Copy className="h-3 w-3 text-gray-400" />
                         </button>
                       </div>
                       
-                      <div className="flex items-center space-x-2">
-                        <Calendar className="h-4 w-4" />
-                        <span>{dateInfo.full}</span>
+                      <div className="flex items-center space-x-1 sm:space-x-2">
+                        <Calendar className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+                        <span className="text-xs sm:text-sm">{dateInfo.full}</span>
                       </div>
                       
                       {email.message_id && (
-                        <div className="flex items-center space-x-2">
-                          <Tag className="h-4 w-4" />
-                          <span className="font-mono text-xs">{email.message_id}</span>
+                        <div className="flex items-start space-x-1 sm:space-x-2">
+                          <Tag className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0 mt-0.5" />
+                          <span className="font-mono text-xs break-all">{email.message_id}</span>
                         </div>
                       )}
                     </div>
                   </div>
                 </div>
                 
-                <div className="flex items-center space-x-2 ml-4">
+                <div className="flex items-center space-x-2 ml-2 sm:ml-4 hidden sm:flex">
                   <button
                     onClick={handleStarToggle}
                     className="p-2 hover:bg-gray-200 rounded-full transition-colors"
@@ -391,32 +390,32 @@ const EmailView = () => {
 
             {/* Attachments */}
             {email.attachments && email.attachments.length > 0 && (
-              <div className="mb-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                  <Paperclip className="h-5 w-5 mr-2" />
+              <div className="mb-4 sm:mb-6">
+                <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4 flex items-center">
+                  <Paperclip className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
                   Attachments ({email.attachments.length})
                 </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 gap-2 sm:gap-3">
                   {email.attachments.map((attachment, index) => (
                     <div
                       key={index}
-                      className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 transition-colors hover-lift"
+                      className="flex items-center justify-between p-3 sm:p-4 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 transition-colors"
                     >
-                      <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-gmail-blue rounded-lg flex items-center justify-center">
-                          <Paperclip className="h-5 w-5 text-white" />
+                      <div className="flex items-center space-x-2 sm:space-x-3 min-w-0 flex-1">
+                        <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gmail-blue rounded-lg flex items-center justify-center flex-shrink-0">
+                          <Paperclip className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                         </div>
-                        <div>
-                          <div className="font-medium text-gray-900">
+                        <div className="min-w-0 flex-1">
+                          <div className="font-medium text-gray-900 text-sm sm:text-base truncate">
                             {attachment.filename}
                           </div>
-                          <div className="text-sm text-gray-500">
+                          <div className="text-xs sm:text-sm text-gray-500 truncate">
                             {attachment.contentType} • {Math.round(attachment.size / 1024)} KB
                           </div>
                         </div>
                       </div>
-                      <button className="p-2 hover:bg-gray-200 rounded-full transition-colors">
-                        <Download className="h-5 w-5 text-gray-600" />
+                      <button className="p-1.5 sm:p-2 hover:bg-gray-200 rounded-full transition-colors flex-shrink-0 ml-2">
+                        <Download className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600" />
                       </button>
                     </div>
                   ))}
@@ -425,15 +424,15 @@ const EmailView = () => {
             )}
 
             {/* Email Body */}
-            <div className="email-content bg-white rounded-lg border border-gray-200 p-6 hover-lift">
+            <div className="email-content bg-white rounded-lg border border-gray-200 p-3 sm:p-6">
               <div
-                className="prose prose-lg max-w-none"
+                className="prose prose-sm sm:prose-base max-w-none"
                 dangerouslySetInnerHTML={{ 
                   __html: formatEmailBody(email.body_html, email.body_text)
                 }}
                 style={{
                   lineHeight: '1.6',
-                  fontSize: '16px',
+                  fontSize: window.innerWidth < 640 ? '14px' : '16px',
                   color: '#374151'
                 }}
               />
@@ -442,47 +441,50 @@ const EmailView = () => {
         </div>
 
         {/* Action Buttons */}
-        <div className="border-t border-gray-200 p-6 bg-gray-50 no-print">
+        <div className="border-t border-gray-200 p-3 sm:p-6 bg-gray-50 no-print">
           <div className="max-w-4xl mx-auto">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
                 <button 
                   onClick={() => handleReply('reply')}
-                  className="flex items-center space-x-2 px-6 py-3 bg-gmail-blue text-white rounded-lg hover:bg-blue-600 transition-colors font-medium hover-lift"
+                  className="flex items-center justify-center space-x-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-gmail-blue text-white rounded-lg hover:bg-blue-600 transition-colors font-medium text-sm sm:text-base"
                 >
                   <Reply className="h-4 w-4" />
                   <span>Reply</span>
                 </button>
-                <button 
-                  onClick={() => handleReply('replyAll')}
-                  className="flex items-center space-x-2 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium hover-lift"
-                >
-                  <ReplyAll className="h-4 w-4" />
-                  <span>Reply All</span>
-                </button>
-                <button 
-                  onClick={() => handleReply('forward')}
-                  className="flex items-center space-x-2 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium hover-lift"
-                >
-                  <Forward className="h-4 w-4" />
-                  <span>Forward</span>
-                </button>
+                <div className="flex gap-2">
+                  <button 
+                    onClick={() => handleReply('replyAll')}
+                    className="flex-1 sm:flex-none flex items-center justify-center space-x-2 px-3 sm:px-6 py-2.5 sm:py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium text-sm sm:text-base"
+                  >
+                    <ReplyAll className="h-4 w-4" />
+                    <span className="hidden sm:inline">Reply All</span>
+                    <span className="sm:hidden">All</span>
+                  </button>
+                  <button 
+                    onClick={() => handleReply('forward')}
+                    className="flex-1 sm:flex-none flex items-center justify-center space-x-2 px-3 sm:px-6 py-2.5 sm:py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium text-sm sm:text-base"
+                  >
+                    <Forward className="h-4 w-4" />
+                    <span>Forward</span>
+                  </button>
+                </div>
               </div>
               
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center gap-2 sm:gap-2">
                 <button
                   onClick={handleArchive}
-                  className="p-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors hover-lift"
+                  className="flex-1 sm:flex-none p-2.5 sm:p-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
                   title="Archive"
                 >
-                  <Archive className="h-4 w-4" />
+                  <Archive className="h-4 w-4 mx-auto" />
                 </button>
                 <button
                   onClick={handleDelete}
-                  className="p-3 border border-red-300 text-red-600 rounded-lg hover:bg-red-50 transition-colors hover-lift"
+                  className="flex-1 sm:flex-none p-2.5 sm:p-3 border border-red-300 text-red-600 rounded-lg hover:bg-red-50 transition-colors"
                   title="Delete"
                 >
-                  <Trash2 className="h-4 w-4" />
+                  <Trash2 className="h-4 w-4 mx-auto" />
                 </button>
               </div>
             </div>

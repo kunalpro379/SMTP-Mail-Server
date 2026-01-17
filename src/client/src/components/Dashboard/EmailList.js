@@ -178,24 +178,25 @@ const EmailList = ({ currentView }) => {
             type="checkbox"
             checked={selectedEmails.size === emails.length && emails.length > 0}
             onChange={(e) => handleSelectAll(e.target.checked)}
-            className="rounded border-gray-300 text-gmail-blue focus:ring-gmail-blue h-4 w-4 sm:h-5 sm:w-5"
+            className="rounded border-gray-300 text-gmail-blue focus:ring-gmail-blue focus:ring-offset-0 cursor-pointer sm:h-4 sm:w-4"
+            style={{ width: '14px', height: '14px', minWidth: '14px', minHeight: '14px' }}
           />
           
           {selectedEmails.size > 0 && (
             <div className="flex items-center space-x-1 sm:space-x-2">
               <button
                 onClick={bulkDelete}
-                className="p-1.5 sm:p-1 hover:bg-gray-100 rounded text-red-600"
+                className="p-1 sm:p-1.5 hover:bg-gray-100 rounded text-red-600"
                 title="Delete selected"
               >
-                <Trash2 className="h-4 w-4" />
+                <Trash2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               </button>
               <button
                 onClick={bulkArchive}
-                className="p-1.5 sm:p-1 hover:bg-gray-100 rounded text-gray-600"
+                className="p-1 sm:p-1.5 hover:bg-gray-100 rounded text-gray-600"
                 title="Archive selected"
               >
-                <Archive className="h-4 w-4" />
+                <Archive className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               </button>
             </div>
           )}
@@ -214,19 +215,20 @@ const EmailList = ({ currentView }) => {
           <div
             key={email._id}
             onClick={() => handleEmailClick(email)}
-            className={`email-list-item flex items-start p-3 sm:p-4 border-b border-gray-100 cursor-pointer transition-colors relative group hover:bg-gray-50 ${
+            className={`email-list-item flex items-start p-2 sm:p-4 border-b border-gray-100 cursor-pointer transition-colors relative group hover:bg-gray-50 ${
               !email.read && email.status === 'received' ? 'bg-blue-50' : ''
             }`}
           >
             {/* Mobile Layout */}
             <div className="flex w-full sm:hidden">
               {/* Left side - Checkbox and Star */}
-              <div className="flex flex-col items-center space-y-1.5 mr-2 pt-1">
+              <div className="flex flex-col items-center space-y-1 mr-2 pt-0.5">
                 <input
                   type="checkbox"
                   checked={selectedEmails.has(email._id)}
                   onChange={(e) => handleCheckboxChange(email._id, e.target.checked)}
-                  className="rounded border-gray-300 text-gmail-blue focus:ring-gmail-blue h-3.5 w-3.5"
+                  className="rounded border-gray-300 text-gmail-blue focus:ring-gmail-blue focus:ring-offset-0 cursor-pointer"
+                  style={{ width: '14px', height: '14px', minWidth: '14px', minHeight: '14px' }}
                   onClick={(e) => e.stopPropagation()}
                 />
                 <button
@@ -239,21 +241,21 @@ const EmailList = ({ currentView }) => {
 
               {/* Main content */}
               <div className="flex-1 min-w-0">
-                <div className="flex items-center justify-between mb-1">
-                  <div className="flex items-center space-x-1">
+                <div className="flex items-start justify-between mb-0.5">
+                  <div className="flex items-center space-x-1 min-w-0 flex-1">
                     {getStatusIcon(email.status)}
                     {!email.read && email.status === 'received' && (
-                      <Mail className="h-3 w-3 text-blue-600" />
+                      <Mail className="h-3 w-3 text-blue-600 flex-shrink-0" />
                     )}
-                    <span className={`truncate text-sm ${!email.read && email.status === 'received' ? 'font-bold text-gray-900' : 'font-medium text-gray-900'}`}>
+                    <span className={`truncate text-xs ${!email.read && email.status === 'received' ? 'font-bold text-gray-900' : 'font-medium text-gray-900'}`}>
                       {getEmailDisplayName(email, currentView)}
                     </span>
                     {email.attachments && email.attachments.length > 0 && (
-                      <Paperclip className="h-3 w-3 text-gray-400" />
+                      <Paperclip className="h-3 w-3 text-gray-400 flex-shrink-0" />
                     )}
                   </div>
-                  <div className="flex items-center space-x-1">
-                    <span className="text-xs text-gray-500">
+                  <div className="flex items-center space-x-0.5 ml-1 flex-shrink-0">
+                    <span className="text-xs text-gray-500 whitespace-nowrap">
                       {formatDate(email.created_at)}
                     </span>
                     <button
@@ -261,19 +263,19 @@ const EmailList = ({ currentView }) => {
                         e.stopPropagation();
                         setShowActions(showActions === email._id ? null : email._id);
                       }}
-                      className="p-1 hover:bg-gray-200 rounded"
+                      className="p-0.5 hover:bg-gray-200 rounded"
                     >
-                      <MoreVertical className="h-4 w-4 text-gray-400" />
+                      <MoreVertical className="h-3.5 w-3.5 text-gray-400" />
                     </button>
                   </div>
                 </div>
                 
-                <div className={`text-sm mb-1 truncate ${!email.read && email.status === 'received' ? 'font-semibold text-gray-900' : 'font-medium text-gray-900'}`}>
+                <div className={`text-xs mb-0.5 truncate ${!email.read && email.status === 'received' ? 'font-semibold text-gray-900' : 'font-medium text-gray-900'}`}>
                   {email.subject || '(No Subject)'}
                 </div>
                 
                 <div className="text-xs text-gray-600 truncate">
-                  {truncateText(email.body_text, 60)}
+                  {truncateText(email.body_text, 50)}
                 </div>
               </div>
             </div>

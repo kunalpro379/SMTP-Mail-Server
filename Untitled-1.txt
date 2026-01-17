@@ -1,0 +1,2081 @@
+
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\kunal>ssh -i mailing-server.pem ssh -i azureuser@20.193.253.234
+Warning: Identity file mailing-server.pem not accessible: No such file or directory.
+Warning: Identity file azureuser@20.193.253.234 not accessible: No such file or directory.
+ssh: Could not resolve hostname ssh: No such host is known.
+
+C:\Users\kunal>cd Downloads
+
+C:\Users\kunal\Downloads>ssh -i mailing-server.pem ssh -i azureuser@20.193.253.234
+Warning: Identity file mailing-server.pem not accessible: No such file or directory.
+Warning: Identity file azureuser@20.193.253.234 not accessible: No such file or directory.
+ssh: Could not resolve hostname ssh: No such host is known.
+
+C:\Users\kunal\Downloads>ls
+'ls' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\Users\kunal\Downloads>ssh -i mailing-server_key'.pem ssh -i azureuser@20.193.253.234
+Warning: Identity file mailing-server_key'.pem not accessible: No such file or directory.
+Warning: Identity file azureuser@20.193.253.234 not accessible: No such file or directory.
+
+C:\Users\kunal\Downloads>ssh -i mailing-server_key.pem ssh -i azureuser@20.193.253.234
+Warning: Identity file azureuser@20.193.253.234 not accessible: No such file or directory.
+ssh: Could not resolve hostname ssh: No such host is known.
+
+C:\Users\kunal\Downloads>ssh -i mailing-server_key.pem azureuser@20.193.253.234
+The authenticity of host '20.193.253.234 (20.193.253.234)' can't be established.
+ED25519 key fingerprint is SHA256:4G5rkBlo2RrFiY1mUwazkClxgL38/vM2pDWFiMIraTc.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '20.193.253.234' (ED25519) to the list of known hosts.
+Welcome to Ubuntu 24.04.3 LTS (GNU/Linux 6.14.0-1017-azure x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Fri Jan 16 19:13:41 UTC 2026
+
+  System load:  0.1               Processes:             124
+  Usage of /:   5.6% of 28.02GB   Users logged in:       0
+  Memory usage: 31%               IPv4 address for eth0: 10.0.0.4
+  Swap usage:   0%
+
+Expanded Security Maintenance for Applications is not enabled.
+
+0 updates can be applied immediately.
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
+
+
+The list of available updates is more than a week old.
+To check for new updates run: sudo apt update
+
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+To run a command as administrator (user "root"), use "sudo <command>".
+See "man sudo_root" for details.
+
+azureuser@mailing-server:~$ mkdir SMTP
+azureuser@mailing-server:~$ cd SMTP
+azureuser@mailing-server:~/SMTP$ git clone https://github.com/kunalpro379/SMTP-Mail-Server
+Cloning into 'SMTP-Mail-Server'...
+remote: Enumerating objects: 53, done.
+remote: Counting objects: 100% (53/53), done.
+remote: Compressing objects: 100% (32/32), done.
+remote: Total 53 (delta 15), reused 53 (delta 15), pack-reused 0 (from 0)
+Receiving objects: 100% (53/53), 78.22 KiB | 1.12 MiB/s, done.
+Resolving deltas: 100% (15/15), done.
+azureuser@mailing-server:~/SMTP$ cd SMTP-Mail-Server
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ npm install
+Command 'npm' not found, but can be installed with:
+sudo apt install npm
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+2026-01-16 19:14:58 - Installing pre-requisites
+Hit:1 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+Get:2 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+Get:3 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+Get:4 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+Get:5 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 Packages [15.0 MB]
+Get:6 http://azure.archive.ubuntu.com/ubuntu noble/universe Translation-en [5982 kB]
+Get:7 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 Components [3871 kB]
+Get:8 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 c-n-f Metadata [301 kB]
+Get:9 http://azure.archive.ubuntu.com/ubuntu noble/multiverse amd64 Packages [269 kB]
+Get:10 http://azure.archive.ubuntu.com/ubuntu noble/multiverse Translation-en [118 kB]
+Get:11 http://azure.archive.ubuntu.com/ubuntu noble/multiverse amd64 Components [35.0 kB]
+Get:12 http://azure.archive.ubuntu.com/ubuntu noble/multiverse amd64 c-n-f Metadata [8328 B]
+Get:13 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1694 kB]
+Get:14 http://azure.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [313 kB]
+Get:15 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Components [175 kB]
+Get:16 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 c-n-f Metadata [15.9 kB]
+Get:17 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1512 kB]
+Get:18 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [308 kB]
+Get:19 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Components [378 kB]
+Get:20 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 c-n-f Metadata [31.4 kB]
+Get:21 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [2426 kB]
+Get:22 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [554 kB]
+Get:23 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Components [212 B]
+Get:24 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [30.3 kB]
+Get:25 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse Translation-en [6048 B]
+Get:26 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Components [940 B]
+Get:27 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 c-n-f Metadata [488 B]
+Get:28 http://azure.archive.ubuntu.com/ubuntu noble-backports/main amd64 Packages [40.4 kB]
+Get:29 http://azure.archive.ubuntu.com/ubuntu noble-backports/main Translation-en [9208 B]
+Get:30 http://azure.archive.ubuntu.com/ubuntu noble-backports/main amd64 Components [7284 B]
+Get:31 http://azure.archive.ubuntu.com/ubuntu noble-backports/main amd64 c-n-f Metadata [368 B]
+Get:32 http://azure.archive.ubuntu.com/ubuntu noble-backports/universe amd64 Packages [29.5 kB]
+Get:33 http://azure.archive.ubuntu.com/ubuntu noble-backports/universe Translation-en [17.9 kB]
+Get:34 http://azure.archive.ubuntu.com/ubuntu noble-backports/universe amd64 Components [10.5 kB]
+Get:35 http://azure.archive.ubuntu.com/ubuntu noble-backports/universe amd64 c-n-f Metadata [1444 B]
+Get:36 http://azure.archive.ubuntu.com/ubuntu noble-backports/restricted amd64 Components [216 B]
+Get:37 http://azure.archive.ubuntu.com/ubuntu noble-backports/restricted amd64 c-n-f Metadata [116 B]
+Get:38 http://azure.archive.ubuntu.com/ubuntu noble-backports/multiverse amd64 Components [212 B]
+Get:39 http://azure.archive.ubuntu.com/ubuntu noble-backports/multiverse amd64 c-n-f Metadata [116 B]
+Get:40 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [1404 kB]
+Get:41 http://azure.archive.ubuntu.com/ubuntu noble-security/main Translation-en [228 kB]
+Get:42 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Components [21.5 kB]
+Get:43 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 c-n-f Metadata [9724 B]
+Get:44 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [922 kB]
+Get:45 http://azure.archive.ubuntu.com/ubuntu noble-security/universe Translation-en [209 kB]
+Get:46 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Components [71.4 kB]
+Get:47 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 c-n-f Metadata [19.7 kB]
+Get:48 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [2302 kB]
+Get:49 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted Translation-en [527 kB]
+Get:50 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Components [212 B]
+Get:51 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [27.4 kB]
+Get:52 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse Translation-en [6188 B]
+Get:53 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse amd64 Components [212 B]
+Get:54 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse amd64 c-n-f Metadata [384 B]
+Fetched 39.3 MB in 5s (8425 kB/s)
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+30 packages can be upgraded. Run 'apt list --upgradable' to see them.
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+ca-certificates is already the newest version (20240203).
+ca-certificates set to manually installed.
+curl is already the newest version (8.5.0-2ubuntu10.6).
+curl set to manually installed.
+The following additional packages will be installed:
+  dirmngr gnupg-l10n gnupg-utils gpg gpg-agent gpg-wks-client gpgconf gpgsm gpgv keyboxd
+Suggested packages:
+  pinentry-gnome3 tor parcimonie xloadimage gpg-wks-server scdaemon
+The following NEW packages will be installed:
+  apt-transport-https
+The following packages will be upgraded:
+  dirmngr gnupg gnupg-l10n gnupg-utils gpg gpg-agent gpg-wks-client gpgconf gpgsm gpgv keyboxd
+11 upgraded, 1 newly installed, 0 to remove and 19 not upgraded.
+Need to get 2297 kB of archives.
+After this operation, 36.9 kB of additional disk space will be used.
+Get:1 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 gpg-wks-client amd64 2.4.4-2ubuntu17.4 [70.8 kB]
+Get:2 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 dirmngr amd64 2.4.4-2ubuntu17.4 [323 kB]
+Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 gpgsm amd64 2.4.4-2ubuntu17.4 [232 kB]
+Get:4 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 gnupg-utils amd64 2.4.4-2ubuntu17.4 [109 kB]
+Get:5 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 gpg-agent amd64 2.4.4-2ubuntu17.4 [227 kB]
+Get:6 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 gpg amd64 2.4.4-2ubuntu17.4 [565 kB]
+Get:7 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 gpgconf amd64 2.4.4-2ubuntu17.4 [104 kB]
+Get:8 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 gnupg all 2.4.4-2ubuntu17.4 [359 kB]
+Get:9 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 keyboxd amd64 2.4.4-2ubuntu17.4 [78.3 kB]
+Get:10 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 gpgv amd64 2.4.4-2ubuntu17.4 [158 kB]
+Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 apt-transport-https all 2.8.3 [3970 B]
+Get:12 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 gnupg-l10n all 2.4.4-2ubuntu17.4 [66.4 kB]
+Fetched 2297 kB in 0s (28.4 MB/s)
+(Reading database ... 68451 files and directories currently installed.)
+Preparing to unpack .../0-gpg-wks-client_2.4.4-2ubuntu17.4_amd64.deb ...
+Unpacking gpg-wks-client (2.4.4-2ubuntu17.4) over (2.4.4-2ubuntu17.3) ...
+Preparing to unpack .../1-dirmngr_2.4.4-2ubuntu17.4_amd64.deb ...
+Unpacking dirmngr (2.4.4-2ubuntu17.4) over (2.4.4-2ubuntu17.3) ...
+Preparing to unpack .../2-gpgsm_2.4.4-2ubuntu17.4_amd64.deb ...
+Unpacking gpgsm (2.4.4-2ubuntu17.4) over (2.4.4-2ubuntu17.3) ...
+Preparing to unpack .../3-gnupg-utils_2.4.4-2ubuntu17.4_amd64.deb ...
+Unpacking gnupg-utils (2.4.4-2ubuntu17.4) over (2.4.4-2ubuntu17.3) ...
+Preparing to unpack .../4-gpg-agent_2.4.4-2ubuntu17.4_amd64.deb ...
+Unpacking gpg-agent (2.4.4-2ubuntu17.4) over (2.4.4-2ubuntu17.3) ...
+Preparing to unpack .../5-gpg_2.4.4-2ubuntu17.4_amd64.deb ...
+Unpacking gpg (2.4.4-2ubuntu17.4) over (2.4.4-2ubuntu17.3) ...
+Preparing to unpack .../6-gpgconf_2.4.4-2ubuntu17.4_amd64.deb ...
+Unpacking gpgconf (2.4.4-2ubuntu17.4) over (2.4.4-2ubuntu17.3) ...
+Preparing to unpack .../7-gnupg_2.4.4-2ubuntu17.4_all.deb ...
+Unpacking gnupg (2.4.4-2ubuntu17.4) over (2.4.4-2ubuntu17.3) ...
+Preparing to unpack .../8-keyboxd_2.4.4-2ubuntu17.4_amd64.deb ...
+Unpacking keyboxd (2.4.4-2ubuntu17.4) over (2.4.4-2ubuntu17.3) ...
+Preparing to unpack .../9-gpgv_2.4.4-2ubuntu17.4_amd64.deb ...
+Unpacking gpgv (2.4.4-2ubuntu17.4) over (2.4.4-2ubuntu17.3) ...
+Setting up gpgv (2.4.4-2ubuntu17.4) ...
+Selecting previously unselected package apt-transport-https.
+(Reading database ... 68451 files and directories currently installed.)
+Preparing to unpack .../apt-transport-https_2.8.3_all.deb ...
+Unpacking apt-transport-https (2.8.3) ...
+Preparing to unpack .../gnupg-l10n_2.4.4-2ubuntu17.4_all.deb ...
+Unpacking gnupg-l10n (2.4.4-2ubuntu17.4) over (2.4.4-2ubuntu17.3) ...
+Setting up apt-transport-https (2.8.3) ...
+Setting up gnupg-l10n (2.4.4-2ubuntu17.4) ...
+Setting up gpgconf (2.4.4-2ubuntu17.4) ...
+Setting up gpg (2.4.4-2ubuntu17.4) ...
+Setting up gnupg-utils (2.4.4-2ubuntu17.4) ...
+Setting up gpg-agent (2.4.4-2ubuntu17.4) ...
+Setting up gpgsm (2.4.4-2ubuntu17.4) ...
+Setting up dirmngr (2.4.4-2ubuntu17.4) ...
+Setting up keyboxd (2.4.4-2ubuntu17.4) ...
+Setting up gnupg (2.4.4-2ubuntu17.4) ...
+Setting up gpg-wks-client (2.4.4-2ubuntu17.4) ...
+Processing triggers for install-info (7.1-3build2) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+Scanning processes...
+Scanning linux images...
+
+Running kernel seems to be up-to-date.
+
+No services need to be restarted.
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+Get:1 https://deb.nodesource.com/node_20.x nodistro InRelease [12.1 kB]
+Get:2 https://deb.nodesource.com/node_20.x nodistro/main amd64 Packages [13.6 kB]
+Hit:3 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+Hit:4 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease
+Hit:5 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease
+Hit:6 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease
+Fetched 25.8 kB in 1s (51.4 kB/s)
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+19 packages can be upgraded. Run 'apt list --upgradable' to see them.
+2026-01-16 19:15:27 - Repository configured successfully.
+2026-01-16 19:15:27 - To install Node.js, run: apt install nodejs -y
+2026-01-16 19:15:27 - You can use N|solid Runtime as a node.js alternative
+2026-01-16 19:15:27 - To install N|solid Runtime, run: apt install nsolid -y
+
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ sudo apt install -y nodejs
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following NEW packages will be installed:
+  nodejs
+0 upgraded, 1 newly installed, 0 to remove and 19 not upgraded.
+Need to get 32.0 MB of archives.
+After this operation, 197 MB of additional disk space will be used.
+Get:1 https://deb.nodesource.com/node_20.x nodistro/main amd64 nodejs amd64 20.20.0-1nodesource1 [32.0 MB]
+Fetched 32.0 MB in 0s (110 MB/s)
+Selecting previously unselected package nodejs.
+(Reading database ... 68455 files and directories currently installed.)
+Preparing to unpack .../nodejs_20.20.0-1nodesource1_amd64.deb ...
+Unpacking nodejs (20.20.0-1nodesource1) ...
+Setting up nodejs (20.20.0-1nodesource1) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+Scanning processes...
+Scanning linux images...
+
+Running kernel seems to be up-to-date.
+
+No services need to be restarted.
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ node -v
+npm -v
+v20.20.0
+10.8.2
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ npm install
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: 'dns@0.2.2',
+npm warn EBADENGINE   required: { node: '>= 0.10.0 < 0.11.0' },
+npm warn EBADENGINE   current: { node: 'v20.20.0', npm: '10.8.2' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: 'hawk@0.10.2',
+npm warn EBADENGINE   required: { node: '0.8.x' },
+npm warn EBADENGINE   current: { node: 'v20.20.0', npm: '10.8.2' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: 'hoek@0.7.6',
+npm warn EBADENGINE   required: { node: '0.8.x' },
+npm warn EBADENGINE   current: { node: 'v20.20.0', npm: '10.8.2' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: 'tomahawk@0.1.6',
+npm warn EBADENGINE   required: { node: '>= 0.8.0 < 0.11.0' },
+npm warn EBADENGINE   current: { node: 'v20.20.0', npm: '10.8.2' }
+npm warn EBADENGINE }
+npm warn deprecated sntp@0.1.2: This module moved to @hapi/sntp. Please make sure to switch over as this distribution is no longer supported and may contain bugs and critical security issues.
+npm warn deprecated multer@1.4.5-lts.2: Multer 1.x is impacted by a number of vulnerabilities, which have been patched in 2.x. You should upgrade to the latest 2.x version.
+npm warn deprecated cryptiles@0.1.0: This version has been deprecated in accordance with the hapi support policy (hapi.im/support). Please upgrade to the latest version to get the best features, bug fixes, and security patches. If you are unable to upgrade at this time, paid support is available for older versions (hapi.im/commercial).
+npm warn deprecated boom@0.3.1: This version has been deprecated in accordance with the hapi support policy (hapi.im/support). Please upgrade to the latest version to get the best features, bug fixes, and security patches. If you are unable to upgrade at this time, paid support is available for older versions (hapi.im/commercial).
+npm warn deprecated hoek@0.7.6: This version has been deprecated in accordance with the hapi support policy (hapi.im/support). Please upgrade to the latest version to get the best features, bug fixes, and security patches. If you are unable to upgrade at this time, paid support is available for older versions (hapi.im/commercial).
+npm warn deprecated raw-body@1.3.0: No longer maintained. Please upgrade to a stable version.
+npm warn deprecated node-uuid@1.4.8: Use uuid module instead
+npm warn deprecated json3@3.2.6: Please use the native JSON object instead of JSON 3
+npm warn deprecated hoek@0.4.2: This version has been deprecated in accordance with the hapi support policy (hapi.im/support). Please upgrade to the latest version to get the best features, bug fixes, and security patches. If you are unable to upgrade at this time, paid support is available for older versions (hapi.im/commercial).
+npm warn deprecated hoek@0.4.2: This version has been deprecated in accordance with the hapi support policy (hapi.im/support). Please upgrade to the latest version to get the best features, bug fixes, and security patches. If you are unable to upgrade at this time, paid support is available for older versions (hapi.im/commercial).
+npm warn deprecated hawk@0.10.2: This module moved to @hapi/hawk. Please make sure to switch over as this distribution is no longer supported and may contain bugs and critical security issues.
+npm warn deprecated request@2.16.6: request has been deprecated, see https://github.com/request/request/issues/3142
+
+added 357 packages, and audited 358 packages in 8s
+
+36 packages are looking for funding
+  run `npm fund` for details
+
+39 vulnerabilities (2 low, 4 moderate, 26 high, 7 critical)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+npm notice
+npm notice New major version of npm available! 10.8.2 -> 11.7.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.7.0
+npm notice To update run: npm install -g npm@11.7.0
+npm notice
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ npm run dev
+
+> smtp-mail-server@1.0.0 dev
+> nodemon src/index.js
+
+[nodemon] 3.1.11
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching path(s): *.*
+[nodemon] watching extensions: js,mjs,cjs,json
+[nodemon] starting `node src/index.js`
+info: Starting SMTP Mail Server... {"service":"smtp-mail-server","timestamp":"2026-01-16T19:15:55.051Z"}
+error: MongoDB connection failed: connect ECONNREFUSED 127.0.0.1:27017 {"cause":{"commonWireVersion":0,"compatible":true,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"logicalSessionTimeoutMinutes":null,"maxElectionId":null,"maxSetVersion":null,"servers":{"localhost:27017":{"$clusterTime":null,"address":"localhost:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":391688,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"}},"setName":null,"stale":false,"type":"Unknown"},"errorLabelSet":{},"reason":{"commonWireVersion":0,"compatible":true,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"logicalSessionTimeoutMinutes":null,"maxElectionId":null,"maxSetVersion":null,"servers":{"localhost:27017":{"$clusterTime":null,"address":"localhost:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":391688,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"}},"setName":null,"stale":false,"type":"Unknown"},"service":"smtp-mail-server","stack":"MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017\n    at _handleConnectionErrors (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/mongoose/lib/connection.js:1169:11)\n    at NativeConnection.openUri (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/mongoose/lib/connection.js:1100:11)\n    at async Mongo.connect (file:///home/azureuser/SMTP/SMTP-Mail-Server/src/database/mongo.js:19:29)\n    at async start (file:///home/azureuser/SMTP/SMTP-Mail-Server/src/index.js:9:9)","timestamp":"2026-01-16T19:16:00.072Z"}
+error: Failed to start servers: connect ECONNREFUSED 127.0.0.1:27017 {"cause":{"commonWireVersion":0,"compatible":true,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"logicalSessionTimeoutMinutes":null,"maxElectionId":null,"maxSetVersion":null,"servers":{"localhost:27017":{"$clusterTime":null,"address":"localhost:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":391688,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"}},"setName":null,"stale":false,"type":"Unknown"},"errorLabelSet":{},"reason":{"commonWireVersion":0,"compatible":true,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"logicalSessionTimeoutMinutes":null,"maxElectionId":null,"maxSetVersion":null,"servers":{"localhost:27017":{"$clusterTime":null,"address":"localhost:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":391688,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"}},"setName":null,"stale":false,"type":"Unknown"},"service":"smtp-mail-server","stack":"MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017\n    at _handleConnectionErrors (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/mongoose/lib/connection.js:1169:11)\n    at NativeConnection.openUri (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/mongoose/lib/connection.js:1100:11)\n    at async Mongo.connect (file:///home/azureuser/SMTP/SMTP-Mail-Server/src/database/mongo.js:19:29)\n    at async start (file:///home/azureuser/SMTP/SMTP-Mail-Server/src/index.js:9:9)","timestamp":"2026-01-16T19:16:00.074Z"}
+[nodemon] app crashed - waiting for file changes before starting...
+^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ nano .enmv
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ nano .env
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ npm run dev
+
+> smtp-mail-server@1.0.0 dev
+> nodemon src/index.js
+
+[nodemon] 3.1.11
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching path(s): *.*
+[nodemon] watching extensions: js,mjs,cjs,json
+[nodemon] starting `node src/index.js`
+info: Starting SMTP Mail Server... {"service":"smtp-mail-server","timestamp":"2026-01-16T19:16:47.034Z"}
+info: MongoDB connected successfully {"service":"smtp-mail-server","timestamp":"2026-01-16T19:16:47.389Z"}
+info: All servers started successfully {"service":"smtp-mail-server","timestamp":"2026-01-16T19:16:47.392Z"}
+info: API Server listening on 0.0.0.0:3000 {"service":"smtp-mail-server","timestamp":"2026-01-16T19:16:47.393Z"}
+info: SMTP Server listening on 0.0.0.0:2525 {"service":"smtp-mail-server","timestamp":"2026-01-16T19:16:47.394Z"}
+^Cinfo: SIGINT received, shutting down gracefully {"service":"smtp-mail-server","timestamp":"2026-01-16T19:16:49.054Z"}
+info: SMTP Server stopped {"service":"smtp-mail-server","timestamp":"2026-01-16T19:16:49.055Z"}
+warn: MongoDB disconnected {"service":"smtp-mail-server","timestamp":"2026-01-16T19:16:49.063Z"}
+info: MongoDB disconnected successfully {"service":"smtp-mail-server","timestamp":"2026-01-16T19:16:49.063Z"}
+
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ sudo npm install -g pm2
+
+added 133 packages in 27s
+
+13 packages are looking for funding
+  run `npm fund` for details
+npm notice
+npm notice New major version of npm available! 10.8.2 -> 11.7.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.7.0
+npm notice To update run: npm install -g npm@11.7.0
+npm notice
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ pm2 start src/index.js --name smtp-server
+
+                        -------------
+
+__/\\\\\\\\\\\\\____/\\\\____________/\\\\____/\\\\\\\\\_____
+ _\/\\\/////////\\\_\/\\\\\\________/\\\\\\__/\\\///////\\\___
+  _\/\\\_______\/\\\_\/\\\//\\\____/\\\//\\\_\///______\//\\\__
+   _\/\\\\\\\\\\\\\/__\/\\\\///\\\/\\\/_\/\\\___________/\\\/___
+    _\/\\\/////////____\/\\\__\///\\\/___\/\\\________/\\\//_____
+     _\/\\\_____________\/\\\____\///_____\/\\\_____/\\\//________
+      _\/\\\_____________\/\\\_____________\/\\\___/\\\/___________
+       _\/\\\_____________\/\\\_____________\/\\\__/\\\\\\\\\\\\\\\_
+        _\///______________\///______________\///__\///////////////__
+
+
+                          Runtime Edition
+
+        PM2 is a Production Process Manager for Node.js applications
+                     with a built-in Load Balancer.
+
+                Start and Daemonize any application:
+                $ pm2 start app.js
+
+                Load Balance 4 instances of api.js:
+                $ pm2 start api.js -i 4
+
+                Monitor in production:
+                $ pm2 monitor
+
+                Make pm2 auto-boot at server restart:
+                $ pm2 startup
+
+                To go further checkout:
+                http://pm2.io/
+
+
+                        -------------
+
+[PM2] Spawning PM2 daemon with pm2_home=/home/azureuser/.pm2
+[PM2] PM2 Successfully daemonized
+[PM2] Starting /home/azureuser/SMTP/SMTP-Mail-Server/src/index.js in fork_mode (1 instance)
+[PM2] Done.
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ smtp-server        │ fork     │ 0    │ online    │ 0%       │ 29.0mb   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ pm2 startup
+[PM2] Init System found: systemd
+[PM2] To setup the Startup Script, copy/paste the following command:
+sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u azureuser --hp /home/azureuser
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ pm2 save
+[PM2] Saving current process list...
+[PM2] Successfully saved in /home/azureuser/.pm2/dump.pm2
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ pm2 status
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ smtp-server        │ fork     │ 0    │ online    │ 0%       │ 87.2mb   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ pm2 logs smtp-server --lines 20
+[TAILING] Tailing last 20 lines for [smtp-server] process (change the value with --lines option)
+/home/azureuser/.pm2/logs/smtp-server-error.log last 20 lines:
+/home/azureuser/.pm2/logs/smtp-server-out.log last 20 lines:
+0|smtp-ser | info: Starting SMTP Mail Server... {"service":"smtp-mail-server","timestamp":"2026-01-16T19:18:13.305Z"}
+0|smtp-ser | info: MongoDB connected successfully {"service":"smtp-mail-server","timestamp":"2026-01-16T19:18:13.612Z"}
+0|smtp-ser | info: All servers started successfully {"service":"smtp-mail-server","timestamp":"2026-01-16T19:18:13.615Z"}
+0|smtp-ser | info: API Server listening on 0.0.0.0:3000 {"service":"smtp-mail-server","timestamp":"2026-01-16T19:18:13.616Z"}
+0|smtp-ser | info: SMTP Server listening on 0.0.0.0:2525 {"service":"smtp-mail-server","timestamp":"2026-01-16T19:18:13.616Z"}
+
+^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ pm2 logs smtp-server --lines 20
+[TAILING] Tailing last 20 lines for [smtp-server] process (change the value with --lines option)
+/home/azureuser/.pm2/logs/smtp-server-error.log last 20 lines:
+/home/azureuser/.pm2/logs/smtp-server-out.log last 20 lines:
+0|smtp-ser | info: Starting SMTP Mail Server... {"service":"smtp-mail-server","timestamp":"2026-01-16T19:18:13.305Z"}
+0|smtp-ser | info: MongoDB connected successfully {"service":"smtp-mail-server","timestamp":"2026-01-16T19:18:13.612Z"}
+0|smtp-ser | info: All servers started successfully {"service":"smtp-mail-server","timestamp":"2026-01-16T19:18:13.615Z"}
+0|smtp-ser | info: API Server listening on 0.0.0.0:3000 {"service":"smtp-mail-server","timestamp":"2026-01-16T19:18:13.616Z"}
+0|smtp-ser | info: SMTP Server listening on 0.0.0.0:2525 {"service":"smtp-mail-server","timestamp":"2026-01-16T19:18:13.616Z"}
+
+^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ sudo apt update
+Hit:1 https://deb.nodesource.com/node_20.x nodistro InRelease
+Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+Hit:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease
+Hit:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease
+Hit:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+19 packages can be upgraded. Run 'apt list --upgradable' to see them.
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ sudo apt install nginx -y
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following additional packages will be installed:
+  nginx-common
+Suggested packages:
+  fcgiwrap nginx-doc ssl-cert
+The following NEW packages will be installed:
+  nginx nginx-common
+0 upgraded, 2 newly installed, 0 to remove and 19 not upgraded.
+Need to get 564 kB of archives.
+After this operation, 1596 kB of additional disk space will be used.
+Get:1 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 nginx-common all 1.24.0-2ubuntu7.5 [43.4 kB]
+Get:2 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 nginx amd64 1.24.0-2ubuntu7.5 [520 kB]
+Fetched 564 kB in 0s (11.8 MB/s)
+Preconfiguring packages ...
+Selecting previously unselected package nginx-common.
+(Reading database ... 73818 files and directories currently installed.)
+Preparing to unpack .../nginx-common_1.24.0-2ubuntu7.5_all.deb ...
+Unpacking nginx-common (1.24.0-2ubuntu7.5) ...
+Selecting previously unselected package nginx.
+Preparing to unpack .../nginx_1.24.0-2ubuntu7.5_amd64.deb ...
+Unpacking nginx (1.24.0-2ubuntu7.5) ...
+Setting up nginx-common (1.24.0-2ubuntu7.5) ...
+Created symlink /etc/systemd/system/multi-user.target.wants/nginx.service → /usr/lib/systemd/system/nginx.service.
+Setting up nginx (1.24.0-2ubuntu7.5) ...
+ * Upgrading binary nginx                                                                                        [ OK ]
+Processing triggers for man-db (2.12.0-4build2) ...
+Processing triggers for ufw (0.36.2-6) ...
+Scanning processes...
+Scanning linux images...
+
+Running kernel seems to be up-to-date.
+
+No services need to be restarted.
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ systemctl status nginx
+● nginx.service - A high performance web server and a reverse proxy server
+     Loaded: loaded (/usr/lib/systemd/system/nginx.service; enabled; preset: enabled)
+     Active: active (running) since Fri 2026-01-16 19:29:38 UTC; 5s ago
+       Docs: man:nginx(8)
+    Process: 3665 ExecStartPre=/usr/sbin/nginx -t -q -g daemon on; master_process on; (code=exited, status=0/SUCCESS)
+    Process: 3667 ExecStart=/usr/sbin/nginx -g daemon on; master_process on; (code=exited, status=0/SUCCESS)
+   Main PID: 3696 (nginx)
+      Tasks: 3 (limit: 990)
+     Memory: 2.4M (peak: 5.3M)
+        CPU: 22ms
+     CGroup: /system.slice/nginx.service
+             ├─3696 "nginx: master process /usr/sbin/nginx -g daemon on; master_process on;"
+             ├─3699 "nginx: worker process"
+             └─3700 "nginx: worker process"
+
+Jan 16 19:29:38 mailing-server systemd[1]: Starting nginx.service - A high performance web server and a reverse proxy s>
+Jan 16 19:29:38 mailing-server systemd[1]: Started nginx.service - A high performance web server and a reverse proxy se>
+
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ systemctl status nginx
+● nginx.service - A high performance web server and a reverse proxy server
+     Loaded: loaded (/usr/lib/systemd/system/nginx.service; enabled; preset: enabled)
+     Active: active (running) since Fri 2026-01-16 19:29:38 UTC; 13s ago
+       Docs: man:nginx(8)
+    Process: 3665 ExecStartPre=/usr/sbin/nginx -t -q -g daemon on; master_process on; (code=exited, status=0/SUCCESS)
+    Process: 3667 ExecStart=/usr/sbin/nginx -g daemon on; master_process on; (code=exited, status=0/SUCCESS)
+   Main PID: 3696 (nginx)
+      Tasks: 3 (limit: 990)
+     Memory: 2.4M (peak: 5.3M)
+        CPU: 22ms
+     CGroup: /system.slice/nginx.service
+             ├─3696 "nginx: master process /usr/sbin/nginx -g daemon on; master_process on;"
+             ├─3699 "nginx: worker process"
+             └─3700 "nginx: worker process"
+
+Jan 16 19:29:38 mailing-server systemd[1]: Starting nginx.service - A high performance web server and a reverse proxy s>
+Jan 16 19:29:38 mailing-server systemd[1]: Started nginx.service - A high performance web server and a reverse proxy se>
+
+
+
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ sudo ln -s /etc/nginx/sites-available/smtp-api /etc/nginx/sites-enabled/
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ sudo nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ sudo systemctl reload nginx
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ sudo apt install certbot python3-certbot-nginx -y
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following additional packages will be installed:
+  python3-acme python3-certbot python3-configargparse python3-icu python3-josepy python3-parsedatetime python3-rfc3339
+Suggested packages:
+  python-certbot-doc python3-certbot-apache python-acme-doc python-certbot-nginx-doc
+The following NEW packages will be installed:
+  certbot python3-acme python3-certbot python3-certbot-nginx python3-configargparse python3-icu python3-josepy
+  python3-parsedatetime python3-rfc3339
+0 upgraded, 9 newly installed, 0 to remove and 19 not upgraded.
+Need to get 1097 kB of archives.
+After this operation, 5699 kB of additional disk space will be used.
+Get:1 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 python3-josepy all 1.14.0-1 [22.1 kB]
+Get:2 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 python3-rfc3339 all 1.1-4 [6744 B]
+Get:3 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 python3-acme all 2.9.0-1 [48.5 kB]
+Get:4 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 python3-configargparse all 1.7-1 [31.7 kB]
+Get:5 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 python3-parsedatetime all 2.6-3 [32.8 kB]
+Get:6 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 python3-certbot all 2.9.0-1 [267 kB]
+Get:7 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 certbot all 2.9.0-1 [89.2 kB]
+Get:8 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 python3-certbot-nginx all 2.9.0-1 [66.0 kB]
+Get:9 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 python3-icu amd64 2.12-1build2 [534 kB]
+Fetched 1097 kB in 0s (20.5 MB/s)
+Preconfiguring packages ...
+Selecting previously unselected package python3-josepy.
+(Reading database ... 73866 files and directories currently installed.)
+Preparing to unpack .../0-python3-josepy_1.14.0-1_all.deb ...
+Unpacking python3-josepy (1.14.0-1) ...
+Selecting previously unselected package python3-rfc3339.
+Preparing to unpack .../1-python3-rfc3339_1.1-4_all.deb ...
+Unpacking python3-rfc3339 (1.1-4) ...
+Selecting previously unselected package python3-acme.
+Preparing to unpack .../2-python3-acme_2.9.0-1_all.deb ...
+Unpacking python3-acme (2.9.0-1) ...
+Selecting previously unselected package python3-configargparse.
+Preparing to unpack .../3-python3-configargparse_1.7-1_all.deb ...
+Unpacking python3-configargparse (1.7-1) ...
+Selecting previously unselected package python3-parsedatetime.
+Preparing to unpack .../4-python3-parsedatetime_2.6-3_all.deb ...
+Unpacking python3-parsedatetime (2.6-3) ...
+Selecting previously unselected package python3-certbot.
+Preparing to unpack .../5-python3-certbot_2.9.0-1_all.deb ...
+Unpacking python3-certbot (2.9.0-1) ...
+Selecting previously unselected package certbot.
+Preparing to unpack .../6-certbot_2.9.0-1_all.deb ...
+Unpacking certbot (2.9.0-1) ...
+Selecting previously unselected package python3-certbot-nginx.
+Preparing to unpack .../7-python3-certbot-nginx_2.9.0-1_all.deb ...
+Unpacking python3-certbot-nginx (2.9.0-1) ...
+Selecting previously unselected package python3-icu.
+Preparing to unpack .../8-python3-icu_2.12-1build2_amd64.deb ...
+Unpacking python3-icu (2.12-1build2) ...
+Setting up python3-configargparse (1.7-1) ...
+Setting up python3-parsedatetime (2.6-3) ...
+Setting up python3-icu (2.12-1build2) ...
+Setting up python3-josepy (1.14.0-1) ...
+Setting up python3-rfc3339 (1.1-4) ...
+Setting up python3-acme (2.9.0-1) ...
+Setting up python3-certbot (2.9.0-1) ...
+Setting up certbot (2.9.0-1) ...
+Created symlink /etc/systemd/system/timers.target.wants/certbot.timer → /usr/lib/systemd/system/certbot.timer.
+Setting up python3-certbot-nginx (2.9.0-1) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+Scanning processes...
+Scanning linux images...
+
+Running kernel seems to be up-to-date.
+
+No services need to be restarted.
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ sudo certbot --nginx -d mail.yourdomain.com
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+Enter email address (used for urgent renewal and security notices)
+ (Enter 'c' to cancel): ^CExiting due to user request.
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ sudo certbot --nginx -d mail.kunalpatil.me
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+Enter email address (used for urgent renewal and security notices)
+ (Enter 'c' to cancel):
+Invalid email address: .
+
+
+If you really want to skip this, you can run the client with
+--register-unsafely-without-email but you will then be unable to receive notice
+about impending expiration or revocation of your certificates or problems with
+your Certbot installation that will lead to failure to renew.
+
+Enter email address (used for urgent renewal and security notices)
+ (Enter 'c' to cancel):
+Invalid email address: .
+
+
+If you really want to skip this, you can run the client with
+--register-unsafely-without-email but you will then be unable to receive notice
+about impending expiration or revocation of your certificates or problems with
+your Certbot installation that will lead to failure to renew.
+
+Enter email address (used for urgent renewal and security notices)
+ (Enter 'c' to cancel): ^CExiting due to user request.
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ sudo certbot --nginx -d mail.kunalpatil.me
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+Enter email address (used for urgent renewal and security notices)
+ (Enter 'c' to cancel): kunaldp379@gmail.com
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Please read the Terms of Service at
+https://letsencrypt.org/documents/LE-SA-v1.6-August-18-2025.pdf. You must agree
+in order to register with the ACME server. Do you agree?
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+(Y)es/(N)o: yes
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Would you be willing, once your first certificate is successfully issued, to
+share your email address with the Electronic Frontier Foundation, a founding
+partner of the Let's Encrypt project and the non-profit organization that
+develops Certbot? We'd like to send you email about our work encrypting the web,
+EFF news, campaigns, and ways to support digital freedom.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+(Y)es/(N)o: y
+Account registered.
+Requesting a certificate for mail.kunalpatil.me
+
+Successfully received certificate.
+Certificate is saved at: /etc/letsencrypt/live/mail.kunalpatil.me/fullchain.pem
+Key is saved at:         /etc/letsencrypt/live/mail.kunalpatil.me/privkey.pem
+This certificate expires on 2026-04-16.
+These files will be updated when the certificate renews.
+Certbot has set up a scheduled task to automatically renew this certificate in the background.
+
+Deploying certificate
+Successfully deployed certificate for mail.kunalpatil.me to /etc/nginx/sites-enabled/smtp-api
+Congratulations! You have successfully enabled HTTPS on https://mail.kunalpatil.me
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+If you like Certbot, please consider supporting our work by:
+ * Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
+ * Donating to EFF:                    https://eff.org/donate-le
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ sudo nano /etc/nginx/sites-available/smtp-api
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ sudo nano /etc/nginx/sites-available/smtp-api^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ sudo certbot renew --dry-run
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Processing /etc/letsencrypt/renewal/mail.kunalpatil.me.conf
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Account registered.
+Simulating renewal of an existing certificate for mail.kunalpatil.me
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Congratulations, all simulated renewals succeeded:
+  /etc/letsencrypt/live/mail.kunalpatil.me/fullchain.pem (success)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ nslookup mail.kunalpatil.me
+Server:         127.0.0.53
+Address:        127.0.0.53#53
+
+Non-authoritative answer:
+Name:   mail.kunalpatil.me
+Address: 20.193.253.234
+
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+
+
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ nslookup mail.kunalpatil.me
+Server:         127.0.0.53
+Address:        127.0.0.53#53
+
+Non-authoritative answer:
+Name:   mail.kunalpatil.me
+Address: 20.193.253.234
+
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ sudo certbot renew --dry-run
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Processing /etc/letsencrypt/renewal/mail.kunalpatil.me.conf
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Simulating renewal of an existing certificate for mail.kunalpatil.me
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Congratulations, all simulated renewals succeeded:
+  /etc/letsencrypt/live/mail.kunalpatil.me/fullchain.pem (success)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ sudo certbot renew --dry-run
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Processing /etc/letsencrypt/renewal/mail.kunalpatil.me.conf
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Simulating renewal of an existing certificate for mail.kunalpatil.me
+^[[A^[[A
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Congratulations, all simulated renewals succeeded:
+  /etc/letsencrypt/live/mail.kunalpatil.me/fullchain.pem (success)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ sudo systemctl reload nginx
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ nslookup mail.kunalpatil.me
+Server:         127.0.0.53
+Address:        127.0.0.53#53
+
+Non-authoritative answer:
+Name:   mail.kunalpatil.me
+Address: 20.193.253.234
+
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ sudo nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ sudo systemctl reload nginx
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ nslookup mail.kunalpatil.me
+Server:         127.0.0.53
+Address:        127.0.0.53#53
+
+Non-authoritative answer:
+Name:   mail.kunalpatil.me
+Address: 20.193.253.234
+
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+
+
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ sudo nano /etc/nginx/sites-available/smtp-api
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ sudo certbot --nginx -d mailing.kunalpatil.me
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+Requesting a certificate for mailing.kunalpatil.me
+
+Successfully received certificate.
+Certificate is saved at: /etc/letsencrypt/live/mailing.kunalpatil.me/fullchain.pem
+Key is saved at:         /etc/letsencrypt/live/mailing.kunalpatil.me/privkey.pem
+This certificate expires on 2026-04-16.
+These files will be updated when the certificate renews.
+Certbot has set up a scheduled task to automatically renew this certificate in the background.
+
+Deploying certificate
+Successfully deployed certificate for mailing.kunalpatil.me to /etc/nginx/sites-enabled/smtp-api
+Congratulations! You have successfully enabled HTTPS on https://mailing.kunalpatil.me
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+If you like Certbot, please consider supporting our work by:
+ * Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
+ * Donating to EFF:                    https://eff.org/donate-le
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ nslookup mail.kunalpatil.me
+Server:         127.0.0.53
+Address:        127.0.0.53#53
+
+Non-authoritative answer:
+Name:   mail.kunalpatil.me
+Address: 20.193.253.234
+
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ nslookup mailing.kunalpatil.me
+Server:         127.0.0.53
+Address:        127.0.0.53#53
+
+Non-authoritative answer:
+mailing.kunalpatil.me   canonical name = mailing.centralindia.cloudapp.azure.com.
+Name:   mailing.centralindia.cloudapp.azure.com
+Address: 20.193.253.234
+
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ Complete setup guide for kunalpatil.me:
+# Complete Email Setup Guide for kunalpatil.meThis guide will walk you through setting up your own email server for the domain `kunalpatil.me` using your SMTP Mail Server application.## Table of Contents1. [Prerequisites](#prerequisites)2. [DNS Configuration](#dns-configuration)3. [Server Setup](#server-setup)4. [Application Configuration](#application-configuration)5. [Creating Email Addresses](#creating-email-addresses)6. [Testing Your Setup](#testing-your-setup)7. [Email Client Configuration](#email-client-configuration)8. [Troubleshooting](#troubleshooting)9. [Production Recommendations](#production-recommendations)---## PrerequisitesBefore starting, ensure you have:- ✅ Domain `kunalpatil.me` purchased and active- ✅ Access to your domain registrar's DNS management panel- ✅ Server/VPS with a public IP address (or local server with port forwarding)- ✅ Node.js and MongoDB installed and running- ✅ SMTP Mail Server application running---## DNS Configuration### Step 1: Access Your DNS Management PanelLog in to your domain registrar (GoDaddy, Namecheap, Cloudflare, etc.) and navigate to DNS management for `kunalpatil.me`.### Step 2: Configure DNS RecordsAdd the following DNS records:#### A. A Record for Mail ServerCreate an A record pointing to your server's IP address:
+Type: A
+Name: mail (or smtp)
+Value: YOUR_SERVER_PUBLIC_IP
+TTL: 3600 (or Auto)
+**Example:**
+Type: A
+Name: mail
+Value: 123.45.67.89
+TTL: 3600
+This creates `mail.kunalpatil.me` pointing to your server.#### B. MX Record (Mail Exchange)This tells other mail servers where to send emails for `kunalpatil.me`:
+Type: MX
+Name: @ (or kunalpatil.me)
+Priority: 10
+Value: mail.kunalpatil.me
+TTL: 3600
+**Example:**
+Type: MX
+Name: @
+Priority: 10
+Value: mail.kunalpatil.me
+TTL: 3600
+#### C. SPF Record (Sender Policy Framework)Helps prevent email spoofing and improves deliverability:
+Type: TXT
+Name: @
+Value: v=spf1 mx a:mail.kunalpatil.me ip4:YOUR_SERVER_IP ~all
+TTL: 3600
+**Example (replace with your actual IP):**
+Type: TXT
+Name: @
+Value: v=spf1 mx a:mail.kunalpatil.me ip4:123.45.67.89 ~all
+TTL: 3600
+#### D. DMARC Record (Optional but Recommended)Email authentication policy:
+Type: TXT
+Name: dmarc
+Value: v=DMARC1; p=none; rua=mailto:admin@kunalpatil.me
+TTL: 3600
+#### E. DKIM Record (Optional - Advanced)For better email deliverability. Requires generating DKIM keys first (covered in advanced setup).### Step 3: Verify DNS RecordsAfter adding the records, verify they're working:**Using PowerShell:**ll# Check MX recordnslookup -type=MX kunalpatil.me# Check A recordnslookup mail.kunalpatil.me# Check SPF recordnslookup -type=TXT kunalpatil.me**Using Online Tools:**- https://mxtoolbox.com/- https://dnschecker.org/**Note:** DNS changes can take 24-48 hours to propagate globally, but usually work within 1-2 hours.---## Server Setup### Step 1: Get Your Public IP AddressIf your server is on a local network, you need to:**Option A: Use a VPS/Cloud Server (Recommended)**- DigitalOcean, AWS, Google Cloud, Azure- Get a static IP address- Better for production use**Option B: Use Local Server with Port Forwarding**- Configure your router to forward ports:  - Port 25 (SMTP) → Your server IP:2525  - Port 587 (SMTP Submission) → Your server IP:2525  - Port 3000 (API) → Your server IP:3000- Use dynamic DNS service (No-IP, DuckDNS) if IP changes**Option C: Use ngrok for Testing (Development Only)**# Install ngrok# Forward SMTP portngrok tcp 2525# Use the provided address for testing### Step 2: Configure FirewallOpen the following ports on your server:**Windows Firewall:**# Allow SMTP portNew-NetFirewallRule -DisplayName "SMTP Server" -Direction Inbound -LocalPort 2525 -Protocol TCP -Action Allow# Allow API portNew-NetFirewallRule -DisplayName "API Server" -Direction Inbound -LocalPort 3000 -Protocol TCP -Action Allow**Linux (UFW):**sudo ufw allow 2525/tcpsudo ufw allow 3000/tcpsudo ufw reload**Important:** Many ISPs block port 25. If you can't use port 25, use port 587 (submission port) or configure your application to use an SMTP relay service.---## Application Configuration### Step 1: Update .env FileEdit your `.env` file with the following configuration:# Server ConfigurationPORT=3000HOST=0.0.0.0# SMTP Server ConfigurationSMTP_PORT=2525SMTP_HOST=0.0.0.0SMTP_SECURE=falseSMTP_REQUIRE_AUTH=trueSMTP_MAX_CONNECTIONS=100SMTP_MAX_MESSAGES=10# MongoDB ConfigurationMONGODB_URI=your_mongodb_connection_stringDB_NAME=mailingserver# JWT ConfigurationJWT_SECRET=your-super-secret-jwt-key-change-thisJWT_EXPIRES_IN=24h# Domain ConfigurationDEFAULT_DOMAIN=kunalpatil.me# SMTP Relay Configuration (for sending emails to external servers)# Option 1: Use Gmail SMTP RelaySMTP_RELAY_HOST=smtp.gmail.comSMTP_RELAY_PORT=587SMTP_RELAY_SECURE=falseSMTP_RELAY_USER=your-email@gmail.comSMTP_RELAY_PASS=your-app-password# Option 2: Use a dedicated email service (Recommended for production)# SMTP_RELAY_HOST=smtp.sendgrid.net# SMTP_RELAY_PORT=587# SMTP_RELAY_SECURE=false# SMTP_RELAY_USER=apikey# SMTP_RELAY_PASS=your-sendgrid-api-key# Mail ConfigurationMAX_ATTACHMENT_SIZE=10485760MAIL_STORAGE_PATH=./storage/attachmentsMAIL_QUEUE_ENABLED=false# LoggingLOG_LEVEL=info### Step 2: Start Your tusCode -eq 400) {            Write-Host "⚠️  $emailAddress might already exist"        } else {            Write-Host "❌ Error creating $emailAddress : $_"        }    }}Write-Host "`n✅ Email addresses crea✅ $emailAddress created successfully"    } catch {        if ($_.Exception.Response.StatusCode -eq 400) {            Write-Host "⚠️  $emailAddress might already exist"        } else {            Write-Host "tusCode -eq 400) {            Write-Host "⚠️  $emailAddress might already exist"        } else {            Write-Host "❌ Error creating $emailAddress : $_"        }    }}Write-Host "`n✅ Email addresses crea✅ $emailAddress created successfully"    } catch {        if ($_.Exception.Response.StatusCode -eq 400) {            Write-Host "⚠️  $emailAddress might already exist"        } else {            Write-Host "Domain: kunalpatil.me^C026ave your own email server for kunalpatil.me! 🎉e-RestMethod -Uri "http://localhost:3000/api/mails" `    -Method Get -Headers $headers | Format-TableLSated_at$MAIL_ID/send \  -H "Conte
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ telnet localhost 2525
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+220 localhost ESMTP
+^C^C^C^C^C^C^C^C
+
+
+
+^C^C^C
+exit
+QUIT
+Connection closed by foreign host.
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ telnet mailing.kunalpatil.me 2525
+Trying 20.193.253.234...
+Connected to mailing.kunalpatil.me.
+Escape character is '^]'.
+220 localhost ESMTP
+^[[A^[[A^[[A^[[A^C^C^C^C^CQUIT
+QUIT
+Connection closed by foreign host.
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ sudo apt install swaks -y
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following additional packages will be installed:
+  libdigest-bubblebabble-perl libdigest-hmac-perl libidn12 libio-socket-inet6-perl libnet-dns-perl libnet-dns-sec-perl libnet-libidn-perl libnet-ssleay-perl libperl4-corelibs-perl libsocket6-perl
+  perl-openssl-defaults
+Suggested packages:
+  debhelper libauthen-ntlm-perl libauthen-sasl-perl perl-doc
+The following NEW packages will be installed:
+  libdigest-bubblebabble-perl libdigest-hmac-perl libidn12 libio-socket-inet6-perl libnet-dns-perl libnet-dns-sec-perl libnet-libidn-perl libnet-ssleay-perl libperl4-corelibs-perl libsocket6-perl
+  perl-openssl-defaults swaks
+0 upgraded, 12 newly installed, 0 to remove and 19 not upgraded.
+Need to get 951 kB of archives.
+After this operation, 3425 kB of additional disk space will be used.
+Get:1 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libdigest-bubblebabble-perl all 0.02-2.1 [7160 B]
+Get:2 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libdigest-hmac-perl all 1.04+dfsg-2 [9060 B]
+Get:3 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libidn12 amd64 1.42-1build1 [55.9 kB]
+Get:4 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libsocket6-perl amd64 0.29-3build3 [17.5 kB]
+Get:5 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libio-socket-inet6-perl all 2.73-1 [14.7 kB]
+Get:6 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libnet-dns-perl all 1.44-1ubuntu1 [335 kB]
+Get:7 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libnet-dns-sec-perl amd64 1.23-1build4 [41.0 kB]
+Get:8 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libnet-libidn-perl amd64 0.12.ds-4build4 [16.4 kB]
+Get:9 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 perl-openssl-defaults amd64 7build3 [6626 B]
+Get:10 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libnet-ssleay-perl amd64 1.94-1build4 [316 kB]
+Get:11 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libperl4-corelibs-perl all 0.005-1 [38.1 kB]
+Get:12 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 swaks all 20240103.0-1 [93.6 kB]
+Fetched 951 kB in 1s (1479 kB/s)
+Selecting previously unselected package libdigest-bubblebabble-perl.
+(Reading database ... 74263 files and directories currently installed.)
+Preparing to unpack .../00-libdigest-bubblebabble-perl_0.02-2.1_all.deb ...
+Unpacking libdigest-bubblebabble-perl (0.02-2.1) ...
+Selecting previously unselected package libdigest-hmac-perl.
+Preparing to unpack .../01-libdigest-hmac-perl_1.04+dfsg-2_all.deb ...
+Unpacking libdigest-hmac-perl (1.04+dfsg-2) ...
+Selecting previously unselected package libidn12:amd64.
+Preparing to unpack .../02-libidn12_1.42-1build1_amd64.deb ...
+Unpacking libidn12:amd64 (1.42-1build1) ...
+Selecting previously unselected package libsocket6-perl.
+Preparing to unpack .../03-libsocket6-perl_0.29-3build3_amd64.deb ...
+Unpacking libsocket6-perl (0.29-3build3) ...
+Selecting previously unselected package libio-socket-inet6-perl.
+Preparing to unpack .../04-libio-socket-inet6-perl_2.73-1_all.deb ...
+Unpacking libio-socket-inet6-perl (2.73-1) ...
+Selecting previously unselected package libnet-dns-perl.
+Preparing to unpack .../05-libnet-dns-perl_1.44-1ubuntu1_all.deb ...
+Unpacking libnet-dns-perl (1.44-1ubuntu1) ...
+Selecting previously unselected package libnet-dns-sec-perl.
+Preparing to unpack .../06-libnet-dns-sec-perl_1.23-1build4_amd64.deb ...
+Unpacking libnet-dns-sec-perl (1.23-1build4) ...
+Selecting previously unselected package libnet-libidn-perl.
+Preparing to unpack .../07-libnet-libidn-perl_0.12.ds-4build4_amd64.deb ...
+Unpacking libnet-libidn-perl (0.12.ds-4build4) ...
+Selecting previously unselected package perl-openssl-defaults:amd64.
+Preparing to unpack .../08-perl-openssl-defaults_7build3_amd64.deb ...
+Unpacking perl-openssl-defaults:amd64 (7build3) ...
+Selecting previously unselected package libnet-ssleay-perl:amd64.
+Preparing to unpack .../09-libnet-ssleay-perl_1.94-1build4_amd64.deb ...
+Unpacking libnet-ssleay-perl:amd64 (1.94-1build4) ...
+Selecting previously unselected package libperl4-corelibs-perl.
+Preparing to unpack .../10-libperl4-corelibs-perl_0.005-1_all.deb ...
+Unpacking libperl4-corelibs-perl (0.005-1) ...
+Selecting previously unselected package swaks.
+Preparing to unpack .../11-swaks_20240103.0-1_all.deb ...
+Unpacking swaks (20240103.0-1) ...
+Setting up libperl4-corelibs-perl (0.005-1) ...
+Setting up perl-openssl-defaults:amd64 (7build3) ...
+Setting up libdigest-hmac-perl (1.04+dfsg-2) ...
+Setting up libsocket6-perl (0.29-3build3) ...
+Setting up libidn12:amd64 (1.42-1build1) ...
+Setting up swaks (20240103.0-1) ...
+Setting up libdigest-bubblebabble-perl (0.02-2.1) ...
+Setting up libnet-ssleay-perl:amd64 (1.94-1build4) ...
+Setting up libnet-dns-perl (1.44-1ubuntu1) ...
+Setting up libio-socket-inet6-perl (2.73-1) ...
+Setting up libnet-libidn-perl (0.12.ds-4build4) ...
+Setting up libnet-dns-sec-perl (1.23-1build4) ...
+Processing triggers for libc-bin (2.39-0ubuntu8.6) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+Scanning processes...
+Scanning linux images...
+
+Running kernel seems to be up-to-date.
+
+No services need to be restarted.
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ nslookup -type=MX kunalpatil.me
+Server:         127.0.0.53
+Address:        127.0.0.53#53
+
+Non-authoritative answer:
+kunalpatil.me   mail exchanger = 10 mailing.kunalpatil.me.
+
+Authoritative answers can be found from:
+
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ng triggers for man-db (2.12.0-4build2) ...
+Scanning processes...
+Scanning linux images...
+
+Running kernel seems to be up-to-date.
+
+No services need to be restarted.
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ nslookup -type=MX kunalpatil.me
+Server:         127.0.0.53
+Address:        127.0.0.53#53
+
+Non-authoritative answer:
+kunalpatil.me   mail exchanger = 10 mailing.kunalpatil.me.
+
+Authoritative answers can be found from:
+
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ nano .env
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ pm2 restart smtp-server
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [smtp-server](ids: [ 0 ])
+[PM2] [smtp-server](0) ✓
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 4696     │ 0s     │ 1    │ online    │ 0%       │ 18.4mb   │ azu… │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ pm2 logs smtp-server --lines 20
+[TAILING] Tailing last 20 lines for [smtp-server] process (change the value with --lines option)
+/home/azureuser/.pm2/logs/smtp-server-error.log last 20 lines:
+0|smtp-ser | SyntaxError: Unexpected token ''', "'{email:ku"... is not valid JSON
+0|smtp-ser |     at JSON.parse (<anonymous>)
+0|smtp-ser |     at createStrictSyntaxError (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:169:10)
+0|smtp-ser |     at parse (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:86:15)
+0|smtp-ser |     at /home/azureuser/SMTP/SMTP-Mail-Server/node_modules/body-parser/lib/read.js:128:18
+0|smtp-ser |     at AsyncResource.runInAsyncScope (node:async_hooks:206:9)
+0|smtp-ser |     at invokeCallback (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/raw-body/index.js:238:16)
+0|smtp-ser |     at done (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/raw-body/index.js:227:7)
+0|smtp-ser |     at IncomingMessage.onEnd (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/raw-body/index.js:287:7)
+0|smtp-ser |     at IncomingMessage.emit (node:events:524:28)
+0|smtp-ser |     at endReadableNT (node:internal/streams/readable:1698:12)
+
+/home/azureuser/.pm2/logs/smtp-server-out.log last 20 lines:
+0|smtp-ser |  5.7.8  https://support.google.com/mail/?p=BadCredentials 98e67ed59e1d1-352678af3dcsm5213191a91.9 - gsmtp\n    at SMTPConnection._formatError (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:809:19)\n    at SMTPConnection._actionAUTHComplete (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1588:34)\n    at SMTPConnection.<anonymous> (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:556:26)\n    at SMTPConnection._processResponse (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:993:20)\n    at SMTPConnection._onData (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:774:14)\n    at SMTPConnection._onSocketData (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:195:44)\n    at TLSSocket.emit (node:events:524:28)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)\n    at Readable.push (node:internal/streams/readable:392:5)","timestamp":"2026-01-16T20:02:42.962Z"}
+0|smtp-ser | error: Send mail error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+0|smtp-ser | 535 5.7.8  https://support.google.com/mail/?p=BadCredentials 98e67ed59e1d1-352678af3dcsm5213191a91.9 - gsmtp {"code":"EAUTH","command":"AUTH PLAIN","response":"535-5.7.8 Username and Password not accepted. For more information, go to\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials 98e67ed59e1d1-352678af3dcsm5213191a91.9 - gsmtp","responseCode":535,"service":"smtp-mail-server","stack":"Error: Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to\n535 5.7.8  https://support.google.com/mail/?p=BadCredentials 98e67ed59e1d1-352678af3dcsm5213191a91.9 - gsmtp\n    at SMTPConnection._formatError (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:809:19)\n    at SMTPConnection._actionAUTHComplete (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1588:34)\n    at SMTPConnection.<anonymous> (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:556:26)\n    at SMTPConnection._processResponse (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:993:20)\n    at SMTPConnection._onData (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:774:14)\n    at SMTPConnection._onSocketData (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:195:44)\n    at TLSSocket.emit (node:events:524:28)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)\n    at Readable.push (node:internal/streams/readable:392:5)","timestamp":"2026-01-16T20:02:42.982Z"}
+0|smtp-ser | info: SIGINT received, shutting down gracefully {"service":"smtp-mail-server","timestamp":"2026-01-16T20:10:12.693Z"}
+0|smtp-ser | info: SMTP Server stopped {"service":"smtp-mail-server","timestamp":"2026-01-16T20:10:12.693Z"}
+0|smtp-ser | warn: MongoDB disconnected {"service":"smtp-mail-server","timestamp":"2026-01-16T20:10:12.698Z"}
+0|smtp-ser | info: MongoDB disconnected successfully {"service":"smtp-mail-server","timestamp":"2026-01-16T20:10:12.698Z"}
+0|smtp-ser | info: Starting SMTP Mail Server... {"service":"smtp-mail-server","timestamp":"2026-01-16T20:10:13.875Z"}
+0|smtp-ser | info: MongoDB connected successfully {"service":"smtp-mail-server","timestamp":"2026-01-16T20:10:14.301Z"}
+0|smtp-ser | info: All servers started successfully {"service":"smtp-mail-server","timestamp":"2026-01-16T20:10:14.304Z"}
+0|smtp-ser | info: API Server listening on 0.0.0.0:3000 {"service":"smtp-mail-server","timestamp":"2026-01-16T20:10:14.305Z"}
+0|smtp-ser | info: SMTP Server listening on 0.0.0.0:2525 {"service":"smtp-mail-server","timestamp":"2026-01-16T20:10:14.305Z"}
+
+^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ openssl genrsa -out dkim.private 2048
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ openssl rsa -in dkim.private -pubout -out dkim.public
+writing RSA key
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ cat dkim.public
+-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA31ARomywYdgGNtluWRDf
+Lq8ffXNs0isdvTgsHEV3O27aETd+eaLdeKBXNFxgF3ImNH0ylaowv7FWqc7BnpyM
+JtR9CJnF/GhFw+cVXdHeNtUJAqopgc9qccKUAf0rpSz9+LMF0bTGCQHfH+B+IE+L
+FNZ2+/Niy6woeetUYXiXJA+nlnznMoumTewW8iRpsAxUiAWEiM/Z/x6vBckLrz/x
+hknMLGUBh48Ux2ihfFNG9uIMY/wOFQx56hs5iGn8UUyCJ+USMDw65KC+Ws0XsjQv
+rNnSOHuskZWMoKDNKngVy1lsRtOZhOVMsp+BrxIZaDjcLkCGi2DZkB6e8oaYyN5W
+VwIDAQAB
+-----END PUBLIC KEY-----
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ dig -x 20.193.253.234
+
+; <<>> DiG 9.18.39-0ubuntu0.24.04.2-Ubuntu <<>> -x 20.193.253.234
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 19654
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 65494
+;; QUESTION SECTION:
+;234.253.193.20.in-addr.arpa.   IN      PTR
+
+;; ANSWER SECTION:
+234.253.193.20.in-addr.arpa. 10 IN      PTR     mailing.kunalpatil.me.
+
+;; Query time: 3 msec
+;; SERVER: 127.0.0.53#53(127.0.0.53) (UDP)
+;; WHEN: Fri Jan 16 20:49:57 UTC 2026
+;; MSG SIZE  rcvd: 91
+
+
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ pm2 restart smtp-server^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ pm2 restart smtp-server
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [smtp-server](ids: [ 0 ])
+[PM2] [smtp-server](0) ✓
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 5297     │ 0s     │ 2    │ online    │ 0%       │ 25.6mb   │ azu… │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ nano .env
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ pm2 restart smtp-server
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [smtp-server](ids: [ 0 ])
+[PM2] [smtp-server](0) ✓
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 5365     │ 0s     │ 3    │ online    │ 0%       │ 18.4mb   │ azu… │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ pm2 logs smtp-server
+[TAILING] Tailing last 15 lines for [smtp-server] process (change the value with --lines option)
+/home/azureuser/.pm2/logs/smtp-server-error.log last 15 lines:
+0|smtp-ser | SyntaxError: Unexpected token ''', "'{email:ku"... is not valid JSON
+0|smtp-ser |     at JSON.parse (<anonymous>)
+0|smtp-ser |     at createStrictSyntaxError (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:169:10)
+0|smtp-ser |     at parse (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:86:15)
+0|smtp-ser |     at /home/azureuser/SMTP/SMTP-Mail-Server/node_modules/body-parser/lib/read.js:128:18
+0|smtp-ser |     at AsyncResource.runInAsyncScope (node:async_hooks:206:9)
+0|smtp-ser |     at invokeCallback (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/raw-body/index.js:238:16)
+0|smtp-ser |     at done (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/raw-body/index.js:227:7)
+0|smtp-ser |     at IncomingMessage.onEnd (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/raw-body/index.js:287:7)
+0|smtp-ser |     at IncomingMessage.emit (node:events:524:28)
+0|smtp-ser |     at endReadableNT (node:internal/streams/readable:1698:12)
+
+/home/azureuser/.pm2/logs/smtp-server-out.log last 15 lines:
+0|smtp-ser | ":"ESOCKET","command":"CONN","errno":-111,"port":587,"service":"smtp-mail-server","stack":"Error: connect ECONNREFUSED 127.0.0.1:587\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)","syscall":"connect","timestamp":"2026-01-16T20:54:35.373Z"}
+0|smtp-ser | error: Send mail error: connect ECONNREFUSED 127.0.0.1:587 {"address":"127.0.0.1","code":"ESOCKET","command":"CONN","errno":-111,"port":587,"service":"smtp-mail-server","stack":"Error: connect ECONNREFUSED 127.0.0.1:587\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)","syscall":"connect","timestamp":"2026-01-16T20:54:35.394Z"}
+0|smtp-ser | info: SIGINT received, shutting down gracefully {"service":"smtp-mail-server","timestamp":"2026-01-16T20:56:27.068Z"}
+0|smtp-ser | info: SMTP Server stopped {"service":"smtp-mail-server","timestamp":"2026-01-16T20:56:27.068Z"}
+0|smtp-ser | warn: MongoDB disconnected {"service":"smtp-mail-server","timestamp":"2026-01-16T20:56:27.074Z"}
+0|smtp-ser | info: MongoDB disconnected successfully {"service":"smtp-mail-server","timestamp":"2026-01-16T20:56:27.074Z"}
+0|smtp-ser | info: Starting SMTP Mail Server... {"service":"smtp-mail-server","timestamp":"2026-01-16T20:56:27.787Z"}
+0|smtp-ser | info: MongoDB connected successfully {"service":"smtp-mail-server","timestamp":"2026-01-16T20:56:28.171Z"}
+0|smtp-ser | info: All servers started successfully {"service":"smtp-mail-server","timestamp":"2026-01-16T20:56:28.174Z"}
+0|smtp-ser | info: API Server listening on 0.0.0.0:3000 {"service":"smtp-mail-server","timestamp":"2026-01-16T20:56:28.175Z"}
+0|smtp-ser | info: SMTP Server listening on 0.0.0.0:2525 {"service":"smtp-mail-server","timestamp":"2026-01-16T20:56:28.176Z"}
+0|smtp-ser | error: Error sending mail: connect ECONNREFUSED 127.0.0.1:587 {"address":"127.0.0.1","code":"ESOCKET","command":"CONN","errno":-111,"port":587,"service":"smtp-mail-server","stack":"Error: connect ECONNREFUSED 127.0.0.1:587\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)","syscall":"connect","timestamp":"2026-01-16T20:56:33.789Z"}
+0|smtp-ser | error: Send mail error: connect ECONNREFUSED 127.0.0.1:587 {"address":"127.0.0.1","code":"ESOCKET","command":"CONN","errno":-111,"port":587,"service":"smtp-mail-server","stack":"Error: connect ECONNREFUSED 127.0.0.1:587\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)","syscall":"connect","timestamp":"2026-01-16T20:56:33.806Z"}
+0|smtp-ser | error: Error sending mail: connect ECONNREFUSED 127.0.0.1:587 {"address":"127.0.0.1","code":"ESOCKET","command":"CONN","errno":-111,"port":587,"service":"smtp-mail-server","stack":"Error: connect ECONNREFUSED 127.0.0.1:587\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)","syscall":"connect","timestamp":"2026-01-16T20:56:35.866Z"}
+0|smtp-ser | error: Send mail error: connect ECONNREFUSED 127.0.0.1:587 {"address":"127.0.0.1","code":"ESOCKET","command":"CONN","errno":-111,"port":587,"service":"smtp-mail-server","stack":"Error: connect ECONNREFUSED 127.0.0.1:587\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)","syscall":"connect","timestamp":"2026-01-16T20:56:35.880Z"}
+
+^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+
+
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ pm2 restart smtp-server
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [smtp-server](ids: [ 0 ])
+[PM2] [smtp-server](0) ✓
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 5412     │ 0s     │ 4    │ online    │ 0%       │ 17.5mb   │ azu… │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ git pull
+remote: Enumerating objects: 11, done.
+remote: Counting objects: 100% (11/11), done.
+remote: Compressing objects: 100% (1/1), done.
+remote: Total 6 (delta 5), reused 6 (delta 5), pack-reused 0 (from 0)
+Unpacking objects: 100% (6/6), 843 bytes | 843.00 KiB/s, done.
+From https://github.com/kunalpro379/SMTP-Mail-Server
+   e0a27b3..78b9e18  main       -> origin/main
+Updating e0a27b3..78b9e18
+error: Your local changes to the following files would be overwritten by merge:
+        combined.log
+Please commit your changes or stash them before you merge.
+Aborting
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ pm2 restart smtp-server
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [smtp-server](ids: [ 0 ])
+[PM2] [smtp-server](0) ✓
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 5481     │ 0s     │ 5    │ online    │ 0%       │ 17.7mb   │ azu… │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ pm2 restart smtp-server
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [smtp-server](ids: [ 0 ])
+[PM2] [smtp-server](0) ✓
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 5502     │ 0s     │ 6    │ online    │ 0%       │ 17.7mb   │ azu… │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ pm2 restart smtp-server
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [smtp-server](ids: [ 0 ])
+[PM2] [smtp-server](0) ✓
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 5531     │ 0s     │ 7    │ online    │ 0%       │ 17.9mb   │ azu… │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ pm2 logs smtp-server
+[TAILING] Tailing last 15 lines for [smtp-server] process (change the value with --lines option)
+/home/azureuser/.pm2/logs/smtp-server-error.log last 15 lines:
+0|smtp-ser | SyntaxError: Unexpected token ''', "'{email:ku"... is not valid JSON
+0|smtp-ser |     at JSON.parse (<anonymous>)
+0|smtp-ser |     at createStrictSyntaxError (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:169:10)
+0|smtp-ser |     at parse (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:86:15)
+0|smtp-ser |     at /home/azureuser/SMTP/SMTP-Mail-Server/node_modules/body-parser/lib/read.js:128:18
+0|smtp-ser |     at AsyncResource.runInAsyncScope (node:async_hooks:206:9)
+0|smtp-ser |     at invokeCallback (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/raw-body/index.js:238:16)
+0|smtp-ser |     at done (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/raw-body/index.js:227:7)
+0|smtp-ser |     at IncomingMessage.onEnd (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/raw-body/index.js:287:7)
+0|smtp-ser |     at IncomingMessage.emit (node:events:524:28)
+0|smtp-ser |     at endReadableNT (node:internal/streams/readable:1698:12)
+
+/home/azureuser/.pm2/logs/smtp-server-out.log last 15 lines:
+0|smtp-ser | info: API Server listening on 0.0.0.0:3000 {"service":"smtp-mail-server","timestamp":"2026-01-16T21:01:24.470Z"}
+0|smtp-ser | info: SMTP Server listening on 0.0.0.0:2525 {"service":"smtp-mail-server","timestamp":"2026-01-16T21:01:24.471Z"}
+0|smtp-ser | error: Error sending mail: connect ECONNREFUSED 127.0.0.1:587 {"address":"127.0.0.1","code":"ESOCKET","command":"CONN","errno":-111,"port":587,"service":"smtp-mail-server","stack":"Error: connect ECONNREFUSED 127.0.0.1:587\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)","syscall":"connect","timestamp":"2026-01-16T21:02:08.552Z"}
+0|smtp-ser | error: Send mail error: connect ECONNREFUSED 127.0.0.1:587 {"address":"127.0.0.1","code":"ESOCKET","command":"CONN","errno":-111,"port":587,"service":"smtp-mail-server","stack":"Error: connect ECONNREFUSED 127.0.0.1:587\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)","syscall":"connect","timestamp":"2026-01-16T21:02:08.568Z"}
+0|smtp-ser | error: Error sending mail: connect ECONNREFUSED 127.0.0.1:587 {"address":"127.0.0.1","code":"ESOCKET","command":"CONN","errno":-111,"port":587,"service":"smtp-mail-server","stack":"Error: connect ECONNREFUSED 127.0.0.1:587\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)","syscall":"connect","timestamp":"2026-01-16T21:02:11.082Z"}
+0|smtp-ser | error: Send mail error: connect ECONNREFUSED 127.0.0.1:587 {"address":"127.0.0.1","code":"ESOCKET","command":"CONN","errno":-111,"port":587,"service":"smtp-mail-server","stack":"Error: connect ECONNREFUSED 127.0.0.1:587\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)","syscall":"connect","timestamp":"2026-01-16T21:02:11.093Z"}
+0|smtp-ser | info: SIGINT received, shutting down gracefully {"service":"smtp-mail-server","timestamp":"2026-01-16T21:02:19.457Z"}
+0|smtp-ser | info: SMTP Server stopped {"service":"smtp-mail-server","timestamp":"2026-01-16T21:02:19.458Z"}
+0|smtp-ser | warn: MongoDB disconnected {"service":"smtp-mail-server","timestamp":"2026-01-16T21:02:19.463Z"}
+0|smtp-ser | info: MongoDB disconnected successfully {"service":"smtp-mail-server","timestamp":"2026-01-16T21:02:19.463Z"}
+0|smtp-ser | info: Starting SMTP Mail Server... {"service":"smtp-mail-server","timestamp":"2026-01-16T21:02:20.174Z"}
+0|smtp-ser | info: MongoDB connected successfully {"service":"smtp-mail-server","timestamp":"2026-01-16T21:02:20.368Z"}
+0|smtp-ser | info: All servers started successfully {"service":"smtp-mail-server","timestamp":"2026-01-16T21:02:20.370Z"}
+0|smtp-ser | info: API Server listening on 0.0.0.0:3000 {"service":"smtp-mail-server","timestamp":"2026-01-16T21:02:20.371Z"}
+0|smtp-ser | info: SMTP Server listening on 0.0.0.0:2525 {"service":"smtp-mail-server","timestamp":"2026-01-16T21:02:20.372Z"}
+
+0|smtp-server  | error: Error sending mail: connect ECONNREFUSED 127.0.0.1:587 {"address":"127.0.0.1","code":"ESOCKET","command":"CONN","errno":-111,"port":587,"service":"smtp-mail-server","stack":"Error: connect ECONNREFUSED 127.0.0.1:587\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)","syscall":"connect","timestamp":"2026-01-16T21:02:29.893Z"}
+0|smtp-server  | error: Send mail error: connect ECONNREFUSED 127.0.0.1:587 {"address":"127.0.0.1","code":"ESOCKET","command":"CONN","errno":-111,"port":587,"service":"smtp-mail-server","stack":"Error: connect ECONNREFUSED 127.0.0.1:587\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)","syscall":"connect","timestamp":"2026-01-16T21:02:29.909Z"}
+^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ git pull origin main
+From https://github.com/kunalpro379/SMTP-Mail-Server
+ * branch            main       -> FETCH_HEAD
+Updating e0a27b3..78b9e18
+error: Your local changes to the following files would be overwritten by merge:
+        combined.log
+Please commit your changes or stash them before you merge.
+Aborting
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ pm2 stop smtp-server
+[PM2] Applying action stopProcessId on app [smtp-server](ids: [ 0 ])
+[PM2] [smtp-server](0) ✓
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 7    │ stopped   │ 0%       │ 0b       │ azu… │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP/SMTP-Mail-Server$ cd ..
+azureuser@mailing-server:~/SMTP$ cd ..
+azureuser@mailing-server:~$ git clone https://github.com/kunalpro379/SMTP-Mail-Server
+Cloning into 'SMTP-Mail-Server'...
+remote: Enumerating objects: 59, done.
+remote: Counting objects: 100% (59/59), done.
+remote: Compressing objects: 100% (33/33), done.
+remote: Total 59 (delta 20), reused 59 (delta 20), pack-reused 0 (from 0)
+Receiving objects: 100% (59/59), 78.95 KiB | 19.74 MiB/s, done.
+Resolving deltas: 100% (20/20), done.
+azureuser@mailing-server:~$ SMTP-Mail-Server
+SMTP-Mail-Server: command not found
+azureuser@mailing-server:~$ cd SMTP-Mail-Server
+azureuser@mailing-server:~/SMTP-Mail-Server$ git clone https://github.com/kunalpro379/SMTP-Mail-Server^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ npm install
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: 'dns@0.2.2',
+npm warn EBADENGINE   required: { node: '>= 0.10.0 < 0.11.0' },
+npm warn EBADENGINE   current: { node: 'v20.20.0', npm: '10.8.2' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: 'hawk@0.10.2',
+npm warn EBADENGINE   required: { node: '0.8.x' },
+npm warn EBADENGINE   current: { node: 'v20.20.0', npm: '10.8.2' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: 'hoek@0.7.6',
+npm warn EBADENGINE   required: { node: '0.8.x' },
+npm warn EBADENGINE   current: { node: 'v20.20.0', npm: '10.8.2' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: 'tomahawk@0.1.6',
+npm warn EBADENGINE   required: { node: '>= 0.8.0 < 0.11.0' },
+npm warn EBADENGINE   current: { node: 'v20.20.0', npm: '10.8.2' }
+npm warn EBADENGINE }
+npm warn deprecated raw-body@1.3.0: No longer maintained. Please upgrade to a stable version.
+npm warn deprecated cryptiles@0.1.0: This version has been deprecated in accordance with the hapi support policy (hapi.im/support). Please upgrade to the latest version to get the best features, bug fixes, and security patches. If you are unable to upgrade at this time, paid support is available for older versions (hapi.im/commercial).
+npm warn deprecated boom@0.3.1: This version has been deprecated in accordance with the hapi support policy (hapi.im/support). Please upgrade to the latest version to get the best features, bug fixes, and security patches. If you are unable to upgrade at this time, paid support is available for older versions (hapi.im/commercial).
+npm warn deprecated sntp@0.1.2: This module moved to @hapi/sntp. Please make sure to switch over as this distribution is no longer supported and may contain bugs and critical security issues.
+npm warn deprecated multer@1.4.5-lts.2: Multer 1.x is impacted by a number of vulnerabilities, which have been patched in 2.x. You should upgrade to the latest 2.x version.
+npm warn deprecated hoek@0.4.2: This version has been deprecated in accordance with the hapi support policy (hapi.im/support). Please upgrade to the latest version to get the best features, bug fixes, and security patches. If you are unable to upgrade at this time, paid support is available for older versions (hapi.im/commercial).
+npm warn deprecated hoek@0.4.2: This version has been deprecated in accordance with the hapi support policy (hapi.im/support). Please upgrade to the latest version to get the best features, bug fixes, and security patches. If you are unable to upgrade at this time, paid support is available for older versions (hapi.im/commercial).
+npm warn deprecated hoek@0.7.6: This version has been deprecated in accordance with the hapi support policy (hapi.im/support). Please upgrade to the latest version to get the best features, bug fixes, and security patches. If you are unable to upgrade at this time, paid support is available for older versions (hapi.im/commercial).
+npm warn deprecated node-uuid@1.4.8: Use uuid module instead
+npm warn deprecated json3@3.2.6: Please use the native JSON object instead of JSON 3
+npm warn deprecated hawk@0.10.2: This module moved to @hapi/hawk. Please make sure to switch over as this distribution is no longer supported and may contain bugs and critical security issues.
+npm warn deprecated request@2.16.6: request has been deprecated, see https://github.com/request/request/issues/3142
+
+added 357 packages, and audited 358 packages in 7s
+
+36 packages are looking for funding
+  run `npm fund` for details
+
+39 vulnerabilities (2 low, 4 moderate, 26 high, 7 critical)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 restart smtp-server
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [smtp-server](ids: [ 0 ])
+[PM2] [smtp-server](0) ✓
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 5653     │ 0s     │ 7    │ online    │ 0%       │ 17.4mb   │ azu… │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 stop smtp-server
+[PM2] Applying action stopProcessId on app [smtp-server](ids: [ 0 ])
+[PM2] [smtp-server](0) ✓
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 7    │ stopped   │ 0%       │ 0b       │ azu… │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 start src/index.js --name smtp-server
+[PM2] Starting /home/azureuser/SMTP-Mail-Server/src/index.js in fork_mode (1 instance)
+[PM2] Done.
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 7    │ stopped   │ 0%       │ 0b       │ azu… │ disabled │
+│ 1  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 5687     │ 0s     │ 0    │ online    │ 0%       │ 17.4mb   │ azu… │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 startup
+[PM2] Init System found: systemd
+[PM2] To setup the Startup Script, copy/paste the following command:
+sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u azureuser --hp /home/azureuser
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 save
+[PM2] Saving current process list...
+[PM2] Successfully saved in /home/azureuser/.pm2/dump.pm2
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 status
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 7    │ stopped   │ 0%       │ 0b       │ azu… │ disabled │
+│ 1  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 5775     │ 1s     │ 6    │ online    │ 0%       │ 88.5mb   │ azu… │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 restart smtp-server
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [smtp-server](ids: [ 0, 1 ])
+[PM2] [smtp-server](0) ✓
+[PM2] [smtp-server](1) ✓
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 5813     │ 0s     │ 7    │ online    │ 0%       │ 52.9mb   │ azu… │ disabled │
+│ 1  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 5825     │ 0s     │ 8    │ online    │ 0%       │ 12.3mb   │ azu… │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 delete 0
+[PM2] Applying action deleteProcessId on app [0](ids: [ '0' ])
+[PM2] [smtp-server](0) ✓
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 1  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 5936     │ 0s     │ 17   │ online    │ 115.4%   │ 71.7mb   │ azu… │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 status
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 1  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 5936     │ 4s     │ 17   │ online    │ 0%       │ 88.0mb   │ azu… │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 logs smtp-server
+[TAILING] Tailing last 15 lines for [smtp-server] process (change the value with --lines option)
+/home/azureuser/.pm2/logs/smtp-server-error.log last 15 lines:
+1|smtp-ser | SyntaxError: Unexpected token ''', "'{email:ku"... is not valid JSON
+1|smtp-ser |     at JSON.parse (<anonymous>)
+1|smtp-ser |     at createStrictSyntaxError (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:169:10)
+1|smtp-ser |     at parse (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:86:15)
+1|smtp-ser |     at /home/azureuser/SMTP/SMTP-Mail-Server/node_modules/body-parser/lib/read.js:128:18
+1|smtp-ser |     at AsyncResource.runInAsyncScope (node:async_hooks:206:9)
+1|smtp-ser |     at invokeCallback (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/raw-body/index.js:238:16)
+1|smtp-ser |     at done (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/raw-body/index.js:227:7)
+1|smtp-ser |     at IncomingMessage.onEnd (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/raw-body/index.js:287:7)
+1|smtp-ser |     at IncomingMessage.emit (node:events:524:28)
+1|smtp-ser |     at endReadableNT (node:internal/streams/readable:1698:12)
+
+/home/azureuser/.pm2/logs/smtp-server-out.log last 15 lines:
+1|smtp-ser | oundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"}},"setName":null,"stale":false,"type":"Unknown"},"service":"smtp-mail-server","stack":"MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017\n    at _handleConnectionErrors (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/connection.js:1169:11)\n    at NativeConnection.openUri (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/connection.js:1100:11)\n    at async Mongo.connect (file:///home/azureuser/SMTP-Mail-Server/src/database/mongo.js:19:29)\n    at async start (file:///home/azureuser/SMTP-Mail-Server/src/index.js:9:9)","timestamp":"2026-01-16T21:06:56.533Z"}
+1|smtp-ser | error: Failed to start servers: connect ECONNREFUSED 127.0.0.1:27017 {"cause":{"commonWireVersion":0,"compatible":true,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"logicalSessionTimeoutMinutes":null,"maxElectionId":null,"maxSetVersion":null,"servers":{"localhost:27017":{"$clusterTime":null,"address":"localhost:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":7048142,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"}},"setName":null,"stale":false,"type":"Unknown"},"errorLabelSet":{},"reason":{"commonWireVersion":0,"compatible":true,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"logicalSessionTimeoutMinutes":null,"maxElectionId":null,"maxSetVersion":null,"servers":{"localhost:27017":{"$clusterTime":null,"address":"localhost:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":7048142,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"}},"setName":null,"stale":false,"type":"Unknown"},"service":"smtp-mail-server","stack":"MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017\n    at _handleConnectionErrors (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/connection.js:1169:11)\n    at NativeConnection.openUri (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/connection.js:1100:11)\n    at async Mongo.connect (file:///home/azureuser/SMTP-Mail-Server/src/database/mongo.js:19:29)\n    at async start (file:///home/azureuser/SMTP-Mail-Server/src/index.js:9:9)","timestamp":"2026-01-16T21:06:56.535Z"}
+1|smtp-ser | info: Starting SMTP Mail Server... {"service":"smtp-mail-server","timestamp":"2026-01-16T21:06:57.145Z"}
+
+1|smtp-server  | error: MongoDB connection failed: connect ECONNREFUSED 127.0.0.1:27017 {"cause":{"commonWireVersion":0,"compatible":true,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"logicalSessionTimeoutMinutes":null,"maxElectionId":null,"maxSetVersion":null,"servers":{"localhost:27017":{"$clusterTime":null,"address":"localhost:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":7053775,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"}},"setName":null,"stale":false,"type":"Unknown"},"errorLabelSet":{},"reason":{"commonWireVersion":0,"compatible":true,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"logicalSessionTimeoutMinutes":null,"maxElectionId":null,"maxSetVersion":null,"servers":{"localhost:27017":{"$clusterTime":null,"address":"localhost:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":7053775,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"}},"setName":null,"stale":false,"type":"Unknown"},"service":"smtp-mail-server","stack":"MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017\n    at _handleConnectionErrors (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/connection.js:1169:11)\n    at NativeConnection.openUri (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/connection.js:1100:11)\n    at async Mongo.connect (file:///home/azureuser/SMTP-Mail-Server/src/database/mongo.js:19:29)\n    at async start (file:///home/azureuser/SMTP-Mail-Server/src/index.js:9:9)","timestamp":"2026-01-16T21:07:02.165Z"}
+1|smtp-server  | error: Failed to start servers: connect ECONNREFUSED 127.0.0.1:27017 {"cause":{"commonWireVersion":0,"compatible":true,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"logicalSessionTimeoutMinutes":null,"maxElectionId":null,"maxSetVersion":null,"servers":{"localhost:27017":{"$clusterTime":null,"address":"localhost:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":7053775,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"}},"setName":null,"stale":false,"type":"Unknown"},"errorLabelSet":{},"reason":{"commonWireVersion":0,"compatible":true,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"logicalSessionTimeoutMinutes":null,"maxElectionId":null,"maxSetVersion":null,"servers":{"localhost:27017":{"$clusterTime":null,"address":"localhost:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":7053775,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"}},"setName":null,"stale":false,"type":"Unknown"},"service":"smtp-mail-server","stack":"MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017\n    at _handleConnectionErrors (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/connection.js:1169:11)\n    at NativeConnection.openUri (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/connection.js:1100:11)\n    at async Mongo.connect (file:///home/azureuser/SMTP-Mail-Server/src/database/mongo.js:19:29)\n    at async start (file:///home/azureuser/SMTP-Mail-Server/src/index.js:9:9)","timestamp":"2026-01-16T21:07:02.167Z"}
+1|smtp-server  | info: Starting SMTP Mail Server... {"service":"smtp-mail-server","timestamp":"2026-01-16T21:07:02.779Z"}
+1|smtp-server  | error: MongoDB connection failed: connect ECONNREFUSED 127.0.0.1:27017 {"cause":{"commonWireVersion":0,"compatible":true,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"logicalSessionTimeoutMinutes":null,"maxElectionId":null,"maxSetVersion":null,"servers":{"localhost:27017":{"$clusterTime":null,"address":"localhost:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":7059412,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"}},"setName":null,"stale":false,"type":"Unknown"},"errorLabelSet":{},"reason":{"commonWireVersion":0,"compatible":true,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"logicalSessionTimeoutMinutes":null,"maxElectionId":null,"maxSetVersion":null,"servers":{"localhost:27017":{"$clusterTime":null,"address":"localhost:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":7059412,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"}},"setName":null,"stale":false,"type":"Unknown"},"service":"smtp-mail-server","stack":"MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017\n    at _handleConnectionErrors (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/connection.js:1169:11)\n    at NativeConnection.openUri (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/connection.js:1100:11)\n    at async Mongo.connect (file:///home/azureuser/SMTP-Mail-Server/src/database/mongo.js:19:29)\n    at async start (file:///home/azureuser/SMTP-Mail-Server/src/index.js:9:9)","timestamp":"2026-01-16T21:07:07.800Z"}
+1|smtp-server  | error: Failed to start servers: connect ECONNREFUSED 127.0.0.1:27017 {"cause":{"commonWireVersion":0,"compatible":true,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"logicalSessionTimeoutMinutes":null,"maxElectionId":null,"maxSetVersion":null,"servers":{"localhost:27017":{"$clusterTime":null,"address":"localhost:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":7059412,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"}},"setName":null,"stale":false,"type":"Unknown"},"errorLabelSet":{},"reason":{"commonWireVersion":0,"compatible":true,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"logicalSessionTimeoutMinutes":null,"maxElectionId":null,"maxSetVersion":null,"servers":{"localhost:27017":{"$clusterTime":null,"address":"localhost:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":7059412,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"}},"setName":null,"stale":false,"type":"Unknown"},"service":"smtp-mail-server","stack":"MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017\n    at _handleConnectionErrors (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/connection.js:1169:11)\n    at NativeConnection.openUri (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/connection.js:1100:11)\n    at async Mongo.connect (file:///home/azureuser/SMTP-Mail-Server/src/database/mongo.js:19:29)\n    at async start (file:///home/azureuser/SMTP-Mail-Server/src/index.js:9:9)","timestamp":"2026-01-16T21:07:07.802Z"}
+1|smtp-server  | info: Starting SMTP Mail Server... {"service":"smtp-mail-server","timestamp":"2026-01-16T21:07:08.426Z"}
+^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ nano .env
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 restart smtp-server
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [smtp-server](ids: [ 1 ])
+[PM2] [smtp-server](1) ✓
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 1  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 6127     │ 0s     │ 30   │ online    │ 0%       │ 17.9mb   │ azu… │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 logs smtp-server
+[TAILING] Tailing last 15 lines for [smtp-server] process (change the value with --lines option)
+/home/azureuser/.pm2/logs/smtp-server-error.log last 15 lines:
+1|smtp-ser | SyntaxError: Unexpected token ''', "'{email:ku"... is not valid JSON
+1|smtp-ser |     at JSON.parse (<anonymous>)
+1|smtp-ser |     at createStrictSyntaxError (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:169:10)
+1|smtp-ser |     at parse (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:86:15)
+1|smtp-ser |     at /home/azureuser/SMTP/SMTP-Mail-Server/node_modules/body-parser/lib/read.js:128:18
+1|smtp-ser |     at AsyncResource.runInAsyncScope (node:async_hooks:206:9)
+1|smtp-ser |     at invokeCallback (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/raw-body/index.js:238:16)
+1|smtp-ser |     at done (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/raw-body/index.js:227:7)
+1|smtp-ser |     at IncomingMessage.onEnd (/home/azureuser/SMTP/SMTP-Mail-Server/node_modules/raw-body/index.js:287:7)
+1|smtp-ser |     at IncomingMessage.emit (node:events:524:28)
+1|smtp-ser |     at endReadableNT (node:internal/streams/readable:1698:12)
+
+/home/azureuser/.pm2/logs/smtp-server-out.log last 15 lines:
+1|smtp-ser | -1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"}},"setName":null,"stale":false,"type":"Unknown"},"errorLabelSet":{},"reason":{"commonWireVersion":0,"compatible":true,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"logicalSessionTimeoutMinutes":null,"maxElectionId":null,"maxSetVersion":null,"servers":{"localhost:27017":{"$clusterTime":null,"address":"localhost:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":7104509,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"}},"setName":null,"stale":false,"type":"Unknown"},"service":"smtp-mail-server","stack":"MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017\n    at _handleConnectionErrors (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/connection.js:1169:11)\n    at NativeConnection.openUri (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/connection.js:1100:11)\n    at async Mongo.connect (file:///home/azureuser/SMTP-Mail-Server/src/database/mongo.js:19:29)\n    at async start (file:///home/azureuser/SMTP-Mail-Server/src/index.js:9:9)","timestamp":"2026-01-16T21:07:52.903Z"}
+1|smtp-ser | info: Starting SMTP Mail Server... {"service":"smtp-mail-server","timestamp":"2026-01-16T21:07:53.519Z"}
+1|smtp-ser | info: MongoDB connected successfully {"service":"smtp-mail-server","timestamp":"2026-01-16T21:07:53.922Z"}
+1|smtp-ser | info: All servers started successfully {"service":"smtp-mail-server","timestamp":"2026-01-16T21:07:53.925Z"}
+1|smtp-ser | info: API Server listening on 0.0.0.0:3000 {"service":"smtp-mail-server","timestamp":"2026-01-16T21:07:53.926Z"}
+1|smtp-ser | info: SMTP Server listening on 0.0.0.0:2525 {"service":"smtp-mail-server","timestamp":"2026-01-16T21:07:53.926Z"}
+1|smtp-ser | info: SIGINT received, shutting down gracefully {"service":"smtp-mail-server","timestamp":"2026-01-16T21:07:54.848Z"}
+1|smtp-ser | info: SMTP Server stopped {"service":"smtp-mail-server","timestamp":"2026-01-16T21:07:54.849Z"}
+1|smtp-ser | warn: MongoDB disconnected {"service":"smtp-mail-server","timestamp":"2026-01-16T21:07:54.854Z"}
+1|smtp-ser | info: MongoDB disconnected successfully {"service":"smtp-mail-server","timestamp":"2026-01-16T21:07:54.854Z"}
+1|smtp-ser | info: Starting SMTP Mail Server... {"service":"smtp-mail-server","timestamp":"2026-01-16T21:07:55.557Z"}
+1|smtp-ser | info: MongoDB connected successfully {"service":"smtp-mail-server","timestamp":"2026-01-16T21:07:55.741Z"}
+1|smtp-ser | info: All servers started successfully {"service":"smtp-mail-server","timestamp":"2026-01-16T21:07:55.744Z"}
+1|smtp-ser | info: API Server listening on 0.0.0.0:3000 {"service":"smtp-mail-server","timestamp":"2026-01-16T21:07:55.745Z"}
+1|smtp-ser | info: SMTP Server listening on 0.0.0.0:2525 {"service":"smtp-mail-server","timestamp":"2026-01-16T21:07:55.745Z"}
+
+1|smtp-server  | error: Error sending mail: Mail command failed: 530 Error: authentication Required {"code":"EENVELOPE","command":"MAIL FROM","response":"530 Error: authentication Required","responseCode":530,"service":"smtp-mail-server","stack":"Error: Mail command failed: 530 Error: authentication Required\n    at SMTPConnection._formatError (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:809:19)\n    at SMTPConnection._actionMAIL (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1618:34)\n    at SMTPConnection.<anonymous> (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1087:18)\n    at SMTPConnection._processResponse (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:993:20)\n    at SMTPConnection._onData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:774:14)\n    at SMTPConnection._onSocketData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:195:44)\n    at Socket.emit (node:events:524:28)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)\n    at Readable.push (node:internal/streams/readable:392:5)","timestamp":"2026-01-16T21:08:03.261Z"}
+1|smtp-server  | error: Send mail error: Mail command failed: 530 Error: authentication Required {"code":"EENVELOPE","command":"MAIL FROM","response":"530 Error: authentication Required","responseCode":530,"service":"smtp-mail-server","stack":"Error: Mail command failed: 530 Error: authentication Required\n    at SMTPConnection._formatError (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:809:19)\n    at SMTPConnection._actionMAIL (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1618:34)\n    at SMTPConnection.<anonymous> (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1087:18)\n    at SMTPConnection._processResponse (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:993:20)\n    at SMTPConnection._onData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:774:14)\n    at SMTPConnection._onSocketData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:195:44)\n    at Socket.emit (node:events:524:28)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)\n    at Readable.push (node:internal/streams/readable:392:5)","timestamp":"2026-01-16T21:08:03.280Z"}
+1|smtp-server  | SyntaxError: Unexpected token ''', "'{email:ku"... is not valid JSON
+1|smtp-server  |     at JSON.parse (<anonymous>)
+1|smtp-server  |     at createStrictSyntaxError (/home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:169:10)
+1|smtp-server  |     at parse (/home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:86:15)
+1|smtp-server  |     at /home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/read.js:128:18
+1|smtp-server  |     at AsyncResource.runInAsyncScope (node:async_hooks:206:9)
+1|smtp-server  |     at invokeCallback (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:238:16)
+1|smtp-server  |     at done (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:227:7)
+1|smtp-server  |     at IncomingMessage.onEnd (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:287:7)
+1|smtp-server  |     at IncomingMessage.emit (node:events:524:28)
+1|smtp-server  |     at endReadableNT (node:internal/streams/readable:1698:12)
+1|smtp-server  | SyntaxError: Unexpected token ''', "'{email:ku"... is not valid JSON
+1|smtp-server  |     at JSON.parse (<anonymous>)
+1|smtp-server  |     at createStrictSyntaxError (/home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:169:10)
+1|smtp-server  |     at parse (/home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:86:15)
+1|smtp-server  |     at /home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/read.js:128:18
+1|smtp-server  |     at AsyncResource.runInAsyncScope (node:async_hooks:206:9)
+1|smtp-server  |     at invokeCallback (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:238:16)
+1|smtp-server  |     at done (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:227:7)
+1|smtp-server  |     at IncomingMessage.onEnd (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:287:7)
+1|smtp-server  |     at IncomingMessage.emit (node:events:524:28)
+1|smtp-server  |     at endReadableNT (node:internal/streams/readable:1698:12)
+1|smtp-server  | SyntaxError: Unexpected token ''', "'{email:ku"... is not valid JSON
+1|smtp-server  |     at JSON.parse (<anonymous>)
+1|smtp-server  |     at createStrictSyntaxError (/home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:169:10)
+1|smtp-server  |     at parse (/home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:86:15)
+1|smtp-server  |     at /home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/read.js:128:18
+1|smtp-server  |     at AsyncResource.runInAsyncScope (node:async_hooks:206:9)
+1|smtp-server  |     at invokeCallback (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:238:16)
+1|smtp-server  |     at done (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:227:7)
+1|smtp-server  |     at IncomingMessage.onEnd (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:287:7)
+1|smtp-server  |     at IncomingMessage.emit (node:events:524:28)
+1|smtp-server  |     at endReadableNT (node:internal/streams/readable:1698:12)
+1|smtp-server  | error: Error creating user: E11000 duplicate key error collection: test.users index: email_1 dup key: { email: "kunal@kunalpatil.me" } {"code":11000,"errorLabelSet":{},"errorResponse":{"code":11000,"errmsg":"E11000 duplicate key error collection: test.users index: email_1 dup key: { email: \"kunal@kunalpatil.me\" }","index":0,"keyPattern":{"email":1},"keyValue":{"email":"kunal@kunalpatil.me"}},"index":0,"keyPattern":{"email":1},"keyValue":{"email":"kunal@kunalpatil.me"},"service":"smtp-mail-server","stack":"MongoServerError: E11000 duplicate key error collection: test.users index: email_1 dup key: { email: \"kunal@kunalpatil.me\" }\n    at InsertOneOperation.handleOk (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/operations/insert.js:51:19)\n    at tryOperation (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/operations/execute_operation.js:214:34)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async executeOperation (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/operations/execute_operation.js:78:16)\n    at async Collection.insertOne (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/collection.js:154:16)","timestamp":"2026-01-16T21:09:42.371Z"}
+1|smtp-server  | error: Registration error: E11000 duplicate key error collection: test.users index: email_1 dup key: { email: "kunal@kunalpatil.me" } {"code":11000,"errorLabelSet":{},"errorResponse":{"code":11000,"errmsg":"E11000 duplicate key error collection: test.users index: email_1 dup key: { email: \"kunal@kunalpatil.me\" }","index":0,"keyPattern":{"email":1},"keyValue":{"email":"kunal@kunalpatil.me"}},"index":0,"keyPattern":{"email":1},"keyValue":{"email":"kunal@kunalpatil.me"},"service":"smtp-mail-server","stack":"MongoServerError: E11000 duplicate key error collection: test.users index: email_1 dup key: { email: \"kunal@kunalpatil.me\" }\n    at InsertOneOperation.handleOk (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/operations/insert.js:51:19)\n    at tryOperation (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/operations/execute_operation.js:214:34)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async executeOperation (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/operations/execute_operation.js:78:16)\n    at async Collection.insertOne (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/collection.js:154:16)","timestamp":"2026-01-16T21:09:42.372Z"}
+1|smtp-server  | info: User created: kunalpatil@kunalpatil.me {"service":"smtp-mail-server","timestamp":"2026-01-16T21:09:55.809Z"}
+1|smtp-server  | error: Error creating user: E11000 duplicate key error collection: test.users index: email_1 dup key: { email: "kunalpatil@kunalpatil.me" } {"code":11000,"errorLabelSet":{},"errorResponse":{"code":11000,"errmsg":"E11000 duplicate key error collection: test.users index: email_1 dup key: { email: \"kunalpatil@kunalpatil.me\" }","index":0,"keyPattern":{"email":1},"keyValue":{"email":"kunalpatil@kunalpatil.me"}},"index":0,"keyPattern":{"email":1},"keyValue":{"email":"kunalpatil@kunalpatil.me"},"service":"smtp-mail-server","stack":"MongoServerError: E11000 duplicate key error collection: test.users index: email_1 dup key: { email: \"kunalpatil@kunalpatil.me\" }\n    at InsertOneOperation.handleOk (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/operations/insert.js:51:19)\n    at tryOperation (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/operations/execute_operation.js:214:34)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async executeOperation (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/operations/execute_operation.js:78:16)\n    at async Collection.insertOne (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/collection.js:154:16)","timestamp":"2026-01-16T21:10:13.019Z"}
+1|smtp-server  | error: Registration error: E11000 duplicate key error collection: test.users index: email_1 dup key: { email: "kunalpatil@kunalpatil.me" } {"code":11000,"errorLabelSet":{},"errorResponse":{"code":11000,"errmsg":"E11000 duplicate key error collection: test.users index: email_1 dup key: { email: \"kunalpatil@kunalpatil.me\" }","index":0,"keyPattern":{"email":1},"keyValue":{"email":"kunalpatil@kunalpatil.me"}},"index":0,"keyPattern":{"email":1},"keyValue":{"email":"kunalpatil@kunalpatil.me"},"service":"smtp-mail-server","stack":"MongoServerError: E11000 duplicate key error collection: test.users index: email_1 dup key: { email: \"kunalpatil@kunalpatil.me\" }\n    at InsertOneOperation.handleOk (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/operations/insert.js:51:19)\n    at tryOperation (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/operations/execute_operation.js:214:34)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async executeOperation (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/operations/execute_operation.js:78:16)\n    at async Collection.insertOne (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/collection.js:154:16)","timestamp":"2026-01-16T21:10:13.020Z"}
+1|smtp-server  | error: Error creating user: E11000 duplicate key error collection: test.users index: email_1 dup key: { email: "kunalpatil@kunalpatil.me" } {"code":11000,"errorLabelSet":{},"errorResponse":{"code":11000,"errmsg":"E11000 duplicate key error collection: test.users index: email_1 dup key: { email: \"kunalpatil@kunalpatil.me\" }","index":0,"keyPattern":{"email":1},"keyValue":{"email":"kunalpatil@kunalpatil.me"}},"index":0,"keyPattern":{"email":1},"keyValue":{"email":"kunalpatil@kunalpatil.me"},"service":"smtp-mail-server","stack":"MongoServerError: E11000 duplicate key error collection: test.users index: email_1 dup key: { email: \"kunalpatil@kunalpatil.me\" }\n    at InsertOneOperation.handleOk (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/operations/insert.js:51:19)\n    at tryOperation (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/operations/execute_operation.js:214:34)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async executeOperation (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/operations/execute_operation.js:78:16)\n    at async Collection.insertOne (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/collection.js:154:16)","timestamp":"2026-01-16T21:10:37.333Z"}
+1|smtp-server  | error: Registration error: E11000 duplicate key error collection: test.users index: email_1 dup key: { email: "kunalpatil@kunalpatil.me" } {"code":11000,"errorLabelSet":{},"errorResponse":{"code":11000,"errmsg":"E11000 duplicate key error collection: test.users index: email_1 dup key: { email: \"kunalpatil@kunalpatil.me\" }","index":0,"keyPattern":{"email":1},"keyValue":{"email":"kunalpatil@kunalpatil.me"}},"index":0,"keyPattern":{"email":1},"keyValue":{"email":"kunalpatil@kunalpatil.me"},"service":"smtp-mail-server","stack":"MongoServerError: E11000 duplicate key error collection: test.users index: email_1 dup key: { email: \"kunalpatil@kunalpatil.me\" }\n    at InsertOneOperation.handleOk (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/operations/insert.js:51:19)\n    at tryOperation (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/operations/execute_operation.js:214:34)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async executeOperation (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/operations/execute_operation.js:78:16)\n    at async Collection.insertOne (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/collection.js:154:16)","timestamp":"2026-01-16T21:10:37.333Z"}
+1|smtp-server  | error: Error creating domain: E11000 duplicate key error collection: test.domains index: name_1 dup key: { name: "kunalpatil.me" } {"code":11000,"errorLabelSet":{},"errorResponse":{"code":11000,"errmsg":"E11000 duplicate key error collection: test.domains index: name_1 dup key: { name: \"kunalpatil.me\" }","index":0,"keyPattern":{"name":1},"keyValue":{"name":"kunalpatil.me"}},"index":0,"keyPattern":{"name":1},"keyValue":{"name":"kunalpatil.me"},"service":"smtp-mail-server","stack":"MongoServerError: E11000 duplicate key error collection: test.domains index: name_1 dup key: { name: \"kunalpatil.me\" }\n    at InsertOneOperation.handleOk (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/operations/insert.js:51:19)\n    at tryOperation (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/operations/execute_operation.js:214:34)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async executeOperation (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/operations/execute_operation.js:78:16)\n    at async Collection.insertOne (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/collection.js:154:16)","timestamp":"2026-01-16T21:11:13.662Z"}
+1|smtp-server  | error: Create domain error: E11000 duplicate key error collection: test.domains index: name_1 dup key: { name: "kunalpatil.me" } {"code":11000,"errorLabelSet":{},"errorResponse":{"code":11000,"errmsg":"E11000 duplicate key error collection: test.domains index: name_1 dup key: { name: \"kunalpatil.me\" }","index":0,"keyPattern":{"name":1},"keyValue":{"name":"kunalpatil.me"}},"index":0,"keyPattern":{"name":1},"keyValue":{"name":"kunalpatil.me"},"service":"smtp-mail-server","stack":"MongoServerError: E11000 duplicate key error collection: test.domains index: name_1 dup key: { name: \"kunalpatil.me\" }\n    at InsertOneOperation.handleOk (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/operations/insert.js:51:19)\n    at tryOperation (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/operations/execute_operation.js:214:34)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async executeOperation (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/operations/execute_operation.js:78:16)\n    at async Collection.insertOne (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/collection.js:154:16)","timestamp":"2026-01-16T21:11:13.663Z"}
+1|smtp-server  | error: Error sending mail: No recipients defined {"code":"EENVELOPE","command":"API","service":"smtp-mail-server","stack":"Error: No recipients defined\n    at SMTPConnection._formatError (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:809:19)\n    at SMTPConnection._setEnvelope (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1047:34)\n    at SMTPConnection.send (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:631:14)\n    at sendMessage (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-transport/index.js:228:28)\n    at /home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-transport/index.js:289:21\n    at SMTPConnection.<anonymous> (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:215:17)\n    at Object.onceWrapper (node:events:638:28)\n    at SMTPConnection.emit (node:events:524:28)\n    at SMTPConnection._actionEHLO (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1371:14)\n    at SMTPConnection._processResponse (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:993:20)","timestamp":"2026-01-16T21:11:33.871Z"}
+1|smtp-server  | error: Send mail error: No recipients defined {"code":"EENVELOPE","command":"API","service":"smtp-mail-server","stack":"Error: No recipients defined\n    at SMTPConnection._formatError (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:809:19)\n    at SMTPConnection._setEnvelope (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1047:34)\n    at SMTPConnection.send (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:631:14)\n    at sendMessage (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-transport/index.js:228:28)\n    at /home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-transport/index.js:289:21\n    at SMTPConnection.<anonymous> (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:215:17)\n    at Object.onceWrapper (node:events:638:28)\n    at SMTPConnection.emit (node:events:524:28)\n    at SMTPConnection._actionEHLO (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1371:14)\n    at SMTPConnection._processResponse (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:993:20)","timestamp":"2026-01-16T21:11:33.883Z"}
+1|smtp-server  | error: Error sending mail: Cast to ObjectId failed for value "MAIL_ID" (type string) at path "_id" for model "Mail" {"kind":"ObjectId","path":"_id","reason":{},"service":"smtp-mail-server","stack":"CastError: Cast to ObjectId failed for value \"MAIL_ID\" (type string) at path \"_id\" for model \"Mail\"\n    at SchemaObjectId.cast (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/schema/objectId.js:253:11)\n    at SchemaType.applySetters (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/schemaType.js:1288:12)\n    at SchemaType.castForQuery (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/schemaType.js:1724:17)\n    at cast (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/cast.js:390:32)\n    at Query.cast (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/query.js:5060:12)\n    at Query._castConditions (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/query.js:2374:10)\n    at model.Query._findOne (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/query.js:2697:8)\n    at model.Query.exec (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/query.js:4627:80)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async MailService.sendMail (file:///home/azureuser/SMTP-Mail-Server/src/services/mail.service.js:39:24)","stringValue":"\"MAIL_ID\"","timestamp":"2026-01-16T21:12:15.890Z","value":"MAIL_ID","valueType":"string"}
+1|smtp-server  | error: Send mail error: Cast to ObjectId failed for value "MAIL_ID" (type string) at path "_id" for model "Mail" {"kind":"ObjectId","path":"_id","reason":{},"service":"smtp-mail-server","stack":"CastError: Cast to ObjectId failed for value \"MAIL_ID\" (type string) at path \"_id\" for model \"Mail\"\n    at SchemaObjectId.cast (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/schema/objectId.js:253:11)\n    at SchemaType.applySetters (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/schemaType.js:1288:12)\n    at SchemaType.castForQuery (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/schemaType.js:1724:17)\n    at cast (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/cast.js:390:32)\n    at Query.cast (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/query.js:5060:12)\n    at Query._castConditions (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/query.js:2374:10)\n    at model.Query._findOne (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/query.js:2697:8)\n    at model.Query.exec (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/query.js:4627:80)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async MailService.sendMail (file:///home/azureuser/SMTP-Mail-Server/src/services/mail.service.js:60:24)","stringValue":"\"MAIL_ID\"","timestamp":"2026-01-16T21:12:15.891Z","value":"MAIL_ID","valueType":"string"}
+1|smtp-server  | error: Error sending mail: Cast to ObjectId failed for value "MAIL_ID" (type string) at path "_id" for model "Mail" {"kind":"ObjectId","path":"_id","reason":{},"service":"smtp-mail-server","stack":"CastError: Cast to ObjectId failed for value \"MAIL_ID\" (type string) at path \"_id\" for model \"Mail\"\n    at SchemaObjectId.cast (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/schema/objectId.js:253:11)\n    at SchemaType.applySetters (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/schemaType.js:1288:12)\n    at SchemaType.castForQuery (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/schemaType.js:1724:17)\n    at cast (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/cast.js:390:32)\n    at Query.cast (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/query.js:5060:12)\n    at Query._castConditions (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/query.js:2374:10)\n    at model.Query._findOne (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/query.js:2697:8)\n    at model.Query.exec (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/query.js:4627:80)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async MailService.sendMail (file:///home/azureuser/SMTP-Mail-Server/src/services/mail.service.js:39:24)","stringValue":"\"MAIL_ID\"","timestamp":"2026-01-16T21:12:32.256Z","value":"MAIL_ID","valueType":"string"}
+1|smtp-server  | error: Send mail error: Cast to ObjectId failed for value "MAIL_ID" (type string) at path "_id" for model "Mail" {"kind":"ObjectId","path":"_id","reason":{},"service":"smtp-mail-server","stack":"CastError: Cast to ObjectId failed for value \"MAIL_ID\" (type string) at path \"_id\" for model \"Mail\"\n    at SchemaObjectId.cast (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/schema/objectId.js:253:11)\n    at SchemaType.applySetters (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/schemaType.js:1288:12)\n    at SchemaType.castForQuery (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/schemaType.js:1724:17)\n    at cast (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/cast.js:390:32)\n    at Query.cast (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/query.js:5060:12)\n    at Query._castConditions (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/query.js:2374:10)\n    at model.Query._findOne (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/query.js:2697:8)\n    at model.Query.exec (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/lib/query.js:4627:80)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async MailService.sendMail (file:///home/azureuser/SMTP-Mail-Server/src/services/mail.service.js:60:24)","stringValue":"\"MAIL_ID\"","timestamp":"2026-01-16T21:12:32.256Z","value":"MAIL_ID","valueType":"string"}
+1|smtp-server  | error: Error sending mail: Mail command failed: 530 Error: authentication Required {"code":"EENVELOPE","command":"MAIL FROM","response":"530 Error: authentication Required","responseCode":530,"service":"smtp-mail-server","stack":"Error: Mail command failed: 530 Error: authentication Required\n    at SMTPConnection._formatError (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:809:19)\n    at SMTPConnection._actionMAIL (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1618:34)\n    at SMTPConnection.<anonymous> (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1087:18)\n    at SMTPConnection._processResponse (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:993:20)\n    at SMTPConnection._onData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:774:14)\n    at SMTPConnection._onSocketData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:195:44)\n    at Socket.emit (node:events:524:28)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)\n    at Readable.push (node:internal/streams/readable:392:5)","timestamp":"2026-01-16T21:13:18.452Z"}
+1|smtp-server  | error: Send mail error: Mail command failed: 530 Error: authentication Required {"code":"EENVELOPE","command":"MAIL FROM","response":"530 Error: authentication Required","responseCode":530,"service":"smtp-mail-server","stack":"Error: Mail command failed: 530 Error: authentication Required\n    at SMTPConnection._formatError (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:809:19)\n    at SMTPConnection._actionMAIL (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1618:34)\n    at SMTPConnection.<anonymous> (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1087:18)\n    at SMTPConnection._processResponse (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:993:20)\n    at SMTPConnection._onData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:774:14)\n    at SMTPConnection._onSocketData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:195:44)\n    at Socket.emit (node:events:524:28)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)\n    at Readable.push (node:internal/streams/readable:392:5)","timestamp":"2026-01-16T21:13:18.464Z"}
+^[[A^[[A^[[A^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ nano .env
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 logs smtp-server
+[TAILING] Tailing last 15 lines for [smtp-server] process (change the value with --lines option)
+/home/azureuser/.pm2/logs/smtp-server-error.log last 15 lines:
+1|smtp-ser |     at done (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:227:7)
+1|smtp-ser |     at IncomingMessage.onEnd (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:287:7)
+1|smtp-ser |     at IncomingMessage.emit (node:events:524:28)
+1|smtp-ser |     at endReadableNT (node:internal/streams/readable:1698:12)
+1|smtp-ser | SyntaxError: Unexpected token ''', "'{email:ku"... is not valid JSON
+1|smtp-ser |     at JSON.parse (<anonymous>)
+1|smtp-ser |     at createStrictSyntaxError (/home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:169:10)
+1|smtp-ser |     at parse (/home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:86:15)
+1|smtp-ser |     at /home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/read.js:128:18
+1|smtp-ser |     at AsyncResource.runInAsyncScope (node:async_hooks:206:9)
+1|smtp-ser |     at invokeCallback (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:238:16)
+1|smtp-ser |     at done (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:227:7)
+1|smtp-ser |     at IncomingMessage.onEnd (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:287:7)
+1|smtp-ser |     at IncomingMessage.emit (node:events:524:28)
+1|smtp-ser |     at endReadableNT (node:internal/streams/readable:1698:12)
+
+/home/azureuser/.pm2/logs/smtp-server-out.log last 15 lines:
+1|smtp-ser | ocess.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async MailService.sendMail (file:///home/azureuser/SMTP-Mail-Server/src/services/mail.service.js:60:24)","stringValue":"\"MAIL_ID\"","timestamp":"2026-01-16T21:12:32.256Z","value":"MAIL_ID","valueType":"string"}
+1|smtp-ser | error: Error sending mail: Mail command failed: 530 Error: authentication Required {"code":"EENVELOPE","command":"MAIL FROM","response":"530 Error: authentication Required","responseCode":530,"service":"smtp-mail-server","stack":"Error: Mail command failed: 530 Error: authentication Required\n    at SMTPConnection._formatError (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:809:19)\n    at SMTPConnection._actionMAIL (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1618:34)\n    at SMTPConnection.<anonymous> (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1087:18)\n    at SMTPConnection._processResponse (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:993:20)\n    at SMTPConnection._onData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:774:14)\n    at SMTPConnection._onSocketData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:195:44)\n    at Socket.emit (node:events:524:28)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)\n    at Readable.push (node:internal/streams/readable:392:5)","timestamp":"2026-01-16T21:13:18.452Z"}
+1|smtp-ser | error: Send mail error: Mail command failed: 530 Error: authentication Required {"code":"EENVELOPE","command":"MAIL FROM","response":"530 Error: authentication Required","responseCode":530,"service":"smtp-mail-server","stack":"Error: Mail command failed: 530 Error: authentication Required\n    at SMTPConnection._formatError (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:809:19)\n    at SMTPConnection._actionMAIL (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1618:34)\n    at SMTPConnection.<anonymous> (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1087:18)\n    at SMTPConnection._processResponse (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:993:20)\n    at SMTPConnection._onData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:774:14)\n    at SMTPConnection._onSocketData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:195:44)\n    at Socket.emit (node:events:524:28)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)\n    at Readable.push (node:internal/streams/readable:392:5)","timestamp":"2026-01-16T21:13:18.464Z"}
+
+^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 restart smtp-server
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [smtp-server](ids: [ 1 ])
+[PM2] [smtp-server](1) ✓
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 1  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 6255     │ 0s     │ 31   │ online    │ 0%       │ 18.0mb   │ azu… │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 logs smtp-server
+[TAILING] Tailing last 15 lines for [smtp-server] process (change the value with --lines option)
+/home/azureuser/.pm2/logs/smtp-server-error.log last 15 lines:
+1|smtp-ser |     at done (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:227:7)
+1|smtp-ser |     at IncomingMessage.onEnd (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:287:7)
+1|smtp-ser |     at IncomingMessage.emit (node:events:524:28)
+1|smtp-ser |     at endReadableNT (node:internal/streams/readable:1698:12)
+1|smtp-ser | SyntaxError: Unexpected token ''', "'{email:ku"... is not valid JSON
+1|smtp-ser |     at JSON.parse (<anonymous>)
+1|smtp-ser |     at createStrictSyntaxError (/home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:169:10)
+1|smtp-ser |     at parse (/home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:86:15)
+1|smtp-ser |     at /home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/read.js:128:18
+1|smtp-ser |     at AsyncResource.runInAsyncScope (node:async_hooks:206:9)
+1|smtp-ser |     at invokeCallback (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:238:16)
+1|smtp-ser |     at done (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:227:7)
+1|smtp-ser |     at IncomingMessage.onEnd (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:287:7)
+1|smtp-ser |     at IncomingMessage.emit (node:events:524:28)
+1|smtp-ser |     at endReadableNT (node:internal/streams/readable:1698:12)
+
+/home/azureuser/.pm2/logs/smtp-server-out.log last 15 lines:
+1|smtp-ser | :1087:18)\n    at SMTPConnection._processResponse (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:993:20)\n    at SMTPConnection._onData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:774:14)\n    at SMTPConnection._onSocketData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:195:44)\n    at Socket.emit (node:events:524:28)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)\n    at Readable.push (node:internal/streams/readable:392:5)","timestamp":"2026-01-16T21:13:18.452Z"}
+1|smtp-ser | error: Send mail error: Mail command failed: 530 Error: authentication Required {"code":"EENVELOPE","command":"MAIL FROM","response":"530 Error: authentication Required","responseCode":530,"service":"smtp-mail-server","stack":"Error: Mail command failed: 530 Error: authentication Required\n    at SMTPConnection._formatError (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:809:19)\n    at SMTPConnection._actionMAIL (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1618:34)\n    at SMTPConnection.<anonymous> (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1087:18)\n    at SMTPConnection._processResponse (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:993:20)\n    at SMTPConnection._onData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:774:14)\n    at SMTPConnection._onSocketData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:195:44)\n    at Socket.emit (node:events:524:28)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)\n    at Readable.push (node:internal/streams/readable:392:5)","timestamp":"2026-01-16T21:13:18.464Z"}
+1|smtp-ser | info: SIGINT received, shutting down gracefully {"service":"smtp-mail-server","timestamp":"2026-01-16T21:15:06.515Z"}
+1|smtp-ser | info: SMTP Server stopped {"service":"smtp-mail-server","timestamp":"2026-01-16T21:15:06.516Z"}
+1|smtp-ser | warn: MongoDB disconnected {"service":"smtp-mail-server","timestamp":"2026-01-16T21:15:06.521Z"}
+1|smtp-ser | info: MongoDB disconnected successfully {"service":"smtp-mail-server","timestamp":"2026-01-16T21:15:06.521Z"}
+1|smtp-ser | info: Starting SMTP Mail Server... {"service":"smtp-mail-server","timestamp":"2026-01-16T21:15:07.218Z"}
+1|smtp-ser | info: MongoDB connected successfully {"service":"smtp-mail-server","timestamp":"2026-01-16T21:15:07.648Z"}
+1|smtp-ser | info: All servers started successfully {"service":"smtp-mail-server","timestamp":"2026-01-16T21:15:07.651Z"}
+1|smtp-ser | info: API Server listening on 0.0.0.0:3000 {"service":"smtp-mail-server","timestamp":"2026-01-16T21:15:07.652Z"}
+1|smtp-ser | info: SMTP Server listening on 0.0.0.0:2525 {"service":"smtp-mail-server","timestamp":"2026-01-16T21:15:07.652Z"}
+
+^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 logs smtp-server
+[TAILING] Tailing last 15 lines for [smtp-server] process (change the value with --lines option)
+/home/azureuser/.pm2/logs/smtp-server-error.log last 15 lines:
+1|smtp-ser |     at done (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:227:7)
+1|smtp-ser |     at IncomingMessage.onEnd (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:287:7)
+1|smtp-ser |     at IncomingMessage.emit (node:events:524:28)
+1|smtp-ser |     at endReadableNT (node:internal/streams/readable:1698:12)
+1|smtp-ser | SyntaxError: Unexpected token ''', "'{email:ku"... is not valid JSON
+1|smtp-ser |     at JSON.parse (<anonymous>)
+1|smtp-ser |     at createStrictSyntaxError (/home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:169:10)
+1|smtp-ser |     at parse (/home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:86:15)
+1|smtp-ser |     at /home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/read.js:128:18
+1|smtp-ser |     at AsyncResource.runInAsyncScope (node:async_hooks:206:9)
+1|smtp-ser |     at invokeCallback (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:238:16)
+1|smtp-ser |     at done (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:227:7)
+1|smtp-ser |     at IncomingMessage.onEnd (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:287:7)
+1|smtp-ser |     at IncomingMessage.emit (node:events:524:28)
+1|smtp-ser |     at endReadableNT (node:internal/streams/readable:1698:12)
+
+/home/azureuser/.pm2/logs/smtp-server-out.log last 15 lines:
+1|smtp-ser | itable:501:10)\n    at Writable.write (node:internal/streams/writable:510:10)","timestamp":"2026-01-16T21:15:33.336Z"}
+1|smtp-ser | error: Error sending mail: Mail command failed: 550 Cannot read properties of undefined (reading 'toLowerCase') {"code":"EENVELOPE","command":"MAIL FROM","response":"550 Cannot read properties of undefined (reading 'toLowerCase')","responseCode":550,"service":"smtp-mail-server","stack":"Error: Mail command failed: 550 Cannot read properties of undefined (reading 'toLowerCase')\n    at SMTPConnection._formatError (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:809:19)\n    at SMTPConnection._actionMAIL (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1618:34)\n    at SMTPConnection.<anonymous> (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1087:18)\n    at SMTPConnection._processResponse (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:993:20)\n    at SMTPConnection._onData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:774:14)\n    at SMTPConnection._onSocketData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:195:44)\n    at Socket.emit (node:events:524:28)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)\n    at Readable.push (node:internal/streams/readable:392:5)","timestamp":"2026-01-16T21:15:33.337Z"}
+1|smtp-ser | error: Send mail error: Mail command failed: 550 Cannot read properties of undefined (reading 'toLowerCase') {"code":"EENVELOPE","command":"MAIL FROM","response":"550 Cannot read properties of undefined (reading 'toLowerCase')","responseCode":550,"service":"smtp-mail-server","stack":"Error: Mail command failed: 550 Cannot read properties of undefined (reading 'toLowerCase')\n    at SMTPConnection._formatError (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:809:19)\n    at SMTPConnection._actionMAIL (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1618:34)\n    at SMTPConnection.<anonymous> (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1087:18)\n    at SMTPConnection._processResponse (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:993:20)\n    at SMTPConnection._onData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:774:14)\n    at SMTPConnection._onSocketData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:195:44)\n    at Socket.emit (node:events:524:28)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)\n    at Readable.push (node:internal/streams/readable:392:5)","timestamp":"2026-01-16T21:15:33.350Z"}
+
+^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ git pull
+remote: Enumerating objects: 9, done.
+remote: Counting objects: 100% (9/9), done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 5 (delta 3), reused 5 (delta 3), pack-reused 0 (from 0)
+Unpacking objects: 100% (5/5), 605 bytes | 302.00 KiB/s, done.
+From https://github.com/kunalpro379/SMTP-Mail-Server
+   78b9e18..90027f6  main       -> origin/main
+Updating 78b9e18..90027f6
+Fast-forward
+ src/server/smtp.server.js | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 restart smtp-server
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [smtp-server](ids: [ 1 ])
+[PM2] [smtp-server](1) ✓
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 1  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 6369     │ 0s     │ 32   │ online    │ 0%       │ 19.1mb   │ azu… │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 delete 1
+[PM2] Applying action deleteProcessId on app [1](ids: [ '1' ])
+[PM2] [smtp-server](1) ✓
+┌────┬───────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name      │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+└────┴───────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 start src/index.js --name smtp-server
+[PM2] Starting /home/azureuser/SMTP-Mail-Server/src/index.js in fork_mode (1 instance)
+[PM2] Done.
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 6399     │ 0s     │ 0    │ online    │ 0%       │ 15.8mb   │ azu… │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 restart smtp-server
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [smtp-server](ids: [ 0 ])
+^[[A[PM2] [smtp-server](0) ✓
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ smtp-server    │ default     │ 1.0.0   │ fork    │ 6418     │ 0s     │ 1    │ online    │ 0%       │ 17.9mb   │ azu… │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+azureuser@mailing-server:~/SMTP-Mail-Server$ pm2 logs smtp-server
+[TAILING] Tailing last 15 lines for [smtp-server] process (change the value with --lines option)
+/home/azureuser/.pm2/logs/smtp-server-error.log last 15 lines:
+0|smtp-ser |     at done (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:227:7)
+0|smtp-ser |     at IncomingMessage.onEnd (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:287:7)
+0|smtp-ser |     at IncomingMessage.emit (node:events:524:28)
+0|smtp-ser |     at endReadableNT (node:internal/streams/readable:1698:12)
+0|smtp-ser | SyntaxError: Unexpected token ''', "'{email:ku"... is not valid JSON
+0|smtp-ser |     at JSON.parse (<anonymous>)
+0|smtp-ser |     at createStrictSyntaxError (/home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:169:10)
+0|smtp-ser |     at parse (/home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/types/json.js:86:15)
+0|smtp-ser |     at /home/azureuser/SMTP-Mail-Server/node_modules/body-parser/lib/read.js:128:18
+0|smtp-ser |     at AsyncResource.runInAsyncScope (node:async_hooks:206:9)
+0|smtp-ser |     at invokeCallback (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:238:16)
+0|smtp-ser |     at done (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:227:7)
+0|smtp-ser |     at IncomingMessage.onEnd (/home/azureuser/SMTP-Mail-Server/node_modules/raw-body/index.js:287:7)
+0|smtp-ser |     at IncomingMessage.emit (node:events:524:28)
+0|smtp-ser |     at endReadableNT (node:internal/streams/readable:1698:12)
+
+/home/azureuser/.pm2/logs/smtp-server-out.log last 15 lines:
+0|smtp-ser | info: MongoDB disconnected successfully {"service":"smtp-mail-server","timestamp":"2026-01-16T21:20:53.612Z"}
+0|smtp-ser | info: Starting SMTP Mail Server... {"service":"smtp-mail-server","timestamp":"2026-01-16T21:21:04.851Z"}
+0|smtp-ser | info: MongoDB connected successfully {"service":"smtp-mail-server","timestamp":"2026-01-16T21:21:05.028Z"}
+0|smtp-ser | info: All servers started successfully {"service":"smtp-mail-server","timestamp":"2026-01-16T21:21:05.031Z"}
+0|smtp-ser | info: API Server listening on 0.0.0.0:3000 {"service":"smtp-mail-server","timestamp":"2026-01-16T21:21:05.032Z"}
+0|smtp-ser | info: SMTP Server listening on 0.0.0.0:2525 {"service":"smtp-mail-server","timestamp":"2026-01-16T21:21:05.032Z"}
+0|smtp-ser | info: SIGINT received, shutting down gracefully {"service":"smtp-mail-server","timestamp":"2026-01-16T21:21:09.398Z"}
+0|smtp-ser | info: SMTP Server stopped {"service":"smtp-mail-server","timestamp":"2026-01-16T21:21:09.398Z"}
+0|smtp-ser | warn: MongoDB disconnected {"service":"smtp-mail-server","timestamp":"2026-01-16T21:21:09.404Z"}
+0|smtp-ser | info: MongoDB disconnected successfully {"service":"smtp-mail-server","timestamp":"2026-01-16T21:21:09.404Z"}
+0|smtp-ser | info: Starting SMTP Mail Server... {"service":"smtp-mail-server","timestamp":"2026-01-16T21:21:10.103Z"}
+0|smtp-ser | info: MongoDB connected successfully {"service":"smtp-mail-server","timestamp":"2026-01-16T21:21:10.283Z"}
+0|smtp-ser | info: All servers started successfully {"service":"smtp-mail-server","timestamp":"2026-01-16T21:21:10.286Z"}
+0|smtp-ser | info: API Server listening on 0.0.0.0:3000 {"service":"smtp-mail-server","timestamp":"2026-01-16T21:21:10.287Z"}
+0|smtp-ser | info: SMTP Server listening on 0.0.0.0:2525 {"service":"smtp-mail-server","timestamp":"2026-01-16T21:21:10.287Z"}
+
+0|smtp-server  | info: Mail created: 696aabd00339f4a56e343bc0 {"service":"smtp-mail-server","timestamp":"2026-01-16T21:21:20.931Z"}
+0|smtp-server  | warn: Mailbox not found: kunaldp379@gmail.com {"service":"smtp-mail-server","timestamp":"2026-01-16T21:21:27.728Z"}
+0|smtp-server  | error: Error sending mail: Can't send mail - all recipients were rejected: 550 Mailbox kunaldp379@gmail.com does not exist {"code":"EENVELOPE","command":"RCPT TO","rejected":["kunaldp379@gmail.com"],"rejectedErrors":[{"code":"EENVELOPE","command":"RCPT TO","recipient":"kunaldp379@gmail.com","response":"550 Mailbox kunaldp379@gmail.com does not exist","responseCode":550}],"response":"550 Mailbox kunaldp379@gmail.com does not exist","responseCode":550,"service":"smtp-mail-server","stack":"Error: Can't send mail - all recipients were rejected: 550 Mailbox kunaldp379@gmail.com does not exist\n    at SMTPConnection._formatError (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:809:19)\n    at SMTPConnection._actionRCPT (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1678:28)\n    at SMTPConnection.<anonymous> (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1631:30)\n    at SMTPConnection._processResponse (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:993:20)\n    at SMTPConnection._onData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:774:14)\n    at SMTPConnection._onSocketData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:195:44)\n    at Socket.emit (node:events:524:28)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)\n    at Readable.push (node:internal/streams/readable:392:5)","timestamp":"2026-01-16T21:21:27.730Z"}
+0|smtp-server  | error: Send mail error: Can't send mail - all recipients were rejected: 550 Mailbox kunaldp379@gmail.com does not exist {"code":"EENVELOPE","command":"RCPT TO","rejected":["kunaldp379@gmail.com"],"rejectedErrors":[{"code":"EENVELOPE","command":"RCPT TO","recipient":"kunaldp379@gmail.com","response":"550 Mailbox kunaldp379@gmail.com does not exist","responseCode":550}],"response":"550 Mailbox kunaldp379@gmail.com does not exist","responseCode":550,"service":"smtp-mail-server","stack":"Error: Can't send mail - all recipients were rejected: 550 Mailbox kunaldp379@gmail.com does not exist\n    at SMTPConnection._formatError (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:809:19)\n    at SMTPConnection._actionRCPT (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1678:28)\n    at SMTPConnection.<anonymous> (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1631:30)\n    at SMTPConnection._processResponse (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:993:20)\n    at SMTPConnection._onData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:774:14)\n    at SMTPConnection._onSocketData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:195:44)\n    at Socket.emit (node:events:524:28)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)\n    at Readable.push (node:internal/streams/readable:392:5)","timestamp":"2026-01-16T21:21:27.742Z"}
+0|smtp-server  | warn: Mailbox not found: kunalp@kunalpatil.me {"service":"smtp-mail-server","timestamp":"2026-01-16T21:22:22.364Z"}
+0|smtp-server  | error: Error sending mail: Can't send mail - all recipients were rejected: 550 Mailbox kunalp@kunalpatil.me does not exist {"code":"EENVELOPE","command":"RCPT TO","rejected":["kunalp@kunalpatil.me"],"rejectedErrors":[{"code":"EENVELOPE","command":"RCPT TO","recipient":"kunalp@kunalpatil.me","response":"550 Mailbox kunalp@kunalpatil.me does not exist","responseCode":550}],"response":"550 Mailbox kunalp@kunalpatil.me does not exist","responseCode":550,"service":"smtp-mail-server","stack":"Error: Can't send mail - all recipients were rejected: 550 Mailbox kunalp@kunalpatil.me does not exist\n    at SMTPConnection._formatError (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:809:19)\n    at SMTPConnection._actionRCPT (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1678:28)\n    at SMTPConnection.<anonymous> (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1631:30)\n    at SMTPConnection._processResponse (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:993:20)\n    at SMTPConnection._onData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:774:14)\n    at SMTPConnection._onSocketData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:195:44)\n    at Socket.emit (node:events:524:28)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)\n    at Readable.push (node:internal/streams/readable:392:5)","timestamp":"2026-01-16T21:22:22.365Z"}
+0|smtp-server  | error: Send mail error: Can't send mail - all recipients were rejected: 550 Mailbox kunalp@kunalpatil.me does not exist {"code":"EENVELOPE","command":"RCPT TO","rejected":["kunalp@kunalpatil.me"],"rejectedErrors":[{"code":"EENVELOPE","command":"RCPT TO","recipient":"kunalp@kunalpatil.me","response":"550 Mailbox kunalp@kunalpatil.me does not exist","responseCode":550}],"response":"550 Mailbox kunalp@kunalpatil.me does not exist","responseCode":550,"service":"smtp-mail-server","stack":"Error: Can't send mail - all recipients were rejected: 550 Mailbox kunalp@kunalpatil.me does not exist\n    at SMTPConnection._formatError (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:809:19)\n    at SMTPConnection._actionRCPT (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1678:28)\n    at SMTPConnection.<anonymous> (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1631:30)\n    at SMTPConnection._processResponse (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:993:20)\n    at SMTPConnection._onData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:774:14)\n    at SMTPConnection._onSocketData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:195:44)\n    at Socket.emit (node:events:524:28)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)\n    at Readable.push (node:internal/streams/readable:392:5)","timestamp":"2026-01-16T21:22:22.376Z"}
+0|smtp-server  | warn: Mailbox not found: kunalp@kunalpatil.me {"service":"smtp-mail-server","timestamp":"2026-01-16T21:22:28.633Z"}
+0|smtp-server  | error: Error sending mail: Can't send mail - all recipients were rejected: 550 Mailbox kunalp@kunalpatil.me does not exist {"code":"EENVELOPE","command":"RCPT TO","rejected":["kunalp@kunalpatil.me"],"rejectedErrors":[{"code":"EENVELOPE","command":"RCPT TO","recipient":"kunalp@kunalpatil.me","response":"550 Mailbox kunalp@kunalpatil.me does not exist","responseCode":550}],"response":"550 Mailbox kunalp@kunalpatil.me does not exist","responseCode":550,"service":"smtp-mail-server","stack":"Error: Can't send mail - all recipients were rejected: 550 Mailbox kunalp@kunalpatil.me does not exist\n    at SMTPConnection._formatError (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:809:19)\n    at SMTPConnection._actionRCPT (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1678:28)\n    at SMTPConnection.<anonymous> (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1631:30)\n    at SMTPConnection._processResponse (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:993:20)\n    at SMTPConnection._onData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:774:14)\n    at SMTPConnection._onSocketData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:195:44)\n    at Socket.emit (node:events:524:28)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)\n    at Readable.push (node:internal/streams/readable:392:5)","timestamp":"2026-01-16T21:22:28.634Z"}
+0|smtp-server  | error: Send mail error: Can't send mail - all recipients were rejected: 550 Mailbox kunalp@kunalpatil.me does not exist {"code":"EENVELOPE","command":"RCPT TO","rejected":["kunalp@kunalpatil.me"],"rejectedErrors":[{"code":"EENVELOPE","command":"RCPT TO","recipient":"kunalp@kunalpatil.me","response":"550 Mailbox kunalp@kunalpatil.me does not exist","responseCode":550}],"response":"550 Mailbox kunalp@kunalpatil.me does not exist","responseCode":550,"service":"smtp-mail-server","stack":"Error: Can't send mail - all recipients were rejected: 550 Mailbox kunalp@kunalpatil.me does not exist\n    at SMTPConnection._formatError (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:809:19)\n    at SMTPConnection._actionRCPT (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1678:28)\n    at SMTPConnection.<anonymous> (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1631:30)\n    at SMTPConnection._processResponse (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:993:20)\n    at SMTPConnection._onData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:774:14)\n    at SMTPConnection._onSocketData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:195:44)\n    at Socket.emit (node:events:524:28)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)\n    at Readable.push (node:internal/streams/readable:392:5)","timestamp":"2026-01-16T21:22:28.648Z"}
+0|smtp-server  | error: Error receiving mail: E11000 duplicate key error collection: test.mails index: message_id_1 dup key: { message_id: "<4f0d8cee-8fb7-4b49-98e1-a4a7eddea0ff@localhost>" } {"code":11000,"errorLabelSet":{},"errorResponse":{"code":11000,"errmsg":"E11000 duplicate key error collection: test.mails index: message_id_1 dup key: { message_id: \"<4f0d8cee-8fb7-4b49-98e1-a4a7eddea0ff@localhost>\" }","index":0,"keyPattern":{"message_id":1},"keyValue":{"message_id":"<4f0d8cee-8fb7-4b49-98e1-a4a7eddea0ff@localhost>"}},"index":0,"keyPattern":{"message_id":1},"keyValue":{"message_id":"<4f0d8cee-8fb7-4b49-98e1-a4a7eddea0ff@localhost>"},"service":"smtp-mail-server","stack":"MongoServerError: E11000 duplicate key error collection: test.mails index: message_id_1 dup key: { message_id: \"<4f0d8cee-8fb7-4b49-98e1-a4a7eddea0ff@localhost>\" }\n    at InsertOneOperation.handleOk (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/operations/insert.js:51:19)\n    at tryOperation (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/operations/execute_operation.js:214:34)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async executeOperation (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/operations/execute_operation.js:78:16)\n    at async Collection.insertOne (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/collection.js:154:16)","timestamp":"2026-01-16T21:23:47.157Z"}
+0|smtp-server  | error: Data processing error: E11000 duplicate key error collection: test.mails index: message_id_1 dup key: { message_id: "<4f0d8cee-8fb7-4b49-98e1-a4a7eddea0ff@localhost>" } {"code":11000,"errorLabelSet":{},"errorResponse":{"code":11000,"errmsg":"E11000 duplicate key error collection: test.mails index: message_id_1 dup key: { message_id: \"<4f0d8cee-8fb7-4b49-98e1-a4a7eddea0ff@localhost>\" }","index":0,"keyPattern":{"message_id":1},"keyValue":{"message_id":"<4f0d8cee-8fb7-4b49-98e1-a4a7eddea0ff@localhost>"}},"index":0,"keyPattern":{"message_id":1},"keyValue":{"message_id":"<4f0d8cee-8fb7-4b49-98e1-a4a7eddea0ff@localhost>"},"service":"smtp-mail-server","stack":"MongoServerError: E11000 duplicate key error collection: test.mails index: message_id_1 dup key: { message_id: \"<4f0d8cee-8fb7-4b49-98e1-a4a7eddea0ff@localhost>\" }\n    at InsertOneOperation.handleOk (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/operations/insert.js:51:19)\n    at tryOperation (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/operations/execute_operation.js:214:34)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async executeOperation (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/operations/execute_operation.js:78:16)\n    at async Collection.insertOne (/home/azureuser/SMTP-Mail-Server/node_modules/mongoose/node_modules/mongodb/lib/collection.js:154:16)","timestamp":"2026-01-16T21:23:47.157Z"}
+0|smtp-server  | error: Error sending mail: Message failed: 450 E11000 duplicate key error collection: test.mails index: message_id_1 dup key: { message_id: "<4f0d8cee-8fb7-4b49-98e1-a4a7eddea0ff@localhost>" } {"code":"EMESSAGE","command":"DATA","response":"450 E11000 duplicate key error collection: test.mails index: message_id_1 dup key: { message_id: \"<4f0d8cee-8fb7-4b49-98e1-a4a7eddea0ff@localhost>\" }","responseCode":450,"service":"smtp-mail-server","stack":"Error: Message failed: 450 E11000 duplicate key error collection: test.mails index: message_id_1 dup key: { message_id: \"<4f0d8cee-8fb7-4b49-98e1-a4a7eddea0ff@localhost>\" }\n    at SMTPConnection._formatError (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:809:19)\n    at SMTPConnection._actionSMTPStream (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1730:34)\n    at SMTPConnection.<anonymous> (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1198:22)\n    at SMTPConnection._processResponse (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:993:20)\n    at SMTPConnection._onData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:774:14)\n    at SMTPConnection._onSocketData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:195:44)\n    at Socket.emit (node:events:524:28)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)\n    at Readable.push (node:internal/streams/readable:392:5)","timestamp":"2026-01-16T21:23:47.158Z"}
+0|smtp-server  | error: Send mail error: Message failed: 450 E11000 duplicate key error collection: test.mails index: message_id_1 dup key: { message_id: "<4f0d8cee-8fb7-4b49-98e1-a4a7eddea0ff@localhost>" } {"code":"EMESSAGE","command":"DATA","response":"450 E11000 duplicate key error collection: test.mails index: message_id_1 dup key: { message_id: \"<4f0d8cee-8fb7-4b49-98e1-a4a7eddea0ff@localhost>\" }","responseCode":450,"service":"smtp-mail-server","stack":"Error: Message failed: 450 E11000 duplicate key error collection: test.mails index: message_id_1 dup key: { message_id: \"<4f0d8cee-8fb7-4b49-98e1-a4a7eddea0ff@localhost>\" }\n    at SMTPConnection._formatError (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:809:19)\n    at SMTPConnection._actionSMTPStream (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1730:34)\n    at SMTPConnection.<anonymous> (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:1198:22)\n    at SMTPConnection._processResponse (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:993:20)\n    at SMTPConnection._onData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:774:14)\n    at SMTPConnection._onSocketData (/home/azureuser/SMTP-Mail-Server/node_modules/nodemailer/lib/smtp-connection/index.js:195:44)\n    at Socket.emit (node:events:524:28)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)\n    at Readable.push (node:internal/streams/readable:392:5)","timestamp":"2026-01-16T21:23:47.169Z"}
+^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ ^C
+azureuser@mailing-server:~/SMTP-Mail-Server$ telnet gmail-smtp-in.l.google.com 25
+Trying 74.125.200.26...
+Connection failed: Connection timed out
+Trying 2404:6800:4003:c00::1a...
+telnet: Unable to connect to remote host: Network is unreachable
+azureuser@mailing-server:~/SMTP-Mail-Server$ telnet gmail-smtp-in.l.google.com 25
+Trying 142.251.10.27...
+Connection failed: Connection timed out
+Trying 2404:6800:4003:c00::1a...
+telnet: Unable to connect to remote host: Network is unreachable
+azureuser@mailing-server:~/SMTP-Mail-Server$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

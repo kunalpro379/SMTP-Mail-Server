@@ -40,10 +40,32 @@ class MailService{
             if(!mail){
                 throw new Error('Mail not found');
             }
-            const transporter=this.createTransporter(fromEmail);
+            
+            // ✅ Source of truth: Load sender ONLY from DB (not request)
+            const senderEmail = fromEmail || mail.from_email;
+            if (!senderEmail) {
+                throw new Error('Sender email is required');
+            }
+            
+            // Use mail.to_email if toEmail not provided
+            const recipientEmail = toEmail || mail.to_email;
+            if (!recipientEmail) {
+                throw new Error('Recipient email is required');
+            }
+            
+            // Log before sending to verify
+            logger.info(`SMTP MAIL FROM = ${senderEmail}`);
+            logger.info(`SMTP RCPT TO = ${recipientEmail}`);
+            
+            const transporter=this.createTransporter(senderEmail);
             const mailOptions={
-                from:fromEmail,
-                to:toEmail,
+                // ✅ FORCE envelope + header alignment (non-negotiable)
+                envelope: {
+                    from: senderEmail,  // 🔥 THIS FIXES MAIL FROM:<>
+                    to: recipientEmail
+                },
+                from: senderEmail,
+                to: recipientEmail,
                 subject:mail.subject,
                 text:mail.body_text,
                 html:mail.body_html,

@@ -72,12 +72,18 @@ class SMTPServerManager{
       onRcptTo: async (address, session, callback) => {
         try {
           const email = address.address;
-          const mailbox = await this.mailService.findMailboxByEmail(email);
+          const recipientDomain = email.split('@')[1]?.toLowerCase();
+          const defaultDomain = config.domains.defaultDomain.toLowerCase();
           
-          if (!mailbox) {
-            logger.warn(`Mailbox not found: ${email}`);
-            return callback(new Error(`Mailbox ${email} does not exist`));
+          // If recipient is from our domain, check if mailbox exists
+          if (recipientDomain === defaultDomain) {
+            const mailbox = await this.mailService.findMailboxByEmail(email);
+            if (!mailbox) {
+              logger.warn(`Mailbox not found: ${email}`);
+              return callback(new Error(`Mailbox ${email} does not exist`));
+            }
           }
+          // If recipient is external, allow it (for outbound relay)
           
           callback();
         } catch (error) {
@@ -90,20 +96,40 @@ class SMTPServerManager{
           
           const mailData = {
             from_email: parsed.from?.value[0]?.address || session.envelope.mailFrom.address,
-            to_email: parsed.to?.value[0]?.address || session.envelope.rcptTo[0].address,
+            to_email: parsed.to?.value[0]?.address || session.envelope.rcptTo[0]?.address,
             subject: parsed.subject || '(No Subject)',
             body_text: parsed.text || '',
             body_html: parsed.html || '',
             message_id: parsed.messageId,
-            attachments: parsed.attachments.map(att => ({
+            attachments: parsed.attachments?.map(att => ({
               filename: att.filename,
               contentType: att.contentType,
               size: att.size
-            }))
+            })) || []
           };
-          await this.mailService.receiveMail(mailData);
           
-          logger.info(`Mail received: ${mailData.from_email} -> ${mailData.to_email}`);
+          const recipientDomain = mailData.to_email?.split('@')[1]?.toLowerCase();
+          const defaultDomain = config.domains.defaultDomain.toLowerCase();
+          
+          // Only store mail if recipient is from our domain (incoming mail)
+          // Don't store if recipient is external (outbound relay - just pass through)
+          if (recipientDomain === defaultDomain) {
+            try {
+              await this.mailService.receiveMail(mailData);
+              logger.info(`Mail received: ${mailData.from_email} -> ${mailData.to_email}`);
+            } catch (error) {
+              // If duplicate message_id, that's okay - already stored
+              if (error.code === 11000 && error.keyPattern?.message_id) {
+                logger.warn(`Duplicate message_id, skipping storage: ${mailData.message_id}`);
+              } else {
+                throw error;
+              }
+            }
+          } else {
+            // External recipient - outbound relay, just log it
+            logger.info(`Mail relayed outbound: ${mailData.from_email} -> ${mailData.to_email}`);
+          }
+          
           callback();
         } catch (error) {
           logger.error('Data processing error:', error);

@@ -42,7 +42,8 @@ class SMTPServerManager{
       },
       onMailFrom: async (address, session, callback) => {
         try {
-          // Validate address structure
+          // Validate address structure only - DO NOT check sender domain
+          // We accept mail FROM ANY domain (gmail.com, yahoo.com, etc.)
           if (!address || !address.address) {
             logger.warn('Invalid MAIL FROM address:', address);
             return callback(new Error('Invalid sender address'));
@@ -51,18 +52,13 @@ class SMTPServerManager{
           const emailAddress = address.address;
           const domain = emailAddress.split('@')[1];
           
+          // Only validate email format, not domain ownership
           if (!domain) {
             logger.warn(`Invalid email format: ${emailAddress}`);
             return callback(new Error(`Invalid email format: ${emailAddress}`));
           }
-
-          const domainExists = await this.domainService.findByName(domain);
           
-          if (!domainExists) {
-            logger.warn(`Domain not found: ${domain}`);
-            return callback(new Error(`Domain ${domain} not configured`));
-          }
-          
+          // ✅ Accept sender from ANY domain (this is correct SMTP behavior)
           callback();
         } catch (error) {
           logger.error('Mail From Error:', error);

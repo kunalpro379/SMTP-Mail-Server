@@ -66,7 +66,7 @@ const EmailView = () => {
     };
 
     loadEmail();
-  }, [id]); // Only depend on id, not on fetchEmail and markAsRead
+  }, [id, fetchEmail, markAsRead, navigate]);
 
   if (loading) {
     return (

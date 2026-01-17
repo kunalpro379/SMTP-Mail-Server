@@ -72,7 +72,6 @@ const ReplyCompose = ({ onClose, originalEmail, replyType = 'reply' }) => {
   });
 
   const [showCcBcc, setShowCcBcc] = useState(false);
-  const fileInputRef = useRef(null);
 
   const quillModules = {
     toolbar: [

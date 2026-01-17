@@ -5,7 +5,6 @@ import {
   Star, 
   Paperclip, 
   Circle,
-  CheckCircle,
   AlertCircle,
   Clock,
   Send,

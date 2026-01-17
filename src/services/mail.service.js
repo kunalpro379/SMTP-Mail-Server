@@ -14,9 +14,7 @@ class MailService{
         try{
             const messageId= `<${uuidv4()}@${config.domains.defaultDomain}>`;
             //find mailbox for sender
-            const mailbox=await Mailbox.findOne({
-                email:mailData.from_email
-            });
+            const mailbox = await this.findMailboxByEmail(mailData.from_email);
             if(!mailbox){
                 throw new Error('Mailbox not found for sender');
             }

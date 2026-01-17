@@ -1,0 +1,10 @@
+node_modules
+src/client/node_modules
+*.log
+.env
+test.txt
+dkim
+image.png
+cursor_node_js_smtp_mail_server_develop.md
+Untitled-1.txt
+

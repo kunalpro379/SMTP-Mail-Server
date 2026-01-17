@@ -146,12 +146,12 @@ class MailService{
         } : undefined;
 
         return createTransport({
-          host: process.env.SMTP_HOST || "smtp.sendgrid.net", // or your relay
-          port: parseInt(process.env.SMTP_PORT || "587"),
+          host: process.env.SMTP_RELAY_HOST || process.env.SMTP_HOST || "smtp.sendgrid.net", // or your relay
+          port: parseInt(process.env.SMTP_RELAY_PORT || process.env.SMTP_PORT || "587"),
           secure: false,
           auth: {
-            user: process.env.SMTP_USER || "apikey",
-            pass: process.env.SENDGRID_API_KEY || process.env.SMTP_PASS
+            user: process.env.SMTP_RELAY_USER || process.env.SMTP_USER || "apikey",
+            pass: process.env.SENDGRID_API_KEY || process.env.SMTP_RELAY_PASS || process.env.SMTP_PASS
           },
           ...(dkimConfig && { dkim: dkimConfig })
         });

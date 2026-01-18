@@ -1,0 +1,260 @@
+🔐 SSL/TLS Certificate Validation & Deployment on Azure VM
+
+Domain: mail.kunalpatil.me
+Server: Azure VM (Ubuntu 24.04)
+Web Server: Nginx
+Certificate Authority: Let’s Encrypt
+Tool: Certbot
+Reverse Proxy: Nginx → Node.js (port 3000)
+
+1️⃣ Objective
+
+Secure the API hosted on an Azure Virtual Machine using HTTPS by:
+
+Issuing a valid TLS certificate
+
+Binding it to the custom domain mail.kunalpatil.me
+
+Validating ownership using HTTP-01 challenge
+
+Ensuring automatic renewal
+
+Verifying certificate correctness at network and application level
+
+2️⃣ Prerequisites (Already Satisfied)
+Infrastructure
+
+Azure VM with public static IPv4
+
+Ubuntu 24.04 LTS
+
+Open ports:
+
+80 (HTTP)
+
+443 (HTTPS)
+
+3000 (internal Node.js API)
+
+DNS
+
+A record:
+
+mail.kunalpatil.me → 20.193.253.234
+
+
+DNS verified:
+
+nslookup mail.kunalpatil.me
+
+
+✔ Resolves to VM public IP
+
+3️⃣ Nginx Installed & Running
+Install Nginx
+sudo apt update
+sudo apt install nginx -y
+
+Verify
+systemctl status nginx
+
+
+✔ Nginx active and listening on port 80
+
+4️⃣ Reverse Proxy Configuration (Pre-SSL)
+
+Created Nginx config to proxy HTTPS traffic to Node.js API (running on 127.0.0.1:3000).
+
+Config file
+sudo nano /etc/nginx/sites-available/smtp-api
+
+Initial server block (HTTP)
+server {
+    server_name mail.kunalpatil.me;
+
+    location / {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    listen 80;
+}
+
+Enable config
+sudo ln -s /etc/nginx/sites-available/smtp-api /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
+
+
+✔ API reachable via:
+
+http://mail.kunalpatil.me
+
+5️⃣ Certbot Installation (Let’s Encrypt)
+Install Certbot with Nginx plugin
+sudo apt install certbot python3-certbot-nginx -y
+
+6️⃣ SSL Certificate Issuance (HTTP-01 Challenge)
+Run Certbot
+sudo certbot --nginx -d mail.kunalpatil.me
+
+What happens internally
+
+Certbot creates a temporary validation file:
+
+/.well-known/acme-challenge/XXXX
+
+
+Let’s Encrypt servers perform:
+
+HTTP GET http://mail.kunalpatil.me/.well-known/acme-challenge/XXXX
+
+
+DNS → IP → VM → Nginx → Certbot
+
+Domain ownership verified
+
+Certificate issued
+
+✔ No manual DNS TXT record required
+
+7️⃣ Resulting Certificate Files
+
+Certbot automatically generated:
+/etc/letsencrypt/live/mail.kunalpatil.me/
+├── fullchain.pem   (certificate + intermediate)
+├── privkey.pem     (private key)
+├── chain.pem
+└── cert.pem
+
+8️⃣ Final Nginx HTTPS Configuration (Auto-Generated)
+
+Certbot modified your config to:
+
+server {
+    server_name mail.kunalpatil.me;
+
+    location / {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    listen 443 ssl;
+    ssl_certificate /etc/letsencrypt/live/mail.kunalpatil.me/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/mail.kunalpatil.me/privkey.pem;
+
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+}
+
+server {
+    listen 80;
+    server_name mail.kunalpatil.me;
+    return 301 https://$host$request_uri;
+}
+
+
+✔ HTTP → HTTPS redirect enforced
+✔ TLS termination at Nginx
+✔ Backend remains HTTP (secure via loopback)
+
+9️⃣ Certificate Validation & Testing
+Nginx syntax
+sudo nginx -t
+
+
+✔ Configuration valid
+
+Reload Nginx
+sudo systemctl reload nginx
+
+🔍 Certificate Verification (Client Side)
+Browser
+https://mail.kunalpatil.me
+
+
+✔ Lock icon
+✔ Issuer: Let’s Encrypt
+✔ Valid chain
+
+OpenSSL validation
+openssl s_client -connect mail.kunalpatil.me:443 -servername mail.kunalpatil.me
+
+
+✔ TLS handshake success
+✔ Correct certificate CN
+✔ No chain errors
+
+10️⃣ Automatic Renewal (Critical)
+
+Certbot installs a systemd timer automatically.
+
+Verify timer
+systemctl list-timers | grep certbot
+
+Dry-run renewal test
+sudo certbot renew --dry-run
+
+
+Output:
+
+Congratulations, all simulated renewals succeeded
+
+
+✔ Renewal works
+✔ No manual action required
+
+11️⃣ Why This Certificate Is VALID & TRUSTED
+Validation Layer	Status
+DNS A record	✅
+HTTP-01 challenge	✅
+TLS private key	✅
+Chain of trust	✅
+Auto-renewal	✅
+Browser trust	✅
+12️⃣ Security Notes (Best Practices Followed)
+
+Private key stored only on VM
+
+TLS terminated at Nginx (recommended)
+
+HTTP traffic redirected to HTTPS
+
+Strong ciphers (Certbot defaults)
+
+No self-signed certs used
+
+13️⃣ Final Architecture
+Client (Browser / API)
+   ↓ HTTPS 443
+Nginx (TLS termination)
+   ↓ HTTP 127.0.0.1:3000
+Node.js API
+
+14️⃣ Conclusion
+
+You successfully:
+
+Validated domain ownership
+
+Issued a trusted TLS certificate
+
+Secured your Azure VM endpoint
+
+Enabled automatic renewal
+
+Followed production-grade security practices
+
+This setup is enterprise-ready and audit-safe.

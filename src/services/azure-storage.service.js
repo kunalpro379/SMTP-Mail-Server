@@ -44,14 +44,7 @@ class AzureStorageService {
     }
   }
 
-  /**
-   * Upload attachment to Azure Blob Storage
-   * @param {string} mailId - The mail ID
-   * @param {Buffer} fileBuffer - File buffer
-   * @param {string} fileName - Original file name
-   * @param {string} contentType - MIME type
-   * @returns {Promise<Object>} - Upload result with blob URL
-   */
+ 
   async uploadAttachment(mailId, fileBuffer, fileName, contentType) {
     if (!this.blobServiceClient) {
       throw new Error('Azure Blob Storage is not configured');
@@ -95,12 +88,7 @@ class AzureStorageService {
     }
   }
 
-  /**
-   * Upload multiple attachments
-   * @param {string} mailId - The mail ID
-   * @param {Array} attachments - Array of {buffer, fileName, contentType}
-   * @returns {Promise<Array>} - Array of upload results
-   */
+ 
   async uploadAttachments(mailId, attachments) {
     if (!attachments || attachments.length === 0) {
       return [];
@@ -124,11 +112,7 @@ class AzureStorageService {
     }
   }
 
-  /**
-   * Download attachment from Azure Blob Storage
-   * @param {string} blobName - The blob name/path
-   * @returns {Promise<Buffer>} - File buffer
-   */
+
   async downloadAttachment(blobName) {
     if (!this.blobServiceClient) {
       throw new Error('Azure Blob Storage is not configured');
@@ -152,11 +136,7 @@ class AzureStorageService {
     }
   }
 
-  /**
-   * Delete attachment from Azure Blob Storage
-   * @param {string} blobName - The blob name/path
-   * @returns {Promise<boolean>} - Success status
-   */
+
   async deleteAttachment(blobName) {
     if (!this.blobServiceClient) {
       throw new Error('Azure Blob Storage is not configured');
@@ -176,11 +156,7 @@ class AzureStorageService {
     }
   }
 
-  /**
-   * Delete all attachments for a mail
-   * @param {string} mailId - The mail ID
-   * @returns {Promise<number>} - Number of deleted attachments
-   */
+ 
   async deleteMailAttachments(mailId) {
     if (!this.blobServiceClient) {
       throw new Error('Azure Blob Storage is not configured');
@@ -205,12 +181,7 @@ class AzureStorageService {
     }
   }
 
-  /**
-   * Get attachment URL (with SAS token for secure access)
-   * @param {string} blobName - The blob name/path
-   * @param {number} expiryMinutes - URL expiry in minutes (default: 60)
-   * @returns {Promise<string>} - Signed URL
-   */
+
   async getAttachmentUrl(blobName, expiryMinutes = 60) {
     if (!this.blobServiceClient) {
       throw new Error('Azure Blob Storage is not configured');

@@ -1,0 +1,153 @@
+graph TB
+    subgraph "Internet/DNS Layer"
+        DNS[DNS Servers<br/>MX, A, TXT Records]
+        ExternalSMTP[External SMTP Servers<br/>Gmail, Yahoo, etc.]
+    end
+
+    subgraph "Azure Cloud Infrastructure"
+        AzureVM[Azure VM<br/>20.193.253.234<br/>Ubuntu 24.04.3]
+        NSG[Network Security Group<br/>Firewall Rules]
+        
+        subgraph "Nginx Reverse Proxy"
+            Nginx[Nginx Server<br/>Port 80/443]
+            SSL[SSL/TLS Certificates<br/>Let's Encrypt<br/>mail.kunalpatil.me]
+        end
+        
+        subgraph "PM2 Process Manager"
+            PM2[PM2 Daemon<br/>Process Manager]
+        end
+        
+        subgraph "Node.js Application Layer"
+            AppEntry[index.js<br/>Entry Point]
+            
+            subgraph "API Server"
+                APIServer[Express API Server<br/>Port 3000<br/>0.0.0.0:3000]
+                APIRoutes[API Routes<br/>/api/auth<br/>/api/mails<br/>/api/domains]
+                Middleware[Middleware<br/>CORS, Helmet<br/>Body Parser<br/>Multer Upload]
+            end
+            
+            subgraph "SMTP Server"
+                SMTPServer[SMTP Server<br/>Port 2525<br/>0.0.0.0:2525]
+                SMTPHandlers[SMTP Handlers<br/>onAuth<br/>onMailFrom<br/>onRcptTo<br/>onData]
+                MailParser[Mail Parser<br/>simpleParser]
+            end
+        end
+        
+        subgraph "Service Layer"
+            MailService[Mail Service<br/>createMail<br/>sendMail<br/>receiveMail]
+            AuthService[Auth Service<br/>authenticateSMTP<br/>authenticateAPI<br/>JWT]
+            DomainService[Domain Service<br/>createDomain<br/>verifyDomain<br/>MX Check]
+            UserService[User Service<br/>createUser<br/>findUser<br/>verifyPassword]
+            AzureStorage[Azure Storage Service<br/>Upload/Download<br/>Attachments]
+        end
+        
+        subgraph "Data Layer"
+            MongoDB[(MongoDB<br/>mongodb://localhost:27017<br/>Database: test/mailserver)]
+            
+            subgraph "MongoDB Collections"
+                UsersCollection[(Users Collection<br/>email, password, name)]
+                DomainsCollection[(Domains Collection<br/>name, mx_record, verified)]
+                MailboxesCollection[(Mailboxes Collection<br/>email, user_id)]
+                MailsCollection[(Mails Collection<br/>from, to, subject<br/>body, attachments<br/>status, message_id)]
+            end
+        end
+        
+        subgraph "External Services Integration"
+            SendGrid[SendGrid SMTP Relay<br/>smtp.sendgrid.net:587<br/>API Key Auth]
+            AzureBlob[Azure Blob Storage<br/>Attachment Storage]
+        end
+        
+        subgraph "Network Ports & Routing"
+            IPTables[iptables NAT<br/>Port 25 → 2525<br/>REDIRECT]
+            Firewall[Firewall Rules<br/>Port 25, 2525, 3000<br/>80, 443 OPEN]
+        end
+    end
+
+    subgraph "Client Applications"
+        WebClient[Web Client<br/>React App<br/>mailing.kunalpatil.me]
+        EmailClients[Email Clients<br/>Outlook, Thunderbird<br/>Mobile Apps]
+        APIUsers[API Consumers<br/>Postman, cURL<br/>Scripts]
+    end
+
+    subgraph "DNS Configuration"
+        MXRecord[MX Record<br/>kunalpatil.me<br/>10 mailing.kunalpatil.me]
+        ARecord[A Record<br/>mailing.kunalpatil.me<br/>→ 20.193.253.234]
+        SPFRecord[SPF Record<br/>TXT: v=spf1 mx ...]
+        DKIMRecord[DKIM Record<br/>Public Key in DNS]
+    end
+
+    %% DNS Flow
+    DNS --> MXRecord
+    DNS --> ARecord
+    DNS --> SPFRecord
+    DNS --> DKIMRecord
+    MXRecord --> AzureVM
+    ARecord --> AzureVM
+
+    %% Incoming Mail Flow
+    ExternalSMTP -->|SMTP Port 25| IPTables
+    IPTables -->|Redirect to 2525| SMTPServer
+    SMTPServer --> SMTPHandlers
+    SMTPHandlers -->|Authenticate| AuthService
+    SMTPHandlers -->|Parse Mail| MailParser
+    MailParser -->|Store Mail| MailService
+    MailService -->|Save to DB| MailsCollection
+    MailService -->|Link to| MailboxesCollection
+    
+    %% Outgoing Mail Flow
+    WebClient -->|HTTPS 443| Nginx
+    APIUsers -->|HTTPS 443| Nginx
+    Nginx -->|Proxy Pass| APIServer
+    APIServer -->|Auth| AuthService
+    APIServer -->|Create Mail| MailService
+    MailService -->|Store Draft| MailsCollection
+    APIServer -->|Upload Files| AzureStorage
+    AzureStorage -->|Store Blobs| AzureBlob
+    
+    %% Send Mail Flow
+    APIServer -->|Send Request| MailService
+    MailService -->|Create Transporter| SendGrid
+    MailService -->|Relay Mail| SendGrid
+    SendGrid -->|Deliver| ExternalSMTP
+    
+    %% Authentication Flow
+    EmailClients -->|SMTP Port 2525| SMTPServer
+    SMTPServer -->|onAuth| AuthService
+    AuthService -->|Verify User| UserService
+    UserService -->|Query DB| UsersCollection
+    
+    %% Domain Verification Flow
+    APIServer -->|Verify Domain| DomainService
+    DomainService -->|Check MX| DNS
+    DomainService -->|Save Result| DomainsCollection
+    
+    %% Data Access Flow
+    MailService -->|Read/Write| MongoDB
+    UserService -->|Read/Write| UsersCollection
+    DomainService -->|Read/Write| DomainsCollection
+    AuthService -->|Verify Password| UserService
+    
+    %% Process Management
+    PM2 -->|Manages| AppEntry
+    AppEntry -->|Starts| APIServer
+    AppEntry -->|Starts| SMTPServer
+    AppEntry -->|Connects| MongoDB
+    
+    %% Network Security
+    NSG -->|Controls| Firewall
+    Firewall -->|Allows| APIServer
+    Firewall -->|Allows| SMTPServer
+    Firewall -->|Allows| Nginx
+    
+    %% SSL/TLS
+    SSL -->|Provides HTTPS| Nginx
+    SSL -->|Certbot Managed| Nginx
+
+    style AzureVM fill:#0078d4,stroke:#005a9e,color:#fff
+    style SMTPServer fill:#28a745,stroke:#1e7e34,color:#fff
+    style APIServer fill:#17a2b8,stroke:#138496,color:#fff
+    style MongoDB fill:#13aa52,stroke:#0d8043,color:#fff
+    style SendGrid fill:#1a82e2,stroke:#0f5fa0,color:#fff
+    style AzureBlob fill:#0078d4,stroke:#005a9e,color:#fff
+    style Nginx fill:#009639,stroke:#006829,color:#fff
+    style PM2 fill:#2b037a,stroke:#1d0252,color:#fff

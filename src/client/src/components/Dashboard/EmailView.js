@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEmail } from '../../contexts/EmailContext';
+import { mailAPI } from '../../services/api';
 import ReplyCompose from './ReplyCompose';
 import { 
   ArrowLeft, 
@@ -165,6 +166,31 @@ const EmailView = () => {
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text);
     alert('Copied to clipboard!');
+  };
+
+  const handleDownloadAttachment = async (attachment, index) => {
+    try {
+      // Use attachment._id if available, otherwise use index, then filename
+      const attachmentId = attachment._id 
+        ? (typeof attachment._id === 'string' ? attachment._id : attachment._id.toString())
+        : (index !== undefined ? index.toString() : attachment.filename);
+      
+      const response = await mailAPI.downloadAttachment(id, attachmentId);
+      
+      // Create a blob URL and trigger download
+      const blob = new Blob([response.data], { type: attachment.contentType || 'application/octet-stream' });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = attachment.filename || 'attachment';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Error downloading attachment:', error);
+      alert(error.response?.data?.error || 'Failed to download attachment. Please try again.');
+    }
   };
 
   const getStatusBadge = (status) => {
@@ -398,7 +424,7 @@ const EmailView = () => {
                 <div className="grid grid-cols-1 gap-2 sm:gap-3">
                   {email.attachments.map((attachment, index) => (
                     <div
-                      key={index}
+                      key={attachment._id || index}
                       className="flex items-center justify-between p-3 sm:p-4 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 transition-colors"
                     >
                       <div className="flex items-center space-x-2 sm:space-x-3 min-w-0 flex-1">
@@ -407,14 +433,20 @@ const EmailView = () => {
                         </div>
                         <div className="min-w-0 flex-1">
                           <div className="font-medium text-gray-900 text-sm sm:text-base truncate">
-                            {attachment.filename}
+                            {attachment.filename || 'attachment'}
                           </div>
                           <div className="text-xs sm:text-sm text-gray-500 truncate">
-                            {attachment.contentType} • {Math.round(attachment.size / 1024)} KB
+                            {attachment.contentType || 'application/octet-stream'} • {attachment.size ? Math.round(attachment.size / 1024) : 0} KB
+                            {attachment.url && <span className="ml-2 text-green-600">✓ Stored</span>}
                           </div>
                         </div>
                       </div>
-                      <button className="p-1.5 sm:p-2 hover:bg-gray-200 rounded-full transition-colors flex-shrink-0 ml-2">
+                      <button 
+                        onClick={() => handleDownloadAttachment(attachment, index)}
+                        disabled={!attachment.blobName && !attachment.url}
+                        className="p-1.5 sm:p-2 hover:bg-gray-200 rounded-full transition-colors flex-shrink-0 ml-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                        title={attachment.blobName || attachment.url ? "Download attachment" : "Attachment not available"}
+                      >
                         <Download className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600" />
                       </button>
                     </div>

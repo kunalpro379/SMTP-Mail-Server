@@ -90,6 +90,36 @@ class SMTPServerManager{
         try {
           const parsed = await simpleParser(stream);
           
+          // Extract attachment data with buffers for Azure Blob upload
+          const attachmentData = parsed.attachments?.map(att => {
+            // mailparser returns att.content as Buffer for simpleParser
+            let buffer = null;
+            
+            if (att.content instanceof Buffer) {
+              buffer = att.content;
+            } else if (typeof att.content === 'string') {
+              buffer = Buffer.from(att.content, 'base64');
+            } else if (att.content) {
+              // Try to convert to buffer
+              try {
+                buffer = Buffer.from(att.content);
+              } catch (e) {
+                logger.warn(`Could not convert attachment content to buffer: ${att.filename}`, e);
+                buffer = Buffer.alloc(0);
+              }
+            } else {
+              buffer = Buffer.alloc(0);
+            }
+            
+            return {
+              filename: att.filename || 'attachment',
+              contentType: att.contentType || 'application/octet-stream',
+              size: att.size || buffer.length,
+              content: att.content, // Keep original for reference
+              buffer: buffer // Ensure we have a proper Buffer
+            };
+          }) || [];
+          
           const mailData = {
             from_email: parsed.from?.value[0]?.address || session.envelope.mailFrom.address,
             to_email: parsed.to?.value[0]?.address || session.envelope.rcptTo[0]?.address,
@@ -97,11 +127,7 @@ class SMTPServerManager{
             body_text: parsed.text || '',
             body_html: parsed.html || '',
             message_id: parsed.messageId,
-            attachments: parsed.attachments?.map(att => ({
-              filename: att.filename,
-              contentType: att.contentType,
-              size: att.size
-            })) || []
+            attachments: attachmentData // Pass full attachment data with buffers
           };
           
           const recipientDomain = mailData.to_email?.split('@')[1]?.toLowerCase();
@@ -112,7 +138,7 @@ class SMTPServerManager{
           if (recipientDomain === defaultDomain) {
             try {
               await this.mailService.receiveMail(mailData);
-              logger.info(`Mail received: ${mailData.from_email} -> ${mailData.to_email}`);
+              logger.info(`Mail received: ${mailData.from_email} -> ${mailData.to_email} with ${attachmentData.length} attachments`);
             } catch (error) {
               // If duplicate message_id, that's okay - already stored
               if (error.code === 11000 && error.keyPattern?.message_id) {

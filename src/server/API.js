@@ -29,8 +29,8 @@ class APIServer {
     this.upload = multer({
       storage: multer.memoryStorage(),
       limits: {
-        fileSize: 10 * 1024 * 1024, // 10MB limit
-        files: 5 // Max 5 files
+        fileSize: 10 * 1024 * 1024, 
+        files: 5 
       }
     });
     
@@ -162,27 +162,12 @@ class APIServer {
     try {
       const mailData = req.body;
       
-      // Get the authenticated user's mailbox
-      const mailboxes = await Mailbox.find({ user_id: req.user._id });
-      if (mailboxes.length === 0) {
-        return res.status(400).json({ error: 'No mailbox found for user. Please contact support.' });
-      }
-      
-      // Use the first mailbox (users typically have one mailbox)
-      const mailbox = mailboxes[0];
-      
-      // Ensure the from_email matches the user's email or use the user's email
-      if (!mailData.from_email || mailData.from_email.toLowerCase().trim() !== req.user.email.toLowerCase().trim()) {
-        // Use the authenticated user's email as the sender
-        mailData.from_email = req.user.email.toLowerCase().trim();
-      }
-      
       // Handle file attachments if present
       if (req.files && req.files.length > 0) {
         logger.info(`Processing ${req.files.length} attachments`);
         
         // First create the mail to get the mail ID
-        const mail = await this.mailService.createMail(mailData, mailbox._id);
+        const mail = await this.mailService.createMail(mailData);
         
         // Upload attachments to Azure Blob Storage
         const attachmentPromises = req.files.map(file => 
@@ -211,7 +196,7 @@ class APIServer {
         res.status(201).json(mail);
       } else {
         // No attachments, create mail normally
-        const mail = await this.mailService.createMail(mailData, mailbox._id);
+        const mail = await this.mailService.createMail(mailData);
         res.status(201).json(mail);
       }
     } catch (error) {
@@ -268,18 +253,44 @@ class APIServer {
         return res.status(404).json({ error: 'Mail not found' });
       }
       
-      // Find the attachment
-      const attachment = mail.attachments.find(att => att._id.toString() === attachmentId);
+      // Find the attachment by _id, index, or filename
+      let attachment = null;
+      
+      // Try to find by MongoDB _id first
+      attachment = mail.attachments.find(att => 
+        att._id && att._id.toString() === attachmentId
+      );
+      
+      // If not found, try by index
+      if (!attachment && !isNaN(attachmentId)) {
+        const index = parseInt(attachmentId);
+        if (index >= 0 && index < mail.attachments.length) {
+          attachment = mail.attachments[index];
+        }
+      }
+      
+      // If still not found, try by filename
+      if (!attachment) {
+        attachment = mail.attachments.find(att => 
+          att.filename === attachmentId || att.filename === decodeURIComponent(attachmentId)
+        );
+      }
+      
       if (!attachment) {
         return res.status(404).json({ error: 'Attachment not found' });
+      }
+      
+      // Check if attachment has blobName (uploaded to Azure)
+      if (!attachment.blobName) {
+        return res.status(404).json({ error: 'Attachment not available in storage' });
       }
       
       // Download from Azure Blob Storage
       const fileBuffer = await this.azureStorageService.downloadAttachment(attachment.blobName);
       
       // Set headers and send file
-      res.setHeader('Content-Type', attachment.contentType);
-      res.setHeader('Content-Disposition', `attachment; filename="${attachment.filename}"`);
+      res.setHeader('Content-Type', attachment.contentType || 'application/octet-stream');
+      res.setHeader('Content-Disposition', `attachment; filename="${attachment.filename || 'attachment'}"`);
       res.setHeader('Content-Length', fileBuffer.length);
       res.send(fileBuffer);
       

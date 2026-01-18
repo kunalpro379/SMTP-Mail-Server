@@ -33,3 +33,10 @@
 {"level":"info","message":"API Server listening on 0.0.0.0:3000","service":"smtp-mail-server","timestamp":"2026-01-17T19:58:40.209Z"}
 {"level":"info","message":"SMTP Server listening on 0.0.0.0:2525","service":"smtp-mail-server","timestamp":"2026-01-17T19:58:40.216Z"}
 {"level":"info","message":"SIGINT received, shutting down gracefully","service":"smtp-mail-server","timestamp":"2026-01-17T20:00:01.657Z"}
+{"level":"warn","message":"Azure Storage connection string not configured. Attachment uploads will fail.","service":"smtp-mail-server","timestamp":"2026-01-18T12:00:11.140Z"}
+{"level":"info","message":"Starting SMTP Mail Server...","service":"smtp-mail-server","timestamp":"2026-01-18T12:00:11.646Z"}
+{"level":"info","message":"MongoDB connected successfully","service":"smtp-mail-server","timestamp":"2026-01-18T12:00:15.040Z"}
+{"level":"info","message":"All servers started successfully","service":"smtp-mail-server","timestamp":"2026-01-18T12:00:15.047Z"}
+{"level":"info","message":"API Server listening on 0.0.0.0:3000","service":"smtp-mail-server","timestamp":"2026-01-18T12:00:15.054Z"}
+{"level":"info","message":"SMTP Server listening on 0.0.0.0:2525","service":"smtp-mail-server","timestamp":"2026-01-18T12:00:15.056Z"}
+{"level":"info","message":"SIGINT received, shutting down gracefully","service":"smtp-mail-server","timestamp":"2026-01-18T12:00:38.837Z"}

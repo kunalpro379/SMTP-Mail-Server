@@ -48,6 +48,10 @@ export const mailAPI = {
   getMail: (id) => api.get(`/mails/${id}`),
   createMail: (mailData) => api.post('/mails', mailData),
   sendMail: (id, emailData) => api.post(`/mails/${id}/send`, emailData),
+  downloadAttachment: (mailId, attachmentId) => 
+    api.get(`/mails/${mailId}/attachments/${attachmentId}`, {
+      responseType: 'blob' // Important for file downloads
+    }),
   // Note: These endpoints may not exist in the backend yet
   // deleteMail: (id) => api.delete(`/mails/${id}`),
   // markAsRead: (id) => api.patch(`/mails/${id}/read`),
